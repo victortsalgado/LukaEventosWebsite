@@ -42,8 +42,7 @@ export default function Hero() {
           <span className="text-primary-orange block mt-2">marco de sucesso</span>
         </h1>
         <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-          Com mais de 10 anos de experiência, criamos eventos únicos e inesquecíveis
-          que superam expectativas e geram resultados extraordinários.
+          Planejamento, organização e produção de feiras, congressos e eventos corporativos em todo o Brasil.
         </p>
         <div className="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center">
           <button
@@ -58,7 +57,7 @@ export default function Hero() {
             className="inline-flex items-center border-2 border-primary-orange text-primary-orange px-8 py-4 rounded-full text-lg font-semibold hover:bg-primary-orange hover:text-white transition-all duration-300"
           >
             <Images className="mr-2" size={20} />
-            Ver Portfolio
+            Conheça Nosso Portfólio
           </button>
         </div>
       </div>
