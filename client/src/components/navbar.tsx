@@ -27,12 +27,10 @@ export default function Navbar() {
   };
 
   const navItems = [
-    { id: "hero", label: "Início" },
     { id: "about", label: "Sobre" },
     { id: "services", label: "Serviços" },
-    { id: "portfolio", label: "Portfolio" },
-    { id: "journey", label: "Jornada" },
-    { id: "clients", label: "Clientes" },
+    { id: "portfolio", label: "Portfólio" },
+    { id: "contact", label: "Contato" },
   ];
 
   return (
@@ -64,7 +62,7 @@ export default function Navbar() {
                 onClick={() => scrollToSection("contact")}
                 className="bg-primary-orange text-white px-6 py-2 rounded-full hover:bg-orange-700 transition-colors duration-300 font-medium"
               >
-                Contato
+                Solicite um Orçamento
               </button>
             </div>
           </div>
@@ -99,7 +97,7 @@ export default function Navbar() {
               onClick={() => scrollToSection("contact")}
               className="block w-full text-left px-3 py-2 bg-primary-orange text-white rounded-full mx-3 text-center hover:bg-orange-700 transition-colors duration-300 font-medium"
             >
-              Contato
+              Solicite um Orçamento
             </button>
           </div>
         </div>
