@@ -43,7 +43,7 @@ export default function About() {
             }`}
           >
             <img
-              src="https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600"
+              src="https://storage.replit.com/v1/objects/equipe-profissional-luka-eventos.jpg"
               alt="Equipe profissional da Luka Eventos planejando eventos"
               className="rounded-2xl shadow-2xl w-full h-auto"
             />
@@ -105,28 +105,28 @@ export default function About() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <TeamCard
-              imageSrc="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400"
+              imageSrc="https://storage.replit.com/v1/objects/lucia-salgado-ceo.jpg"
               name="Lúcia Salgado"
               title="CEO"
               location="Belém - PA"
               index={0}
             />
             <TeamCard
-              imageSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400"
+              imageSrc="https://storage.replit.com/v1/objects/victor-santos-diretor-comercial.jpg"
               name="Victor Santos"
               title="Diretor Comercial"
               location="Novo Hamburgo - RS"
               index={1}
             />
             <TeamCard
-              imageSrc="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400"
+              imageSrc="https://storage.replit.com/v1/objects/leda-salgado-arquiteta.jpg"
               name="Lêda Salgado"
               title="Arquiteta"
               location="Belém - PA"
               index={2}
             />
             <TeamCard
-              imageSrc="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400"
+              imageSrc="https://storage.replit.com/v1/objects/manuzza-franco-executiva.jpg"
               name="Manuzza Franco"
               title="Executiva de Contas"
               location="Novo Hamburgo - RS"

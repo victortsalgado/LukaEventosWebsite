@@ -2,25 +2,25 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const portfolioItems = [
   {
-    image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
+    image: "https://storage.replit.com/v1/objects/projeto-marata-evento-corporativo.jpg",
     title: "Projeto Maratá",
     description: "Evento corporativo com soluções completas",
     alt: "Projeto Maratá - evento corporativo realizado pela Luka Eventos"
   },
   {
-    image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
+    image: "https://storage.replit.com/v1/objects/projeto-bendo-alimentos-lancamento.jpg",
     title: "Projeto Bendo Alimentos",
     description: "Lançamento de produto com produção completa",
     alt: "Projeto Bendo Alimentos - evento de lançamento pela Luka Eventos"
   },
   {
-    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
+    image: "https://storage.replit.com/v1/objects/projeto-okajima-stand-feira.jpg",
     title: "Projeto Okajima Distribuidora",
     description: "Stand personalizado para feira comercial",
     alt: "Projeto Okajima Distribuidora - stand em feira pela Luka Eventos"
   },
   {
-    image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
+    image: "https://storage.replit.com/v1/objects/projeto-tramontina-evento-institucional.jpg",
     title: "Projeto Tramontina",
     description: "Evento institucional de grande porte",
     alt: "Projeto Tramontina - evento institucional pela Luka Eventos"
