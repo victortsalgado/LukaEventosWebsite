@@ -5,6 +5,7 @@ export default function About() {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
   const { ref: imageRef, isVisible: imageVisible } = useScrollAnimation();
   const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation();
+  const { ref: teamRef, isVisible: teamVisible } = useScrollAnimation();
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");
@@ -92,9 +93,9 @@ export default function About() {
         {/* Team Section */}
         <div className="mt-20">
           <div
-            ref={titleRef}
+            ref={teamRef}
             className={`text-center mb-16 transition-all duration-1000 ${
-              titleVisible ? "animate-on-scroll visible" : "animate-on-scroll"
+              teamVisible ? "animate-on-scroll visible" : "animate-on-scroll"
             }`}
           >
             <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-6">

@@ -93,11 +93,11 @@ export default function Footer() {
             <ul className="space-y-2 text-gray-300">
               <li className="flex items-center">
                 <Phone className="mr-2 text-primary-orange" size={16} />
-                (11) 99999-9999
+                (91) 9 8155-3464
               </li>
               <li className="flex items-center">
                 <Mail className="mr-2 text-primary-orange" size={16} />
-                contato@lukaeventos.com.br
+                lucia.salgado@lukaeventos.com.br
               </li>
               <li className="flex items-center">
                 <MapPin className="mr-2 text-primary-orange" size={16} />
@@ -108,7 +108,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
-          <p>&copy; 2024 Luka Eventos. Todos os direitos reservados.</p>
+          <p>&copy; 2025 Luka Eventos. Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>

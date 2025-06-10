@@ -3,31 +3,38 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 const journeySteps = [
   {
     number: 1,
-    title: "Briefing Inicial",
-    description: "Reunião detalhada para entender suas necessidades, objetivos, orçamento e visão para o evento.",
+    title: "Briefing",
+    description: "Reunião detalhada para entender suas necessidades, objetivos, orçamento e visão para o evento perfeito.",
     image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=400",
-    alt: "Reunião de negócios com consultoria ao cliente e documentos de planejamento"
+    alt: "Reunião de briefing inicial com cliente"
   },
   {
     number: 2,
-    title: "Planejamento",
-    description: "Desenvolvimento de estratégia, cronograma detalhado, seleção de fornecedores e criação do conceito visual.",
+    title: "Consultoria+",
+    description: "Desenvolvimento de estratégia personalizada, seleção de fornecedores e criação do conceito visual único.",
     image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=400",
-    alt: "Espaço de design com materiais de planejamento de eventos e mood boards"
+    alt: "Processo de consultoria especializada"
   },
   {
     number: 3,
-    title: "Produção",
-    description: "Coordenação de todos os aspectos da produção, desde decoração até tecnologia e logística.",
+    title: "Proposta",
+    description: "Apresentação da proposta completa com cronograma detalhado, orçamento e todos os detalhes do projeto.",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=400",
-    alt: "Equipe de produção de eventos montando decorações e equipamentos"
+    alt: "Apresentação de proposta detalhada"
   },
   {
     number: 4,
-    title: "Execução",
-    description: "Coordenação em tempo real durante o evento, garantindo que tudo aconteça conforme planejado.",
+    title: "Evento",
+    description: "Execução impecável com coordenação em tempo real, garantindo que cada detalhe saia conforme planejado.",
     image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=400",
-    alt: "Evento bem-sucedido em andamento com convidados se divertindo e coordenação profissional"
+    alt: "Evento sendo executado com sucesso"
+  },
+  {
+    number: 5,
+    title: "Pós Evento",
+    description: "Acompanhamento pós-evento, análise de resultados e feedback para garantir total satisfação do cliente.",
+    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=400",
+    alt: "Análise pós-evento e feedback"
   }
 ];
 

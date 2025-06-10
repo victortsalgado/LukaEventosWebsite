@@ -71,7 +71,7 @@ export default function Contact() {
             titleVisible ? "animate-on-scroll visible" : "animate-on-scroll"
           }`}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">Entre em Contato</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">Vamos planejar seu próximo grande evento?</h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Pronto para criar um evento inesquecível? Entre em contato conosco e vamos
             transformar sua visão em realidade.
@@ -109,9 +109,7 @@ export default function Contact() {
                 <div>
                   <h4 className="text-xl font-semibold mb-2">Telefone</h4>
                   <p className="text-gray-300">
-                    (11) 99999-9999
-                    <br />
-                    (11) 3333-3333
+                    (91) 9 8155-3464
                   </p>
                 </div>
               </div>
@@ -123,9 +121,7 @@ export default function Contact() {
                 <div>
                   <h4 className="text-xl font-semibold mb-2">Email</h4>
                   <p className="text-gray-300">
-                    contato@lukaeventos.com.br
-                    <br />
-                    orcamento@lukaeventos.com.br
+                    lucia.salgado@lukaeventos.com.br
                   </p>
                 </div>
               </div>
