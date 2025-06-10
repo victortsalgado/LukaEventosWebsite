@@ -1,0 +1,29 @@
+Aja como um desenvolvedor React sênior. Sua tarefa é atualizar o site com as imagens que estão no Replit Object Storage, usando os URLs públicos que serão fornecidos. A estrutura dos URLs é https://storage.replit.com/luka-eventos-assets/NOME_DA_PASTA/NOME_DO_ARQUIVO.png.
+
+1. Modifique o Componente de Serviços (client/src/components/Services.tsx):
+
+O objetivo é adicionar uma imagem representativa a cada um dos quatro cards de serviço existentes.
+No card de "Organização e Consultoria", adicione a imagem do URL: https://storage.replit.com/luka-eventos-assets/Congressos/congresso_abrh.png com o alt text: "Palestra em congresso organizado pela Luka Eventos".
+No card de "Produção e Montagem", adicione a imagem do URL: https://storage.replit.com/luka-eventos-assets/Projeto3D/projeto3d_tramontina.png com o alt text: "Render 3D de stand da Tramontina".
+No card de "Buffet e Locação", adicione a imagem do URL: https://storage.replit.com/luka-eventos-assets/Buffet/buffet_tabuadefrios.png com o alt text: "Mesa de buffet com tábua de frios".
+No card de "Equipes Especializadas", adicione a imagem do URL: https://storage.replit.com/luka-eventos-assets/Equipes/promotoras_1.png com o alt text: "Promotoras em evento corporativo".
+2. Modifique o Componente de Portfólio (client/src/components/Portfolio.tsx):
+
+O objetivo é substituir os placeholders por uma galeria de projetos de feiras.
+Altere a seção para exibir uma grade (grid) com as 4 imagens a seguir:
+URL 1: https://storage.replit.com/luka-eventos-assets/Feiras/supernorte_marata_1.png, Alt Text: "Stand da Maratá na feira Supernorte".
+URL 2: https://storage.replit.com/luka-eventos-assets/Feiras/supernorte_okajima_1.png, Alt Text: "Stand da Okajima na feira Supernorte".
+URL 3: https://storage.replit.com/luka-eventos-assets/Feiras/exposibram_dinamica.png, Alt Text: "Stand da Dinamica na feira Exposibram".
+URL 4: https://storage.replit.com/luka-eventos-assets/Feiras/supernorte_bendo_alimentos_1.png, Alt Text: "Stand da Bendo Alimentos na feira Supernorte".
+3. Crie e Integre um Novo Componente de Galeria (Gallery.tsx):
+
+Para exibir mais imagens do seu trabalho, crie um novo arquivo: client/src/components/Gallery.tsx.
+Dentro de Gallery.tsx, crie um componente React chamado Gallery. Ele deve ter um título <h2> "Nossos Detalhes em Ação" e uma grade de imagens com as seguintes fotos:
+URL 1: https://storage.replit.com/luka-eventos-assets/AcoesPraia/acao_praia_ipanema.png, Alt Text: "Ação promocional da Ipanema na praia".
+URL 2: https://storage.replit.com/luka-eventos-assets/Mascotes/mascotes.png, Alt Text: "Mascotes animados em evento".
+URL 3: https://storage.replit.com/luka-eventos-assets/Decoracao/paisagismo.jpg, Alt Text: "Projeto de paisagismo e decoração".
+URL 4: https://storage.replit.com/luka-eventos-assets/Locacao/locacao_mesa_cadeira.png, Alt Text: "Mobiliário para locação em eventos".
+Integre o novo componente: Abra o arquivo da página principal (HomePage.tsx ou App.tsx), importe o componente Gallery e o insira logo após a seção "Nossa Metodologia de Sucesso" (Journey).
+4. Preparação para as Imagens da Equipe:
+
+Nos componentes About.tsx e TeamCard.tsx, mantenha as imagens da equipe como placeholders. Não faça alterações neles por enquanto.
