@@ -3,39 +3,27 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 const portfolioItems = [
   {
     image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-    title: "Evento Corporativo",
-    description: "Lançamento de produto para empresa multinacional",
-    alt: "Evento corporativo elegante com palco moderno e iluminação profissional"
+    title: "Projeto Maratá",
+    description: "Evento corporativo com soluções completas",
+    alt: "Projeto Maratá - evento corporativo realizado pela Luka Eventos"
   },
   {
     image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-    title: "Casamento de Luxo",
-    description: "Cerimônia dos sonhos em venue exclusivo",
-    alt: "Cerimônia de casamento luxuosa com decorações florais elegantes"
+    title: "Projeto Bendo Alimentos",
+    description: "Lançamento de produto com produção completa",
+    alt: "Projeto Bendo Alimentos - evento de lançamento pela Luka Eventos"
   },
   {
     image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-    title: "Feira Comercial",
-    description: "Stand inovador para empresa de tecnologia",
-    alt: "Stand profissional em feira comercial com design moderno e branding"
+    title: "Projeto Okajima Distribuidora",
+    description: "Stand personalizado para feira comercial",
+    alt: "Projeto Okajima Distribuidora - stand em feira pela Luka Eventos"
   },
   {
     image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-    title: "Festa Privada",
-    description: "Celebração exclusiva de aniversário",
-    alt: "Festa de aniversário elegante com mesas sofisticadas e decoração refinada"
-  },
-  {
-    image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-    title: "Conferência",
-    description: "Evento educacional para 500+ participantes",
-    alt: "Conferência corporativa com palco profissional e audiência"
-  },
-  {
-    image: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-    title: "Gala Beneficente",
-    description: "Jantar de arrecadação de fundos",
-    alt: "Jantar de gala festivo com mesas elegantes e iluminação ambiente"
+    title: "Projeto Tramontina",
+    description: "Evento institucional de grande porte",
+    alt: "Projeto Tramontina - evento institucional pela Luka Eventos"
   }
 ];
 
@@ -64,7 +52,7 @@ export default function Portfolio() {
           }`}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-6">
-            Portfolio
+            Eventos que Inspiram Confiança
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Conheça alguns dos eventos únicos que criamos para nossos clientes. Cada
@@ -72,7 +60,7 @@ export default function Portfolio() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {portfolioItems.map((item, index) => (
             <PortfolioItem key={index} item={item} index={index} />
           ))}

@@ -5,25 +5,25 @@ const services = [
   {
     icon: ClipboardCheck,
     title: "Organização e Consultoria",
-    description: "Planejamento estratégico completo do seu evento, desde a concepção até os detalhes finais.",
+    description: "Gerenciamento de todas as etapas, entendendo seus objetivos para planejar o evento ideal e garantir o sucesso.",
     features: ["Consultoria especializada", "Cronograma detalhado", "Coordenação geral"]
   },
   {
     icon: Hammer,
-    title: "Produção e Montagem de Stands",
-    description: "Criação e montagem de stands personalizados que impressionam e atraem seu público.",
+    title: "Produção e Montagem",
+    description: "Desenvolvemos projetos 3D e cuidamos da montagem de stands, paisagismo e vitrinismo com equipes experientes.",
     features: ["Design personalizado", "Montagem profissional", "Materiais de qualidade"]
   },
   {
     icon: Utensils,
-    title: "Buffet Completo e Locação",
-    description: "Serviços gastronômicos excepcionais e locação de equipamentos para seu evento.",
+    title: "Buffet e Locação",
+    description: "Oferecemos de finger foods e comidas regionais a mobiliário completo, painéis de LED e sonorização.",
     features: ["Cardápio personalizado", "Equipamentos completos", "Serviço impecável"]
   },
   {
     icon: Users,
     title: "Equipes Especializadas",
-    description: "Profissionais altamente qualificados para garantir o sucesso do seu evento.",
+    description: "Fornecemos recepcionistas, produtores, seguranças, garçons e toda a equipe de apoio e limpeza necessária.",
     features: ["Coordenadores experientes", "Equipe de apoio", "Atendimento dedicado"]
   }
 ];
@@ -53,7 +53,7 @@ export default function Services() {
           }`}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-6">
-            Nossos Serviços
+            Soluções Completas para o Seu Evento
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Oferecemos soluções completas para todos os tipos de eventos, desde a

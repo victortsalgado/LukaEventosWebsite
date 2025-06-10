@@ -1,0 +1,40 @@
+Aja como um desenvolvedor React sênior e realize as seguintes tarefas para finalizar o site da "Luka Eventos", modificando e criando os componentes necessários na estrutura de arquivos existente.
+
+1. Finalize o Componente "Sobre Nós" com os Perfis da Equipe:
+
+Primeiro, crie um novo arquivo de componente: client/src/components/TeamCard.tsx.
+Dentro de TeamCard.tsx, crie um componente React funcional chamado TeamCard. Ele deve aceitar as propriedades (props): imageSrc, name, title e location. A estrutura deve ser uma div com classe team-card, contendo uma img para a foto (use um placeholder), um h3 para o nome, um p para o cargo (title) e outro p para a localização (location). Adicione estilo para que o card tenha uma borda, cantos arredondados, sombra e texto centralizado.
+Em seguida, modifique o componente client/src/components/About.tsx: Importe o componente TeamCard recém-criado. Abaixo do parágrafo de texto existente, adicione um subtítulo h2 com o texto "Nossa Equipe". Crie uma div com layout de grade (grid) e, dentro dela, use o componente TeamCard quatro vezes para exibir as seguintes pessoas:
+Card 1: name="Lúcia Salgado", title="CEO", location="Belém - PA"
+Card 2: name="Victor Santos", title="Diretor Comercial", location="Novo Hamburgo - RS"
+Card 3: name="Lêda Salgado", title="Arquiteta", location="Belém - PA"
+Card 4: name="Manuzza Franco", title="Executiva de Contas", location="Novo Hamburgo - RS"
+2. Modifique o Componente de Serviços (client/src/components/Services.tsx):
+
+Altere o título da seção para "Soluções Completas para o Seu Evento".
+Substitua o conteúdo dos cards de serviços pelos quatro seguintes:
+Card 1: Título: "Organização e Consultoria". Descrição: "Gerenciamento de todas as etapas, entendendo seus objetivos para planejar o evento ideal e garantir o sucesso."
+Card 2: Título: "Produção e Montagem". Descrição: "Desenvolvemos projetos 3D e cuidamos da montagem de stands, paisagismo e vitrinismo com equipes experientes."
+Card 3: Título: "Buffet e Locação". Descrição: "Oferecemos de finger foods e comidas regionais a mobiliário completo, painéis de LED e sonorização."
+Card 4: Título: "Equipes Especializadas". Descrição: "Fornecemos recepcionistas, produtores, seguranças, garçons e toda a equipe de apoio e limpeza necessária."
+3. Modifique o Componente de Portfólio (client/src/components/Portfolio.tsx):
+
+Altere o título da seção para "Eventos que Inspiram Confiança".
+Substitua o conteúdo por uma grade de imagens com 4 divs. Cada div deve conter uma imagem de placeholder e uma legenda: "Projeto Maratá", "Projeto Bendo Alimentos", "Projeto Okajima Distribuidora", "Projeto Tramontina".
+4. Crie e Integre um Novo Componente de Jornada:
+
+Crie um novo arquivo: client/src/components/Journey.tsx.
+Dentro de Journey.tsx, crie um componente Journey com um título <h2> "Nossa Metodologia de Sucesso" e uma lista ordenada (<ol>) com os 5 passos da jornada do cliente: Briefing, Consultoria+, Proposta, Evento, Pós Evento, incluindo as descrições de cada passo conforme o documento PDF.
+Integre o novo componente: Abra o arquivo da página principal (provavelmente client/src/pages/HomePage.tsx ou client/src/App.tsx), importe Journey e o insira entre a seção de Portfólio e a de Contato.
+5. Modifique o Componente de Contato (client/src/components/Contact.tsx):
+
+Altere o título da seção para "Vamos planejar seu próximo grande evento?".
+6. Crie e Integre um Componente de Rodapé (Footer):
+
+Crie um novo arquivo: client/src/components/Footer.tsx.
+Dentro de Footer.tsx, crie um componente Footer. O rodapé deve conter o nome "Luka Eventos", o telefone (91) 9 8155-3464 , o email lucia.salgado@lukaeventos.com.br  e o texto de direitos autorais "© 2025 Luka Eventos. Todos os direitos reservados.".
+Integre o novo componente: No arquivo da página principal, importe o Footer e o adicione após a seção de Contato.
+7. Adicione a Funcionalidade de Rolagem Suave (Smooth Scroll):
+
+Abra o componente client/src/components/Navbar.tsx.
+Modifique os links de navegação para que, ao serem clicados, eles usem a função scrollIntoView({ behavior: 'smooth' }) para rolar suavemente até a seção correspondente da página.

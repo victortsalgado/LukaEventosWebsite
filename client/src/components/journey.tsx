@@ -44,7 +44,7 @@ export default function Journey() {
           }`}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-6">
-            Nossa Jornada
+            Nossa Metodologia de Sucesso
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Conheça o processo que utilizamos para transformar sua visão em realidade,

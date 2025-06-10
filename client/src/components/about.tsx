@@ -1,4 +1,5 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import TeamCard from "@/components/TeamCard";
 
 export default function About() {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
@@ -26,12 +27,10 @@ export default function About() {
           }`}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-6">
-            Sobre a Luka Eventos
+            Experiência que Gera Resultados
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Somos especialistas em transformar momentos especiais em experiências
-            extraordinárias, com dedicação total à excelência e aos detalhes que fazem
-            a diferença.
+            Somos um time experiente, coordenando várias equipes capacitadas e prontas para acertar cada detalhe. A diretora Lúcia Salgado é acessível e fará com que tudo saia como o esperado, além de preparar o time para qualquer situação.
           </p>
         </div>
 
@@ -87,6 +86,51 @@ export default function About() {
             >
               Fale Conosco
             </button>
+          </div>
+        </div>
+
+        {/* Team Section */}
+        <div className="mt-20">
+          <div
+            ref={titleRef}
+            className={`text-center mb-16 transition-all duration-1000 ${
+              titleVisible ? "animate-on-scroll visible" : "animate-on-scroll"
+            }`}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-6">
+              Nossa Equipe
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <TeamCard
+              imageSrc="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400"
+              name="Lúcia Salgado"
+              title="CEO"
+              location="Belém - PA"
+              index={0}
+            />
+            <TeamCard
+              imageSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400"
+              name="Victor Santos"
+              title="Diretor Comercial"
+              location="Novo Hamburgo - RS"
+              index={1}
+            />
+            <TeamCard
+              imageSrc="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400"
+              name="Lêda Salgado"
+              title="Arquiteta"
+              location="Belém - PA"
+              index={2}
+            />
+            <TeamCard
+              imageSrc="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400"
+              name="Manuzza Franco"
+              title="Executiva de Contas"
+              location="Novo Hamburgo - RS"
+              index={3}
+            />
           </div>
         </div>
       </div>
