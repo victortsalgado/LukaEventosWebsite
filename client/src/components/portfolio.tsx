@@ -2,29 +2,29 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const portfolioItems = [
   {
-    image: "https://storage.replit.com/v1/objects/projeto-marata-evento-corporativo.jpg",
+    image: "https://storage.replit.com/luka-eventos-assets/Feiras/supernorte_marata_1.png",
     title: "Projeto Maratá",
-    description: "Evento corporativo com soluções completas",
-    alt: "Projeto Maratá - evento corporativo realizado pela Luka Eventos"
+    description: "Stand da Maratá na feira Supernorte",
+    alt: "Stand da Maratá na feira Supernorte"
   },
   {
-    image: "https://storage.replit.com/v1/objects/projeto-bendo-alimentos-lancamento.jpg",
-    title: "Projeto Bendo Alimentos",
-    description: "Lançamento de produto com produção completa",
-    alt: "Projeto Bendo Alimentos - evento de lançamento pela Luka Eventos"
-  },
-  {
-    image: "https://storage.replit.com/v1/objects/projeto-okajima-stand-feira.jpg",
+    image: "https://storage.replit.com/luka-eventos-assets/Feiras/supernorte_okajima_1.png",
     title: "Projeto Okajima Distribuidora",
     description: "Stand personalizado para feira comercial",
-    alt: "Projeto Okajima Distribuidora - stand em feira pela Luka Eventos"
+    alt: "Stand da Okajima na feira Supernorte"
   },
   {
-    image: "https://storage.replit.com/v1/objects/projeto-tramontina-evento-institucional.jpg",
-    title: "Projeto Tramontina",
-    description: "Evento institucional de grande porte",
-    alt: "Projeto Tramontina - evento institucional pela Luka Eventos"
-  }
+    image: "https://storage.replit.com/luka-eventos-assets/Feiras/exposibram_dinamica.png",
+    title: "Projeto Dinamica",
+    description: "Stand da Dinamica na feira Exposibram",
+    alt: "Stand da Dinamica na feira Exposibram"
+  },
+  {
+    image: "https://storage.replit.com/luka-eventos-assets/Feiras/supernorte_bendo_alimentos_1.png",
+    title: "Projeto Bendo Alimentos",
+    description: "Stand da Bendo Alimentos na feira Supernorte",
+    alt: "Stand da Bendo Alimentos na feira Supernorte"
+  },
 ];
 
 export default function Portfolio() {

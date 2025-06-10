@@ -1,31 +1,35 @@
-import { ClipboardCheck, Hammer, Utensils, Users } from "lucide-react";
+import { ClipboardCheck, Hammer, Utensils, Users, Settings, Coffee, Award } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const services = [
   {
-    icon: ClipboardCheck,
-    title: "Organização e Consultoria",
-    description: "Gerenciamento de todas as etapas, entendendo seus objetivos para planejar o evento ideal e garantir o sucesso.",
-    features: ["Consultoria especializada", "Cronograma detalhado", "Coordenação geral"]
-  },
-  {
-    icon: Hammer,
-    title: "Produção e Montagem",
-    description: "Desenvolvemos projetos 3D e cuidamos da montagem de stands, paisagismo e vitrinismo com equipes experientes.",
-    features: ["Design personalizado", "Montagem profissional", "Materiais de qualidade"]
-  },
-  {
-    icon: Utensils,
-    title: "Buffet e Locação",
-    description: "Oferecemos de finger foods e comidas regionais a mobiliário completo, painéis de LED e sonorização.",
-    features: ["Cardápio personalizado", "Equipamentos completos", "Serviço impecável"]
-  },
-  {
     icon: Users,
+    title: "Organização e Consultoria",
+    description: "Planejamento estratégico completo para seu evento, desde a concepção até a execução.",
+    image: "https://storage.replit.com/luka-eventos-assets/Congressos/congresso_abrh.png",
+    alt: "Palestra em congresso organizado pela Luka Eventos"
+  },
+  {
+    icon: Settings,
+    title: "Produção e Montagem",
+    description: "Montagem de stands, cenários e toda infraestrutura necessária para seu evento.",
+    image: "https://storage.replit.com/luka-eventos-assets/Projeto3D/projeto3d_tramontina.png",
+    alt: "Render 3D de stand da Tramontina"
+  },
+  {
+    icon: Coffee,
+    title: "Buffet e Locação",
+    description: "Serviços de catering e locação de equipamentos e mobiliário para eventos.",
+    image: "https://storage.replit.com/luka-eventos-assets/Buffet/buffet_tabuadefrios.png",
+    alt: "Mesa de buffet com tábua de frios"
+  },
+  {
+    icon: Award,
     title: "Equipes Especializadas",
-    description: "Fornecemos recepcionistas, produtores, seguranças, garçons e toda a equipe de apoio e limpeza necessária.",
-    features: ["Coordenadores experientes", "Equipe de apoio", "Atendimento dedicado"]
-  }
+    description: "Profissionais qualificados para recepção, hostess e apoio durante o evento.",
+    image: "https://storage.replit.com/luka-eventos-assets/Equipes/promotoras_1.png",
+    alt: "Promotoras em evento corporativo"
+  },
 ];
 
 export default function Services() {
@@ -87,30 +91,30 @@ export default function Services() {
 
 function ServiceCard({ service, index }: { service: any; index: number }) {
   const { ref, isVisible } = useScrollAnimation();
+  const Icon = service.icon;
 
   return (
     <div
       ref={ref}
-      className={`bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 ${
+      className={`bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden ${
         isVisible ? "animate-on-scroll visible" : "animate-on-scroll"
       }`}
       style={{ transitionDelay: `${index * 100}ms` }}
     >
-      <div className="text-4xl text-primary-orange mb-6 text-center">
-        <service.icon size={48} className="mx-auto" />
+      <div className="h-48 overflow-hidden">
+        <img
+          src={service.image}
+          alt={service.alt}
+          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+        />
       </div>
-      <h3 className="text-xl font-bold text-dark-gray mb-4 text-center">
-        {service.title}
-      </h3>
-      <p className="text-gray-600 text-center mb-6">{service.description}</p>
-      <ul className="text-sm text-gray-600 space-y-2">
-        {service.features.map((feature: string, featureIndex: number) => (
-          <li key={featureIndex} className="flex items-center">
-            <div className="w-2 h-2 bg-primary-orange rounded-full mr-2 flex-shrink-0" />
-            {feature}
-          </li>
-        ))}
-      </ul>
+      <div className="p-8">
+        <div className="w-16 h-16 bg-primary-orange text-white rounded-full flex items-center justify-center mb-6">
+          <Icon size={32} />
+        </div>
+        <h3 className="text-2xl font-bold text-dark-gray mb-4">{service.title}</h3>
+        <p className="text-gray-600">{service.description}</p>
+      </div>
     </div>
   );
 }

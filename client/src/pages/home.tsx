@@ -4,6 +4,7 @@ import About from "@/components/about";
 import Services from "@/components/services";
 import Portfolio from "@/components/portfolio";
 import Journey from "@/components/journey";
+import Gallery from "@/components/gallery";
 import Clients from "@/components/clients";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
@@ -16,8 +17,9 @@ export default function Home() {
         <Hero />
         <About />
         <Services />
-        <Portfolio />
         <Journey />
+        <Gallery />
+        <Portfolio />
         <Clients />
         <Contact />
       </main>
