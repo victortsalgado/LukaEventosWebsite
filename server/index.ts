@@ -34,10 +34,21 @@ app.get("/api/storage/images/:folder", async (req: Request, res: Response) => {
     }
     
     const files = (result as any).value || [];
+    
+    // Lista de arquivos problemáticos conhecidos que falham no carregamento
+    const problematicFiles = [
+      'paisagismo.jpg',          // Decoracao - falha no carregamento
+      'locacao_mesa_cadeira.png', // Locacao - falha no carregamento  
+      'buffet_tabuadefrios.png', // Buffet - falha no carregamento
+    ];
+    
     const folderImages = files
       .filter((file: any) => {
         const fileName = typeof file === 'string' ? file : file.name;
-        return fileName.startsWith(`${folder}/`) && /\.(jpg|jpeg|png|gif|webp|mp4|webm|mov)$/i.test(fileName);
+        const baseFileName = fileName.replace(`${folder}/`, '');
+        return fileName.startsWith(`${folder}/`) && 
+               /\.(jpg|jpeg|png|gif|webp|mp4|webm|mov)$/i.test(fileName) &&
+               !problematicFiles.includes(baseFileName); // Excluir arquivos problemáticos
       })
       .map((file: any) => {
         const fileName = typeof file === 'string' ? file : file.name;

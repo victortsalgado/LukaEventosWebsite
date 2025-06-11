@@ -196,12 +196,27 @@ function ServiceCard({ service, index }: { service: ServiceData; index: number }
 
     // Se há imagens, usar o carrossel com delay baseado no índice para sincronização
     if (images.length > 0) {
-      return <ImageCarousel 
+      const carousel = <ImageCarousel 
         images={images} 
         folder={service.folder} 
         serviceName={service.title}
         startDelay={index * 500} // Atraso escalonado para sincronização
       />;
+      
+      // Se o carrossel retornar null (todas as imagens falharam), mostra fallback
+      return (
+        <ErrorBoundary fallback={
+          <div className="h-48 bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white">
+            <div className="text-center">
+              <service.icon className="mx-auto mb-4" size={48} />
+              <h3 className="text-lg font-semibold mb-2">{service.title}</h3>
+              <p className="text-sm opacity-90">Conteúdo em breve</p>
+            </div>
+          </div>
+        }>
+          {carousel}
+        </ErrorBoundary>
+      );
     }
 
     // Se é "Produção e Montagem" e não há imagens, verificar se há vídeo disponível

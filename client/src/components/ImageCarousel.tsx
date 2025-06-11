@@ -11,21 +11,29 @@ export function ImageCarousel({ images, folder, serviceName, startDelay = 0 }: I
   const [currentIndex, setCurrentIndex] = useState(0);
   const [imageErrors, setImageErrors] = useState<{ [key: number]: boolean }>({});
 
-  // Auto-rotação sincronizada
+  // Auto-rotação sincronizada - só funciona se há imagens válidas
   useEffect(() => {
     if (images.length > 1) {
       const timeout = setTimeout(() => {
         const interval = setInterval(() => {
-          setCurrentIndex((prev) => (prev + 1) % images.length);
-        }, 5000); // 5 segundos para transição mais suave
+          setCurrentIndex((prev) => {
+            let nextIndex = (prev + 1) % images.length;
+            // Pula imagens com erro
+            let attempts = 0;
+            while (imageErrors[nextIndex] && attempts < images.length) {
+              nextIndex = (nextIndex + 1) % images.length;
+              attempts++;
+            }
+            return nextIndex;
+          });
+        }, 5000);
         
-        // Cleanup no useEffect
         return () => clearInterval(interval);
       }, startDelay);
 
       return () => clearTimeout(timeout);
     }
-  }, [images.length, startDelay]);
+  }, [images.length, startDelay, imageErrors]);
 
   const handleImageError = (index: number) => {
     console.log(`Erro ao carregar imagem ${index} da pasta ${folder}:`, images[index]);
@@ -33,6 +41,12 @@ export function ImageCarousel({ images, folder, serviceName, startDelay = 0 }: I
   };
 
   if (images.length === 0) return null;
+  
+  // Se todas as imagens falharam, não mostra nada
+  const validImages = images.filter((_, idx) => !imageErrors[idx]);
+  if (validImages.length === 0 && Object.keys(imageErrors).length > 0) {
+    return null;
+  }
 
   return (
     <div className="relative h-48 overflow-hidden">
