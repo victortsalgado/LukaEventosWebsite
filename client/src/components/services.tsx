@@ -82,9 +82,15 @@ function useServiceImages(folder: string) {
   return useQuery({
     queryKey: [`/api/storage/images/${folder}`],
     queryFn: async () => {
-      const response = await fetch(`/api/storage/images/${folder}`);
-      if (!response.ok) throw new Error('Failed to fetch images');
-      return response.json();
+      try {
+        const response = await fetch(`/api/storage/images/${folder}`);
+        if (!response.ok) throw new Error('Failed to fetch images');
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error(`Error fetching images for ${folder}:`, error);
+        return { images: [] };
+      }
     },
     staleTime: 5 * 60 * 1000, // 5 minutos
   });
@@ -154,7 +160,7 @@ function ServiceCard({ service, index }: { service: ServiceData; index: number }
 
   // Buscar imagens da pasta específica do serviço
   const { data: imagesData, isLoading } = useServiceImages(service.folder);
-  const images = imagesData?.images || [];
+  const images = Array.isArray(imagesData?.images) ? imagesData.images : [];
 
   // Auto-rotação do carrossel
   useEffect(() => {

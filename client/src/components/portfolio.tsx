@@ -1,6 +1,6 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { getPortfolioImage } from "@shared/imageConfig";
-import React, { useState } from "react";
+import { useState } from "react";
 
 const portfolioItems = [
   {
