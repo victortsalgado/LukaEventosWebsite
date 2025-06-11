@@ -173,23 +173,33 @@ function ServiceCard({ service, index }: { service: ServiceData; index: number }
   }, [images.length]);
 
   const renderMedia = () => {
-    // Se é o serviço de "Produção e Montagem", mostrar vídeo
+    // Se é o serviço de "Produção e Montagem", tentar mostrar vídeo ou fallback
     if (service.videoFile) {
       return (
-        <div className="h-48 overflow-hidden bg-black flex items-center justify-center">
+        <div className="h-48 overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative">
           <video
             className="w-full h-full object-cover"
             autoPlay
             muted
             loop
             playsInline
+            onError={(e) => {
+              // Se o vídeo falhar, ocultar elemento
+              const target = e.target as HTMLVideoElement;
+              if (target) {
+                target.style.display = 'none';
+              }
+            }}
           >
             <source src={`/api/images/${service.folder}/${service.videoFile}`} type="video/mp4" />
-            <div className="text-white text-center p-4">
-              <Icon size={48} className="mx-auto mb-2" />
-              <p>Vídeo de Produção e Montagem</p>
-            </div>
           </video>
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white">
+            <div className="text-center p-4">
+              <Icon size={48} className="mx-auto mb-2" />
+              <p className="text-sm font-semibold">Produção e Montagem</p>
+              <p className="text-xs opacity-80 mt-1">Stands e Cenários</p>
+            </div>
+          </div>
         </div>
       );
     }
@@ -204,12 +214,31 @@ function ServiceCard({ service, index }: { service: ServiceData; index: number }
     }
 
     if (images.length === 0) {
+      // Diferentes gradientes para cada serviço
+      const gradients = {
+        "Organização e Consultoria": "from-amber-400 to-orange-500",
+        "Projetos 3D": "from-cyan-400 to-blue-500", 
+        "Decoração": "from-pink-400 to-rose-500",
+        "Produção e Montagem": "from-blue-500 to-purple-600",
+        "Buffet": "from-green-400 to-emerald-500",
+        "Locação": "from-indigo-400 to-purple-500",
+        "Equipes Especializadas": "from-red-400 to-pink-500",
+        "Ações Promocionais": "from-yellow-400 to-orange-500"
+      };
+      
+      const gradient = gradients[service.title as keyof typeof gradients] || "from-orange-400 to-orange-600";
+      
       return (
-        <div className="h-48 bg-gradient-to-br from-orange-100 to-orange-200 flex items-center justify-center">
-          <div className="text-center text-orange-800">
-            <Icon size={48} className="mx-auto mb-2" />
-            <p className="text-sm font-semibold">{service.title}</p>
+        <div className={`h-48 bg-gradient-to-br ${gradient} flex items-center justify-center relative overflow-hidden`}>
+          <div className="absolute inset-0 bg-black/10"></div>
+          <div className="relative z-10 text-center text-white p-4">
+            <Icon size={48} className="mx-auto mb-2 drop-shadow-lg" />
+            <p className="text-sm font-semibold drop-shadow">{service.title}</p>
           </div>
+          <div className="absolute top-4 left-4 w-8 h-8 bg-white/20 rounded-lg"></div>
+          <div className="absolute top-4 right-4 w-6 h-6 bg-white/20 rounded-full"></div>
+          <div className="absolute bottom-4 left-4 w-12 h-2 bg-white/20 rounded-full"></div>
+          <div className="absolute bottom-4 right-4 w-8 h-8 bg-white/10 rounded"></div>
         </div>
       );
     }
@@ -240,6 +269,7 @@ function ServiceCard({ service, index }: { service: ServiceData; index: number }
   return (
     <div
       ref={ref}
+      data-service={service.title}
       className={`bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden ${
         isVisible ? "animate-on-scroll visible" : "animate-on-scroll"
       }`}
