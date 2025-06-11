@@ -180,9 +180,14 @@ function ServiceCard({ service, index }: { service: ServiceData; index: number }
       );
     }
 
-    // Se há imagens, usar o carrossel
+    // Se há imagens, usar o carrossel com delay baseado no índice para sincronização
     if (images.length > 0) {
-      return <ImageCarousel images={images} folder={service.folder} serviceName={service.title} />;
+      return <ImageCarousel 
+        images={images} 
+        folder={service.folder} 
+        serviceName={service.title}
+        startDelay={index * 500} // Atraso escalonado para sincronização
+      />;
     }
 
     // Se é "Produção e Montagem" e não há imagens, verificar se há vídeo disponível
