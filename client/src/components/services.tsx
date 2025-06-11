@@ -1,36 +1,94 @@
-import { ClipboardCheck, Hammer, Utensils, Users, Settings, Coffee, Award } from "lucide-react";
+import { ClipboardCheck, Hammer, Utensils, Users, Settings, Coffee, Award, Palette, Target } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 
-const services = [
+interface ServiceImage {
+  name: string;
+  url: string;
+}
+
+interface ServiceData {
+  icon: any;
+  title: string;
+  description: string;
+  folder: string;
+  videoFile?: string;
+  features: string[];
+}
+
+const servicesConfig: ServiceData[] = [
   {
     icon: Users,
     title: "Organização e Consultoria",
-    description: "Planejamento estratégico completo para seu evento, desde a concepção até a execução.",
-    image: "/api/images/Congressos/congresso_abrh.png",
-    alt: "Palestra em congresso organizado pela Luka Eventos"
+    description: "Planejamento estratégico completo para seu evento, desde a concepção até a execução final.",
+    folder: "Organizacao e Consultoria",
+    features: ["Briefing detalhado", "Cronograma personalizado", "Gestão de fornecedores", "Coordenação geral"]
+  },
+  {
+    icon: Target,
+    title: "Projetos 3D",
+    description: "Visualização completa do seu evento antes mesmo da montagem, garantindo que tudo saia perfeito.",
+    folder: "Projeto 3D",
+    features: ["Renderização realista", "Plantas baixas", "Mockups 3D", "Aprovação prévia"]
+  },
+  {
+    icon: Palette,
+    title: "Decoração",
+    description: "Criação de ambientes únicos e personalizados que refletem a identidade do seu evento.",
+    folder: "Decoracao",
+    features: ["Design personalizado", "Iluminação especial", "Paisagismo", "Ambientação temática"]
   },
   {
     icon: Settings,
     title: "Produção e Montagem",
     description: "Montagem de stands, cenários e toda infraestrutura necessária para seu evento.",
-    image: "/api/images/Projeto3D/projeto3d_tramontina.png",
-    alt: "Render 3D de stand da Tramontina"
+    folder: "Producao e Montagem",
+    videoFile: "insta_media.mp4",
+    features: ["Montagem de stands", "Cenários customizados", "Infraestrutura técnica", "Coordenação de montagem"]
+  },
+  {
+    icon: Utensils,
+    title: "Buffet",
+    description: "Serviços de catering com cardápio personalizado e apresentação impecável.",
+    folder: "Buffet",
+    features: ["Cardápio personalizado", "Apresentação gourmet", "Serviço completo", "Opções especiais"]
   },
   {
     icon: Coffee,
-    title: "Buffet e Locação",
-    description: "Serviços de catering e locação de equipamentos e mobiliário para eventos.",
-    image: "/api/images/Buffet/buffet_tabuadefrios.png",
-    alt: "Mesa de buffet com tábua de frios"
+    title: "Locação",
+    description: "Locação de equipamentos e mobiliário para eventos completos e bem estruturados.",
+    folder: "Locacao",
+    features: ["Equipamentos profissionais", "Mobiliário variado", "Tecnologia moderna", "Logística completa"]
   },
   {
     icon: Award,
     title: "Equipes Especializadas",
     description: "Profissionais qualificados para recepção, hostess e apoio durante o evento.",
-    image: "/api/images/Equipes/promotoras_1.png",
-    alt: "Promotoras em evento corporativo"
+    folder: "Equipes",
+    features: ["Recepcionistas", "Hostess", "Coordenadores", "Equipe técnica"]
   },
+  {
+    icon: Hammer,
+    title: "Ações Promocionais",
+    description: "Criação e execução de ações promocionais impactantes para sua marca.",
+    folder: "Acoes Promocionais",
+    features: ["Ativações de marca", "Experiências interativas", "Materiais promocionais", "Engajamento do público"]
+  }
 ];
+
+// Hook para buscar imagens de uma pasta específica
+function useServiceImages(folder: string) {
+  return useQuery({
+    queryKey: [`/api/storage/images/${folder}`],
+    queryFn: async () => {
+      const response = await fetch(`/api/storage/images/${folder}`);
+      if (!response.ok) throw new Error('Failed to fetch images');
+      return response.json();
+    },
+    staleTime: 5 * 60 * 1000, // 5 minutos
+  });
+}
 
 export default function Services() {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
@@ -65,8 +123,8 @@ export default function Services() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {services.map((service, index) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8">
+          {servicesConfig.map((service, index) => (
             <ServiceCard key={index} service={service} index={index} />
           ))}
         </div>
@@ -89,9 +147,89 @@ export default function Services() {
   );
 }
 
-function ServiceCard({ service, index }: { service: any; index: number }) {
+function ServiceCard({ service, index }: { service: ServiceData; index: number }) {
   const { ref, isVisible } = useScrollAnimation();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const Icon = service.icon;
+
+  // Buscar imagens da pasta específica do serviço
+  const { data: imagesData, isLoading } = useServiceImages(service.folder);
+  const images = imagesData?.images || [];
+
+  // Auto-rotação do carrossel
+  useEffect(() => {
+    if (images.length > 1) {
+      const interval = setInterval(() => {
+        setCurrentImageIndex((prev) => (prev + 1) % images.length);
+      }, 4000);
+      return () => clearInterval(interval);
+    }
+  }, [images.length]);
+
+  const renderMedia = () => {
+    // Se é o serviço de "Produção e Montagem", mostrar vídeo
+    if (service.videoFile) {
+      return (
+        <div className="h-48 overflow-hidden bg-black flex items-center justify-center">
+          <video
+            className="w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+          >
+            <source src={`/api/images/${service.folder}/${service.videoFile}`} type="video/mp4" />
+            <div className="text-white text-center p-4">
+              <Icon size={48} className="mx-auto mb-2" />
+              <p>Vídeo de Produção e Montagem</p>
+            </div>
+          </video>
+        </div>
+      );
+    }
+
+    // Para outros serviços, mostrar carrossel de imagens
+    if (isLoading) {
+      return (
+        <div className="h-48 bg-gray-200 flex items-center justify-center">
+          <Icon size={48} className="text-gray-400" />
+        </div>
+      );
+    }
+
+    if (images.length === 0) {
+      return (
+        <div className="h-48 bg-gradient-to-br from-orange-100 to-orange-200 flex items-center justify-center">
+          <div className="text-center text-orange-800">
+            <Icon size={48} className="mx-auto mb-2" />
+            <p className="text-sm font-semibold">{service.title}</p>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="relative h-48 overflow-hidden">
+        <img
+          src={`/api/images/${service.folder}/${images[currentImageIndex]}`}
+          alt={`${service.title} - Imagem ${currentImageIndex + 1}`}
+          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+        />
+        {images.length > 1 && (
+          <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
+            {images.map((_, idx) => (
+              <div
+                key={idx}
+                className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                  idx === currentImageIndex ? 'bg-white' : 'bg-white/50'
+                }`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
 
   return (
     <div
@@ -101,19 +239,21 @@ function ServiceCard({ service, index }: { service: any; index: number }) {
       }`}
       style={{ transitionDelay: `${index * 100}ms` }}
     >
-      <div className="h-48 overflow-hidden">
-        <img
-          src={service.image}
-          alt={service.alt}
-          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-        />
-      </div>
-      <div className="p-8">
-        <div className="w-16 h-16 bg-primary-orange text-white rounded-full flex items-center justify-center mb-6">
-          <Icon size={32} />
+      {renderMedia()}
+      <div className="p-6">
+        <div className="w-12 h-12 bg-primary-orange text-white rounded-full flex items-center justify-center mb-4">
+          <Icon size={24} />
         </div>
-        <h3 className="text-2xl font-bold text-dark-gray mb-4">{service.title}</h3>
-        <p className="text-gray-600">{service.description}</p>
+        <h3 className="text-xl font-bold text-dark-gray mb-3">{service.title}</h3>
+        <p className="text-gray-600 text-sm mb-4">{service.description}</p>
+        <div className="space-y-1">
+          {service.features.slice(0, 3).map((feature, idx) => (
+            <div key={idx} className="flex items-center text-xs text-gray-500">
+              <div className="w-1 h-1 bg-primary-orange rounded-full mr-2"></div>
+              {feature}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

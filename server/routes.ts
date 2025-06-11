@@ -8,6 +8,43 @@ import { Client } from '@replit/object-storage';
 export async function registerRoutes(app: Express): Promise<Server> {
   const client = new Client();
 
+  // Endpoint para buscar imagens de uma pasta específica
+  app.get("/api/storage/images/:folder", async (req, res) => {
+    try {
+      const { folder } = req.params;
+      console.log(`🔍 Buscando imagens da pasta: ${folder}`);
+      
+      const result = await client.list();
+      
+      if (!result || typeof result !== 'object' || !('ok' in result) || !result.ok) {
+        return res.status(500).json({ success: false, message: "Falha ao listar arquivos" });
+      }
+      
+      const files = (result as any).value || [];
+      const folderImages = files
+        .filter((file: any) => {
+          const fileName = typeof file === 'string' ? file : file.name;
+          return fileName.startsWith(`${folder}/`) && /\.(jpg|jpeg|png|gif|webp)$/i.test(fileName);
+        })
+        .map((file: any) => {
+          const fileName = typeof file === 'string' ? file : file.name;
+          return fileName.replace(`${folder}/`, ''); // Remove o prefixo da pasta
+        });
+      
+      console.log(`✅ Encontradas ${folderImages.length} imagens na pasta ${folder}:`, folderImages);
+      
+      res.json({
+        success: true,
+        folder,
+        totalImages: folderImages.length,
+        images: folderImages
+      });
+    } catch (error: any) {
+      console.error(`❌ Erro ao buscar imagens da pasta ${req.params.folder}:`, error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
   // Endpoint para debugar e listar todos os arquivos
   app.get("/api/storage/debug", async (req, res) => {
     try {
