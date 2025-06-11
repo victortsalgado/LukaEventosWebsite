@@ -24,7 +24,7 @@ const servicesConfig: ServiceData[] = [
     icon: Users,
     title: "Organização e Consultoria",
     description: "Planejamento estratégico completo para seu evento, desde a concepção até a execução final.",
-    folder: "Organizacao e Consultoria",
+    folder: "Organização e Consultoria",
     features: ["Briefing detalhado", "Cronograma personalizado", "Gestão de fornecedores", "Coordenação geral"]
   },
   {
@@ -45,7 +45,7 @@ const servicesConfig: ServiceData[] = [
     icon: Settings,
     title: "Produção e Montagem",
     description: "Montagem de stands, cenários e toda infraestrutura necessária para seu evento.",
-    folder: "Producao e Montagem",
+    folder: "Produção e Montagem",
     videoFile: "insta_media.mp4",
     features: ["Montagem de stands", "Cenários customizados", "Infraestrutura técnica", "Coordenação de montagem"]
   },
