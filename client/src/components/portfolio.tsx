@@ -2,13 +2,13 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const portfolioItems = [
   {
-    image: "/api/images/Feiras/supernorte_marata_1.png",
+    image: "/api/images/Feiras/supernorte_marata.png",
     title: "Projeto Maratá",
     description: "Stand da Maratá na feira Supernorte",
     alt: "Stand da Maratá na feira Supernorte"
   },
   {
-    image: "/api/images/Feiras/supernorte_okajima_1.png",
+    image: "/api/images/Feiras/supernorte_okajima.png",
     title: "Projeto Okajima Distribuidora",
     description: "Stand personalizado para feira comercial",
     alt: "Stand da Okajima na feira Supernorte"
@@ -20,7 +20,7 @@ const portfolioItems = [
     alt: "Stand da Dinamica na feira Exposibram"
   },
   {
-    image: "/api/images/Feiras/supernorte_bendo_alimentos_1.png",
+    image: "/api/images/Feiras/supernorte_bendo_alimentos.png",
     title: "Projeto Bendo Alimentos",
     description: "Stand da Bendo Alimentos na feira Supernorte",
     alt: "Stand da Bendo Alimentos na feira Supernorte"

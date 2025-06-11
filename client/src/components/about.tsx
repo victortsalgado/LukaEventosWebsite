@@ -105,28 +105,28 @@ export default function About() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <TeamCard
-              imageSrc="/api/images/TimeLuka/lucia_salgado.jpg"
+              imageSrc="/api/images/TimeLuka/time_lucia.png"
               name="Lúcia Salgado"
               title="CEO"
               location="Belém - PA"
               index={0}
             />
             <TeamCard
-              imageSrc="/api/images/TimeLuka/victor_santos.jpg"
+              imageSrc="/api/images/TimeLuka/time_victor.png"
               name="Victor Santos"
               title="Diretor Comercial"
               location="Novo Hamburgo - RS"
               index={1}
             />
             <TeamCard
-              imageSrc="/api/images/TimeLuka/leda_salgado.jpg"
+              imageSrc="/api/images/TimeLuka/time_leda.png"
               name="Lêda Salgado"
               title="Arquiteta"
               location="Belém - PA"
               index={2}
             />
             <TeamCard
-              imageSrc="/api/images/TimeLuka/manuzza_franco.jpg"
+              imageSrc="/api/images/TimeLuka/time_manuzza.png"
               name="Manuzza Franco"
               title="Executiva de Contas"
               location="Novo Hamburgo - RS"
