@@ -2,10 +2,10 @@
 export const imageConfig = {
   // Team member photos
   team: {
-    lucia: "TimeLuka/time_lucia.png",
-    victor: "TimeLuka/time_victor.png", 
-    leda: "TimeLuka/time_leda.png",
-    manuzza: "TimeLuka/time_manuzza.png"
+    lucia: "Time Luka/time_lucia.png",
+    victor: "Time Luka/time_lucia.png", 
+    leda: "Time Luka/time_leda.png",
+    manuzza: "Time Luka/time_lucia.png"
   },
   
   // Portfolio project images
@@ -18,8 +18,8 @@ export const imageConfig = {
   
   // Service images
   services: {
-    organizacao: "Servicos/consultoria.jpg",
-    producao: "Servicos/producao_stands.jpg",
+    organizacao: "Feiras/supernorte_marata.png",
+    producao: "Projeto 3D/projeto3d_tramontina.png",
     buffet: "Buffet/buffet_tabuadefrios.png",
     equipes: "Equipes/promotoras_1.png"
   },
