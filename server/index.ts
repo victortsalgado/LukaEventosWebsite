@@ -48,7 +48,9 @@ app.get("/api/images/:folder/:filename", async (req: Request, res: Response) => 
     res.setHeader('Content-Type', contentType);
     res.setHeader('Cache-Control', 'public, max-age=31536000');
 
-    res.send(imageBuffer);
+    // Convert Uint8Array to Buffer for proper Express response handling
+    const buffer = Buffer.from(imageBuffer);
+    res.send(buffer);
 
   } catch (error) {
     console.error(`Error fetching image ${req.params.folder}/${req.params.filename}:`, error);
