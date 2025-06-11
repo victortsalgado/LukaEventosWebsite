@@ -1,4 +1,5 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { getPortfolioImage } from "@shared/imageConfig";
 
 const portfolioItems = [
   {

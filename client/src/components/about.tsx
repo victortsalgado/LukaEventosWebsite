@@ -1,5 +1,6 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import TeamCard from "@/components/TeamCard";
+import { getTeamImage } from "@shared/imageConfig";
 
 export default function About() {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
@@ -105,28 +106,28 @@ export default function About() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <TeamCard
-              imageSrc="/api/images/TimeLuka/time_lucia.png"
+              imageSrc={getTeamImage('lucia')}
               name="Lúcia Salgado"
               title="CEO"
               location="Belém - PA"
               index={0}
             />
             <TeamCard
-              imageSrc="/api/images/TimeLuka/time_victor.png"
+              imageSrc={getTeamImage('victor')}
               name="Victor Santos"
               title="Diretor Comercial"
               location="Novo Hamburgo - RS"
               index={1}
             />
             <TeamCard
-              imageSrc="/api/images/TimeLuka/time_leda.png"
+              imageSrc={getTeamImage('leda')}
               name="Lêda Salgado"
               title="Arquiteta"
               location="Belém - PA"
               index={2}
             />
             <TeamCard
-              imageSrc="/api/images/TimeLuka/time_manuzza.png"
+              imageSrc={getTeamImage('manuzza')}
               name="Manuzza Franco"
               title="Executiva de Contas"
               location="Novo Hamburgo - RS"
