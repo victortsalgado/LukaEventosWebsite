@@ -37,14 +37,14 @@ app.get("/api/storage/images/:folder", async (req: Request, res: Response) => {
     const folderImages = files
       .filter((file: any) => {
         const fileName = typeof file === 'string' ? file : file.name;
-        return fileName.startsWith(`${folder}/`) && /\.(jpg|jpeg|png|gif|webp)$/i.test(fileName);
+        return fileName.startsWith(`${folder}/`) && /\.(jpg|jpeg|png|gif|webp|mp4|webm|mov)$/i.test(fileName);
       })
       .map((file: any) => {
         const fileName = typeof file === 'string' ? file : file.name;
         return fileName.replace(`${folder}/`, ''); // Remove o prefixo da pasta
       });
     
-    console.log(`✅ Encontradas ${folderImages.length} imagens na pasta ${folder}:`, folderImages);
+    console.log(`✅ Encontradas ${folderImages.length} arquivos na pasta ${folder}:`, folderImages);
     
     const response = {
       success: true,

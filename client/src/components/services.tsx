@@ -3,6 +3,7 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { ErrorBoundary } from "./ErrorBoundary";
+import { ImageCarousel } from "./ImageCarousel";
 
 interface ServiceImage {
   name: string;
@@ -163,56 +164,14 @@ export default function Services() {
 
 function ServiceCard({ service, index }: { service: ServiceData; index: number }) {
   const { ref, isVisible } = useScrollAnimation();
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const Icon = service.icon;
 
-  // Buscar imagens da pasta específica do serviço - apenas se visível para otimizar performance
+  // Buscar imagens da pasta específica do serviço
   const { data: imagesData, isLoading } = useServiceImages(service.folder);
   const images = Array.isArray(imagesData?.images) ? imagesData.images : [];
 
-  // Auto-rotação do carrossel - apenas se há imagens e componente está visível
-  useEffect(() => {
-    if (images.length > 1 && isVisible) {
-      const interval = setInterval(() => {
-        setCurrentImageIndex((prev) => (prev + 1) % images.length);
-      }, 4000);
-      return () => clearInterval(interval);
-    }
-  }, [images.length, isVisible]);
-
   const renderMedia = () => {
-    // Se é o serviço de "Produção e Montagem", tentar mostrar vídeo ou fallback
-    if (service.videoFile) {
-      return (
-        <div className="h-48 overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative">
-          <video
-            className="w-full h-full object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
-            onError={(e) => {
-              // Se o vídeo falhar, ocultar elemento
-              const target = e.target as HTMLVideoElement;
-              if (target) {
-                target.style.display = 'none';
-              }
-            }}
-          >
-            <source src={`/api/images/${service.folder}/${service.videoFile}`} type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white">
-            <div className="text-center p-4">
-              <Icon size={48} className="mx-auto mb-2" />
-              <p className="text-sm font-semibold">Produção e Montagem</p>
-              <p className="text-xs opacity-80 mt-1">Stands e Cenários</p>
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    // Para outros serviços, mostrar carrossel de imagens
+    // Para todos os serviços, primeiro verificar se há imagens
     if (isLoading) {
       return (
         <div className="h-48 bg-gray-200 flex items-center justify-center">
@@ -221,70 +180,73 @@ function ServiceCard({ service, index }: { service: ServiceData; index: number }
       );
     }
 
-    if (images.length === 0) {
-      // Diferentes gradientes para cada serviço
-      const gradients = {
-        "Organização e Consultoria": "from-amber-400 to-orange-500",
-        "Projetos 3D": "from-cyan-400 to-blue-500", 
-        "Decoração": "from-pink-400 to-rose-500",
-        "Produção e Montagem": "from-blue-500 to-purple-600",
-        "Buffet": "from-green-400 to-emerald-500",
-        "Locação": "from-indigo-400 to-purple-500",
-        "Equipes Especializadas": "from-red-400 to-pink-500",
-        "Ações Promocionais": "from-yellow-400 to-orange-500"
-      };
-      
-      const gradient = gradients[service.title as keyof typeof gradients] || "from-orange-400 to-orange-600";
-      
-      return (
-        <div className={`h-48 bg-gradient-to-br ${gradient} flex items-center justify-center relative overflow-hidden`}>
-          <div className="absolute inset-0 bg-black/10"></div>
-          <div className="relative z-10 text-center text-white p-4">
-            <Icon size={48} className="mx-auto mb-2 drop-shadow-lg" />
-            <p className="text-sm font-semibold drop-shadow">{service.title}</p>
-          </div>
-          <div className="absolute top-4 left-4 w-8 h-8 bg-white/20 rounded-lg"></div>
-          <div className="absolute top-4 right-4 w-6 h-6 bg-white/20 rounded-full"></div>
-          <div className="absolute bottom-4 left-4 w-12 h-2 bg-white/20 rounded-full"></div>
-          <div className="absolute bottom-4 right-4 w-8 h-8 bg-white/10 rounded"></div>
-        </div>
-      );
+    // Se há imagens, usar o carrossel
+    if (images.length > 0) {
+      return <ImageCarousel images={images} folder={service.folder} serviceName={service.title} />;
     }
 
+    // Se é "Produção e Montagem" e não há imagens, verificar se há vídeo disponível
+    if (service.videoFile && service.title === "Produção e Montagem") {
+      // Primeiro verificar se o vídeo existe nos arquivos retornados pela API
+      const hasVideo = images.some(file => file.toLowerCase().includes('.mp4') || file.toLowerCase().includes('.webm'));
+      
+      if (hasVideo) {
+        const videoFile = images.find(file => file.toLowerCase().includes('.mp4') || file.toLowerCase().includes('.webm'));
+        return (
+          <div className="h-48 overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative">
+            <video
+              className="w-full h-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              onError={(e) => {
+                const target = e.target as HTMLVideoElement;
+                if (target && target.nextElementSibling) {
+                  target.style.display = 'none';
+                  (target.nextElementSibling as HTMLElement).style.display = 'flex';
+                }
+              }}
+            >
+              <source src={`/api/images/${service.folder}/${videoFile}`} type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white" style={{ display: 'none' }}>
+              <div className="text-center p-4">
+                <Icon size={48} className="mx-auto mb-2" />
+                <p className="text-sm font-semibold">Produção e Montagem</p>
+                <p className="text-xs opacity-80 mt-1">Stands e Cenários</p>
+              </div>
+            </div>
+          </div>
+        );
+      }
+    }
+
+    // Fallback para serviços sem imagens
+    const gradients = {
+      "Organização e Consultoria": "from-amber-400 to-orange-500",
+      "Projetos 3D": "from-cyan-400 to-blue-500", 
+      "Decoração": "from-pink-400 to-rose-500",
+      "Produção e Montagem": "from-blue-500 to-purple-600",
+      "Buffet": "from-green-400 to-emerald-500",
+      "Locação": "from-indigo-400 to-purple-500",
+      "Equipes Especializadas": "from-red-400 to-pink-500",
+      "Ações Promocionais": "from-yellow-400 to-orange-500"
+    };
+    
+    const gradient = gradients[service.title as keyof typeof gradients] || "from-orange-400 to-orange-600";
+    
     return (
-      <div className="relative h-48 overflow-hidden">
-        <img
-          src={`/api/images/${service.folder}/${images[currentImageIndex]}`}
-          alt={`${service.title} - Imagem ${currentImageIndex + 1}`}
-          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-          onError={(e) => {
-            // Se a imagem falhar, mostrar placeholder silenciosamente
-            const target = e.target as HTMLImageElement;
-            if (target && target.parentElement) {
-              target.style.display = 'none';
-              target.parentElement.classList.add('show-fallback');
-            }
-          }}
-          loading="lazy"
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white hidden [.show-fallback_&]:flex">
-          <div className="text-center p-4">
-            <Icon size={48} className="mx-auto mb-2 drop-shadow-lg" />
-            <p className="text-sm font-semibold drop-shadow">{service.title}</p>
-          </div>
+      <div className={`h-48 bg-gradient-to-br ${gradient} flex items-center justify-center relative overflow-hidden`}>
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="relative z-10 text-center text-white p-4">
+          <Icon size={48} className="mx-auto mb-2 drop-shadow-lg" />
+          <p className="text-sm font-semibold drop-shadow">{service.title}</p>
         </div>
-        {images.length > 1 && (
-          <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
-            {images.map((_: string, idx: number) => (
-              <div
-                key={idx}
-                className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-                  idx === currentImageIndex ? 'bg-white' : 'bg-white/50'
-                }`}
-              />
-            ))}
-          </div>
-        )}
+        <div className="absolute top-4 left-4 w-8 h-8 bg-white/20 rounded-lg"></div>
+        <div className="absolute top-4 right-4 w-6 h-6 bg-white/20 rounded-full"></div>
+        <div className="absolute bottom-4 left-4 w-12 h-2 bg-white/20 rounded-full"></div>
+        <div className="absolute bottom-4 right-4 w-8 h-8 bg-white/10 rounded"></div>
       </div>
     );
   };
