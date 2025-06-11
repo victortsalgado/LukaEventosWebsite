@@ -1,4 +1,4 @@
-import { ClipboardCheck, Hammer, Utensils, Users, Settings, Coffee, Award, Palette, Target } from "lucide-react";
+import { ClipboardCheck, Hammer, Utensils, Users, Settings, Coffee, Award, Palette, Target, MapPin, Heart } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -76,6 +76,20 @@ const servicesConfig: ServiceData[] = [
     description: "Criação e execução de ações promocionais impactantes para sua marca.",
     folder: "Acoes Promocionais",
     features: ["Ativações de marca", "Experiências interativas", "Materiais promocionais", "Engajamento do público"]
+  },
+  {
+    icon: MapPin,
+    title: "Feiras e Eventos",
+    description: "Participação em feiras e eventos com stands personalizados e atendimento especializado.",
+    folder: "Feiras",
+    features: ["Stands personalizados", "Atendimento qualificado", "Material promocional", "Networking estratégico"]
+  },
+  {
+    icon: Heart,
+    title: "Mascotes e Entretenimento",
+    description: "Mascotes personalizados e atividades de entretenimento para engajar seu público.",
+    folder: "Mascotes",
+    features: ["Mascotes personalizados", "Entretenimento infantil", "Atividades interativas", "Animação de eventos"]
   }
 ];
 
