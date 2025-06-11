@@ -24,7 +24,7 @@ const servicesConfig: ServiceData[] = [
     icon: Users,
     title: "Organização e Consultoria",
     description: "Planejamento estratégico completo para seu evento, desde a concepção até a execução final.",
-    folder: "Organização e Consultoria",
+    folder: "Organizacao e Consultoria",
     features: ["Briefing detalhado", "Cronograma personalizado", "Gestão de fornecedores", "Coordenação geral"]
   },
   {
