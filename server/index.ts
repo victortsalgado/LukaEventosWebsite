@@ -14,14 +14,13 @@ app.get("/api/images/:folder/:filename", async (req: Request, res: Response) => 
     const { folder, filename } = req.params;
     const filePath = `${folder}/${filename}`;
 
-    const imageBuffer = await client.downloadAsBytes(filePath);
-
-    // ---- INÍCIO DA CORREÇÃO ESSENCIAL ----
-    // Se o buffer for nulo, o arquivo não existe. Retorne um erro 404.
-    if (!imageBuffer || imageBuffer.length === 0) {
+    // Try to download the image from object storage
+    const imageData = await client.downloadAsBytes(filePath);
+    
+    if (!imageData) {
+      console.log(`Image not found: ${filePath}`);
       return res.status(404).send('Image not found in Object Storage');
     }
-    // ---- FIM DA CORREÇÃO ESSENCIAL ----
 
     const extension = filename.split('.').pop()?.toLowerCase();
     let contentType = 'application/octet-stream';
@@ -47,25 +46,14 @@ app.get("/api/images/:folder/:filename", async (req: Request, res: Response) => 
 
     res.setHeader('Content-Type', contentType);
     res.setHeader('Cache-Control', 'public, max-age=31536000');
-
-    // Handle different buffer types properly
-    let buffer;
-    if (imageBuffer instanceof Uint8Array) {
-      buffer = Buffer.from(imageBuffer);
-    } else if (Buffer.isBuffer(imageBuffer)) {
-      buffer = imageBuffer;
-    } else if (ArrayBuffer.isView(imageBuffer)) {
-      buffer = Buffer.from(imageBuffer.buffer);
-    } else {
-      console.error('Unexpected imageBuffer type:', typeof imageBuffer);
-      return res.status(500).send('Invalid image buffer format');
-    }
     
+    // Send the image data as buffer
+    const buffer = Buffer.from(imageData as any);
     res.send(buffer);
 
   } catch (error) {
     console.error(`Error fetching image ${req.params.folder}/${req.params.filename}:`, error);
-    res.status(500).send("Internal server error while fetching image");
+    res.status(404).send("Image not found");
   }
 });
 

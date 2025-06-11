@@ -3,8 +3,38 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertContactMessageSchema } from "@shared/schema";
 import { z } from "zod";
+import { Client } from '@replit/object-storage';
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  const client = new Client();
+
+  // API endpoint to list images from object storage
+  app.get("/api/images", async (req, res) => {
+    try {
+      const result = await client.list();
+      if (!result.ok) {
+        return res.status(500).json({ success: false, message: "Failed to list images" });
+      }
+      
+      const imageFiles = result.val.filter(file => 
+        /\.(jpg|jpeg|png|gif|webp)$/i.test(file)
+      );
+      
+      const categorizedImages = {
+        portfolio: imageFiles.filter(file => file.startsWith('Feiras/')),
+        services: imageFiles.filter(file => file.startsWith('Servicos/')),
+        team: imageFiles.filter(file => file.startsWith('Equipe/')),
+        gallery: imageFiles.filter(file => file.startsWith('Galeria/')),
+        other: imageFiles.filter(file => !file.match(/^(Feiras|Servicos|Equipe|Galeria)\//))
+      };
+      
+      res.json({ success: true, images: categorizedImages });
+    } catch (error) {
+      console.error("Error listing images:", error);
+      res.status(500).json({ success: false, message: "Internal server error" });
+    }
+  });
+
   // Contact form submission endpoint
   app.post("/api/contact", async (req, res) => {
     try {
