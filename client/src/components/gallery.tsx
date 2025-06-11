@@ -1,81 +1,63 @@
-
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-
-const galleryItems = [
-  {
-    image: "/api/images/AcoesPraia/acao_praia_ipanema.png",
-    alt: "Ação promocional da Ipanema na praia",
-    title: "Ação Promocional"
-  },
-  {
-    image: "/api/images/Mascotes/mascotes.png",
-    alt: "Mascotes animados em evento",
-    title: "Animação e Mascotes"
-  },
-  {
-    image: "/api/images/Decoracao/paisagismo.jpg",
-    alt: "Projeto de paisagismo e decoração",
-    title: "Paisagismo e Decoração"
-  },
-  {
-    image: "/api/images/Locacao/locacao_mesa_cadeira.png",
-    alt: "Mobiliário para locação em eventos",
-    title: "Locação de Mobiliário"
-  },
-];
+import { Instagram, ExternalLink } from "lucide-react";
 
 export default function Gallery() {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
+  const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation();
 
   return (
-    <section id="gallery" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div
+    <section className="py-20 bg-gray-50">
+      <div className="container mx-auto px-4">
+        <div 
           ref={titleRef}
           className={`text-center mb-16 transition-all duration-1000 ${
-            titleVisible ? "animate-on-scroll visible" : "animate-on-scroll"
+            titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-6">
+          <h2 className="text-4xl font-bold text-gray-800 mb-4">
             Nossos Detalhes em Ação
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Veja de perto a qualidade e atenção aos detalhes que aplicamos em cada projeto,
-            desde ações promocionais até decoração e locação completa.
+            Acompanhe nossos eventos e bastidores através do nosso Instagram oficial.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {galleryItems.map((item, index) => (
-            <GalleryCard key={index} item={item} index={index} />
-          ))}
+        <div 
+          ref={contentRef}
+          className={`max-w-2xl mx-auto transition-all duration-1000 ${
+            contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          <div className="bg-white rounded-2xl shadow-xl p-12 text-center">
+            <div className="mb-8">
+              <div className="w-24 h-24 bg-gradient-to-br from-pink-500 via-purple-500 to-orange-500 rounded-2xl mx-auto flex items-center justify-center mb-6">
+                <Instagram size={48} className="text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                Siga-nos no Instagram
+              </h3>
+              <p className="text-gray-600 mb-8">
+                Veja os bastidores dos nossos eventos, dicas exclusivas e muito mais conteúdo sobre o mundo dos eventos.
+              </p>
+            </div>
+            
+            <a
+              href="https://www.instagram.com/lukaevento/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 bg-gradient-to-r from-pink-500 to-orange-500 text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-lg hover:scale-105 transition-all duration-300"
+            >
+              <Instagram size={24} />
+              @lukaevento
+              <ExternalLink size={20} />
+            </a>
+            
+            <div className="mt-8 text-sm text-gray-500">
+              <p>Conecte-se conosco e faça parte da nossa comunidade</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function GalleryCard({ item, index }: { item: any; index: number }) {
-  const { ref, isVisible } = useScrollAnimation();
-
-  return (
-    <div
-      ref={ref}
-      className={`bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden ${
-        isVisible ? "animate-on-scroll visible" : "animate-on-scroll"
-      }`}
-      style={{ transitionDelay: `${index * 100}ms` }}
-    >
-      <div className="aspect-square overflow-hidden">
-        <img
-          src={item.image}
-          alt={item.alt}
-          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-        />
-      </div>
-      <div className="p-6">
-        <h3 className="text-xl font-bold text-dark-gray text-center">{item.title}</h3>
-      </div>
-    </div>
   );
 }

@@ -37,9 +37,12 @@ app.get("/api/storage/images/:folder", async (req: Request, res: Response) => {
     
     // Lista de arquivos problemáticos conhecidos que falham no carregamento
     const problematicFiles = [
-      'paisagismo.jpg',          // Decoracao - falha no carregamento
       'locacao_mesa_cadeira.png', // Locacao - falha no carregamento  
       'buffet_tabuadefrios.png', // Buffet - falha no carregamento
+      'exposibram_dinamica.png', // Feiras - falha no carregamento
+      'supernorte_bendo_alimentos.png', // Feiras - falha no carregamento
+      'supernorte_marata.png', // Feiras - falha no carregamento
+      'supernorte_okajima.png', // Feiras - falha no carregamento
     ];
     
     const folderImages = files

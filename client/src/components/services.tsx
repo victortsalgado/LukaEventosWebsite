@@ -21,11 +21,11 @@ interface ServiceData {
 
 const servicesConfig: ServiceData[] = [
   {
-    icon: Users,
-    title: "Organização e Consultoria",
-    description: "Planejamento estratégico completo para seu evento, desde a concepção até a execução final.",
-    folder: "Organizacao e Consultoria",
-    features: ["Briefing detalhado", "Cronograma personalizado", "Gestão de fornecedores", "Coordenação geral"]
+    icon: MapPin,
+    title: "Feiras e Eventos",
+    description: "Participação em feiras e eventos com stands personalizados e atendimento especializado.",
+    folder: "Feiras",
+    features: ["Stands personalizados", "Atendimento qualificado", "Material promocional", "Networking estratégico"]
   },
   {
     icon: Target,
@@ -35,6 +35,13 @@ const servicesConfig: ServiceData[] = [
     features: ["Renderização realista", "Plantas baixas", "Mockups 3D", "Aprovação prévia"]
   },
   {
+    icon: Coffee,
+    title: "Locação",
+    description: "Locação de equipamentos e mobiliário para eventos completos e bem estruturados.",
+    folder: "Locacao",
+    features: ["Equipamentos profissionais", "Mobiliário variado", "Tecnologia moderna", "Logística completa"]
+  },
+  {
     icon: Palette,
     title: "Decoração",
     description: "Criação de ambientes únicos e personalizados que refletem a identidade do seu evento.",
@@ -42,26 +49,11 @@ const servicesConfig: ServiceData[] = [
     features: ["Design personalizado", "Iluminação especial", "Paisagismo", "Ambientação temática"]
   },
   {
-    icon: Settings,
-    title: "Produção e Montagem",
-    description: "Montagem de stands, cenários e toda infraestrutura necessária para seu evento.",
-    folder: "Produção e Montagem",
-    videoFile: "insta_media.mp4",
-    features: ["Montagem de stands", "Cenários customizados", "Infraestrutura técnica", "Coordenação de montagem"]
-  },
-  {
     icon: Utensils,
     title: "Buffet",
     description: "Serviços de catering com cardápio personalizado e apresentação impecável.",
     folder: "Buffet",
     features: ["Cardápio personalizado", "Apresentação gourmet", "Serviço completo", "Opções especiais"]
-  },
-  {
-    icon: Coffee,
-    title: "Locação",
-    description: "Locação de equipamentos e mobiliário para eventos completos e bem estruturados.",
-    folder: "Locacao",
-    features: ["Equipamentos profissionais", "Mobiliário variado", "Tecnologia moderna", "Logística completa"]
   },
   {
     icon: Award,
@@ -76,20 +68,6 @@ const servicesConfig: ServiceData[] = [
     description: "Criação e execução de ações promocionais impactantes para sua marca.",
     folder: "Acoes Promocionais",
     features: ["Ativações de marca", "Experiências interativas", "Materiais promocionais", "Engajamento do público"]
-  },
-  {
-    icon: MapPin,
-    title: "Feiras e Eventos",
-    description: "Participação em feiras e eventos com stands personalizados e atendimento especializado.",
-    folder: "Feiras",
-    features: ["Stands personalizados", "Atendimento qualificado", "Material promocional", "Networking estratégico"]
-  },
-  {
-    icon: Heart,
-    title: "Mascotes e Entretenimento",
-    description: "Mascotes personalizados e atividades de entretenimento para engajar seu público.",
-    folder: "Mascotes",
-    features: ["Mascotes personalizados", "Entretenimento infantil", "Atividades interativas", "Animação de eventos"]
   }
 ];
 
