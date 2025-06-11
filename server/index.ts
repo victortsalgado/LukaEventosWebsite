@@ -14,15 +14,14 @@ app.get("/api/images/:folder/:filename", async (req: Request, res: Response) => 
     const { folder, filename } = req.params;
     const filePath = `${folder}/${filename}`;
 
-    // Try to download the image from object storage
-    const result = await client.downloadAsBytes(filePath);
+    // Download image from object storage
+    const imageData = await client.downloadAsBytes(filePath);
     
-    if (!result || !result.ok) {
+    // Check if we got valid data
+    if (!imageData) {
       console.log(`Image not found: ${filePath}`);
       return res.status(404).send('Image not found in Object Storage');
     }
-    
-    const imageData = result.val[0];
 
     const extension = filename.split('.').pop()?.toLowerCase();
     let contentType = 'application/octet-stream';
@@ -49,8 +48,18 @@ app.get("/api/images/:folder/:filename", async (req: Request, res: Response) => 
     res.setHeader('Content-Type', contentType);
     res.setHeader('Cache-Control', 'public, max-age=31536000');
     
-    // Send the image data directly
-    res.send(imageData);
+    // Convert to buffer and send
+    let buffer;
+    if (Buffer.isBuffer(imageData)) {
+      buffer = imageData;
+    } else if (imageData instanceof Uint8Array) {
+      buffer = Buffer.from(imageData);
+    } else {
+      // Handle other formats
+      buffer = Buffer.from(imageData as any);
+    }
+    
+    res.send(buffer);
 
   } catch (error) {
     console.error(`Error fetching image ${req.params.folder}/${req.params.filename}:`, error);
