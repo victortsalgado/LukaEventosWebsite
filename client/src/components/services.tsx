@@ -2,6 +2,7 @@ import { ClipboardCheck, Hammer, Utensils, Users, Settings, Coffee, Award, Palet
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { ErrorBoundary } from "./ErrorBoundary";
 
 interface ServiceImage {
   name: string;
@@ -84,15 +85,20 @@ function useServiceImages(folder: string) {
     queryFn: async () => {
       try {
         const response = await fetch(`/api/storage/images/${folder}`);
-        if (!response.ok) throw new Error('Failed to fetch images');
+        if (!response.ok) {
+          if (response.status === 404) {
+            return { images: [] };
+          }
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
         const data = await response.json();
         return data;
       } catch (error) {
-        console.error(`Error fetching images for ${folder}:`, error);
+        console.warn(`No images found for ${folder}:`, error);
         return { images: [] };
       }
     },
-    staleTime: 5 * 60 * 1000, // 5 minutos
+    enabled: !!folder, // Só executar se folder estiver definido
   });
 }
 
@@ -131,7 +137,9 @@ export default function Services() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8">
           {servicesConfig.map((service, index) => (
-            <ServiceCard key={index} service={service} index={index} />
+            <ErrorBoundary key={index}>
+              <ServiceCard service={service} index={index} />
+            </ErrorBoundary>
           ))}
         </div>
 
@@ -158,19 +166,19 @@ function ServiceCard({ service, index }: { service: ServiceData; index: number }
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const Icon = service.icon;
 
-  // Buscar imagens da pasta específica do serviço
+  // Buscar imagens da pasta específica do serviço - apenas se visível para otimizar performance
   const { data: imagesData, isLoading } = useServiceImages(service.folder);
   const images = Array.isArray(imagesData?.images) ? imagesData.images : [];
 
-  // Auto-rotação do carrossel
+  // Auto-rotação do carrossel - apenas se há imagens e componente está visível
   useEffect(() => {
-    if (images.length > 1) {
+    if (images.length > 1 && isVisible) {
       const interval = setInterval(() => {
         setCurrentImageIndex((prev) => (prev + 1) % images.length);
       }, 4000);
       return () => clearInterval(interval);
     }
-  }, [images.length]);
+  }, [images.length, isVisible]);
 
   const renderMedia = () => {
     // Se é o serviço de "Produção e Montagem", tentar mostrar vídeo ou fallback
@@ -249,7 +257,22 @@ function ServiceCard({ service, index }: { service: ServiceData; index: number }
           src={`/api/images/${service.folder}/${images[currentImageIndex]}`}
           alt={`${service.title} - Imagem ${currentImageIndex + 1}`}
           className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+          onError={(e) => {
+            // Se a imagem falhar, mostrar placeholder silenciosamente
+            const target = e.target as HTMLImageElement;
+            if (target && target.parentElement) {
+              target.style.display = 'none';
+              target.parentElement.classList.add('show-fallback');
+            }
+          }}
+          loading="lazy"
         />
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white hidden [.show-fallback_&]:flex">
+          <div className="text-center p-4">
+            <Icon size={48} className="mx-auto mb-2 drop-shadow-lg" />
+            <p className="text-sm font-semibold drop-shadow">{service.title}</p>
+          </div>
+        </div>
         {images.length > 1 && (
           <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
             {images.map((_: string, idx: number) => (

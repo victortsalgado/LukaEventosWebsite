@@ -9,10 +9,22 @@ const client = new Client();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Cache para otimizar performance
+let imageCache: { [key: string]: any } = {};
+let cacheExpiry: { [key: string]: number } = {};
+const CACHE_DURATION = 10 * 60 * 1000; // 10 minutos
+
 // Endpoint para buscar imagens de uma pasta específica (antes do setupVite)
 app.get("/api/storage/images/:folder", async (req: Request, res: Response) => {
   try {
     const { folder } = req.params;
+    const now = Date.now();
+    
+    // Verificar cache
+    if (imageCache[folder] && cacheExpiry[folder] > now) {
+      return res.json(imageCache[folder]);
+    }
+    
     console.log(`🔍 Buscando imagens da pasta: ${folder}`);
     
     const result = await client.list();
@@ -34,12 +46,18 @@ app.get("/api/storage/images/:folder", async (req: Request, res: Response) => {
     
     console.log(`✅ Encontradas ${folderImages.length} imagens na pasta ${folder}:`, folderImages);
     
-    res.json({
+    const response = {
       success: true,
       folder,
       totalImages: folderImages.length,
       images: folderImages
-    });
+    };
+    
+    // Cachear resultado
+    imageCache[folder] = response;
+    cacheExpiry[folder] = now + CACHE_DURATION;
+    
+    res.json(response);
   } catch (error: any) {
     console.error(`❌ Erro ao buscar imagens da pasta ${req.params.folder}:`, error);
     res.status(500).json({ success: false, error: error.message });
