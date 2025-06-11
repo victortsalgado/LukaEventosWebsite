@@ -1,10 +1,61 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { Client } from '@replit/object-storage';
 
 const app = express();
+const client = new Client();
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Endpoint para servir imagens do Object Storage
+app.get("/api/images/:folder/:filename", async (req: Request, res: Response) => {
+  try {
+    const { folder, filename } = req.params;
+    const filePath = `${folder}/${filename}`;
+    
+    // Download da imagem do Object Storage
+    const bytesValue = await client.downloadAsBytes(filePath);
+    
+    // Determinar Content-Type baseado na extensão do arquivo
+    const extension = filename.split('.').pop()?.toLowerCase();
+    let contentType = 'application/octet-stream'; // default
+    
+    switch (extension) {
+      case 'png':
+        contentType = 'image/png';
+        break;
+      case 'jpg':
+      case 'jpeg':
+        contentType = 'image/jpeg';
+        break;
+      case 'gif':
+        contentType = 'image/gif';
+        break;
+      case 'webp':
+        contentType = 'image/webp';
+        break;
+      case 'svg':
+        contentType = 'image/svg+xml';
+        break;
+    }
+    
+    // Configurar o cabeçalho da resposta
+    res.setHeader('Content-Type', contentType);
+    res.setHeader('Cache-Control', 'public, max-age=31536000'); // Cache por 1 ano
+    
+    // Enviar o buffer da imagem
+    res.send(bytesValue);
+    
+  } catch (error) {
+    console.error('Error serving image:', error);
+    res.status(404).json({ 
+      success: false, 
+      message: 'Imagem não encontrada' 
+    });
+  }
+});
 
 app.use((req, res, next) => {
   const start = Date.now();
