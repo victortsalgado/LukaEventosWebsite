@@ -1,0 +1,27 @@
+Aja como um desenvolvedor React sênior. A tarefa é fazer uma revisão final e garantir que TODAS as imagens no site usem o endpoint da API /api/images/.... Analise os seguintes componentes e substitua os atributos src das imagens pelos valores exatos fornecidos abaixo.
+
+1. No arquivo client/src/components/Services.tsx:
+
+No card "Organização e Consultoria", garanta que o src da imagem seja exatamente: "/api/images/Congressos/congresso_abrh.png"
+No card "Produção e Montagem", garanta que o src seja: "/api/images/Projeto3D/projeto3d_tramontina.png"
+No card "Buffet e Locação", garanta que o src seja: "/api/images/Buffet/buffet_tabuadefrios.png"
+No card "Equipes Especializadas", garanta que o src seja: "/api/images/Equipes/promotoras_1.png"
+2. No arquivo client/src/components/Portfolio.tsx:
+
+Para a imagem do "Projeto Maratá", garanta que o src seja: "/api/images/Feiras/supernorte_marata_1.png"
+Para a imagem do "Projeto Okajima", garanta que o src seja: "/api/images/Feiras/supernorte_okajima_1.png"
+Para a imagem do "Projeto Dinamica", garanta que o src seja: "/api/images/Feiras/exposibram_dinamica.png"
+Para a imagem do "Projeto Bendo Alimentos", garanta que o src seja: "/api/images/Feiras/supernorte_bendo_alimentos_1.png"
+3. No arquivo client/src/components/Gallery.tsx:
+
+Para a imagem da "Ação Ipanema", garanta que o src seja: "/api/images/AcoesPraia/acao_praia_ipanema.png"
+Para a imagem dos "Mascotes", garanta que o src seja: "/api/images/Mascotes/mascotes.png"
+Para a imagem de "Paisagismo", garanta que o src seja: "/api/images/Decoracao/paisagismo.jpg"
+Para a imagem de "Mobiliário", garanta que o src seja: "/api/images/Locacao/locacao_mesa_cadeira.png"
+4. No arquivo client/src/components/About.tsx (Preparação para o Futuro):
+
+Para os TeamCards, substitua qualquer placeholder de imagem por um caminho relativo padronizado para quando as imagens forem enviadas.
+Lúcia Salgado: src="/api/images/TimeLuka/lucia_salgado.jpg"
+Victor Santos: src="/api/images/TimeLuka/victor_santos.jpg"
+Lêda Salgado: src="/api/images/TimeLuka/leda_salgado.jpg"
+Manuzza Franco: src="/api/images/TimeLuka/manuzza_franco.jpg"
