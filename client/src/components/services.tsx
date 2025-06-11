@@ -6,28 +6,28 @@ const services = [
     icon: Users,
     title: "Organização e Consultoria",
     description: "Planejamento estratégico completo para seu evento, desde a concepção até a execução.",
-    image: "https://storage.replit.com/luka-eventos-assets/Congressos/congresso_abrh.png",
+    image: "/api/images/Congressos/congresso_abrh.png",
     alt: "Palestra em congresso organizado pela Luka Eventos"
   },
   {
     icon: Settings,
     title: "Produção e Montagem",
     description: "Montagem de stands, cenários e toda infraestrutura necessária para seu evento.",
-    image: "https://storage.replit.com/luka-eventos-assets/Projeto3D/projeto3d_tramontina.png",
+    image: "/api/images/Projeto3D/projeto3d_tramontina.png",
     alt: "Render 3D de stand da Tramontina"
   },
   {
     icon: Coffee,
     title: "Buffet e Locação",
     description: "Serviços de catering e locação de equipamentos e mobiliário para eventos.",
-    image: "https://storage.replit.com/luka-eventos-assets/Buffet/buffet_tabuadefrios.png",
+    image: "/api/images/Buffet/buffet_tabuadefrios.png",
     alt: "Mesa de buffet com tábua de frios"
   },
   {
     icon: Award,
     title: "Equipes Especializadas",
     description: "Profissionais qualificados para recepção, hostess e apoio durante o evento.",
-    image: "https://storage.replit.com/luka-eventos-assets/Equipes/promotoras_1.png",
+    image: "/api/images/Equipes/promotoras_1.png",
     alt: "Promotoras em evento corporativo"
   },
 ];

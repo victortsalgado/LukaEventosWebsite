@@ -3,22 +3,22 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const galleryItems = [
   {
-    image: "https://storage.replit.com/luka-eventos-assets/AcoesPraia/acao_praia_ipanema.png",
+    image: "/api/images/AcoesPraia/acao_praia_ipanema.png",
     alt: "Ação promocional da Ipanema na praia",
     title: "Ação Promocional"
   },
   {
-    image: "https://storage.replit.com/luka-eventos-assets/Mascotes/mascotes.png",
+    image: "/api/images/Mascotes/mascotes.png",
     alt: "Mascotes animados em evento",
     title: "Animação e Mascotes"
   },
   {
-    image: "https://storage.replit.com/luka-eventos-assets/Decoracao/paisagismo.jpg",
+    image: "/api/images/Decoracao/paisagismo.jpg",
     alt: "Projeto de paisagismo e decoração",
     title: "Paisagismo e Decoração"
   },
   {
-    image: "https://storage.replit.com/luka-eventos-assets/Locacao/locacao_mesa_cadeira.png",
+    image: "/api/images/Locacao/locacao_mesa_cadeira.png",
     alt: "Mobiliário para locação em eventos",
     title: "Locação de Mobiliário"
   },

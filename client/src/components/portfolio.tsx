@@ -2,25 +2,25 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const portfolioItems = [
   {
-    image: "https://storage.replit.com/luka-eventos-assets/Feiras/supernorte_marata_1.png",
+    image: "/api/images/Feiras/supernorte_marata_1.png",
     title: "Projeto Maratá",
     description: "Stand da Maratá na feira Supernorte",
     alt: "Stand da Maratá na feira Supernorte"
   },
   {
-    image: "https://storage.replit.com/luka-eventos-assets/Feiras/supernorte_okajima_1.png",
+    image: "/api/images/Feiras/supernorte_okajima_1.png",
     title: "Projeto Okajima Distribuidora",
     description: "Stand personalizado para feira comercial",
     alt: "Stand da Okajima na feira Supernorte"
   },
   {
-    image: "https://storage.replit.com/luka-eventos-assets/Feiras/exposibram_dinamica.png",
+    image: "/api/images/Feiras/exposibram_dinamica.png",
     title: "Projeto Dinamica",
     description: "Stand da Dinamica na feira Exposibram",
     alt: "Stand da Dinamica na feira Exposibram"
   },
   {
-    image: "https://storage.replit.com/luka-eventos-assets/Feiras/supernorte_bendo_alimentos_1.png",
+    image: "/api/images/Feiras/supernorte_bendo_alimentos_1.png",
     title: "Projeto Bendo Alimentos",
     description: "Stand da Bendo Alimentos na feira Supernorte",
     alt: "Stand da Bendo Alimentos na feira Supernorte"
