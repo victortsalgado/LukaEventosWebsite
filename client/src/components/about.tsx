@@ -69,7 +69,7 @@ export default function About() {
                 <div className="text-sm text-gray-600">Eventos Realizados</div>
               </div>
               <div className="text-center p-6 bg-light-gray rounded-xl">
-                <div className="text-3xl font-bold text-primary-orange mb-2">10+</div>
+                <div className="text-3xl font-bold text-primary-orange mb-2">15+</div>
                 <div className="text-sm text-gray-600">Anos de Experiência</div>
               </div>
               <div className="text-center p-6 bg-light-gray rounded-xl">
@@ -91,48 +91,85 @@ export default function About() {
           </div>
         </div>
 
-        {/* Team Section */}
+        {/* Seção da CEO Lúcia Salgado */}
         <div className="mt-20">
-          <div
-            ref={teamRef}
-            className={`text-center mb-16 transition-all duration-1000 ${
-              teamVisible ? "animate-on-scroll visible" : "animate-on-scroll"
-            }`}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-6">
-              Nossa Equipe
-            </h2>
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div
+              ref={teamRef}
+              className={`order-2 md:order-1 transition-all duration-1000 ${
+                teamVisible ? "animate-on-scroll visible" : "animate-on-scroll"
+              }`}
+            >
+              <h2 className="text-4xl font-bold text-dark-gray mb-6">
+                Conheça Nossa CEO
+              </h2>
+              <h3 className="text-2xl font-semibold text-primary-orange mb-6">
+                Lúcia Salgado
+              </h3>
+              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                Com mais de 15 anos de experiência no mercado de eventos, Lúcia Salgado é a mente estratégica 
+                por trás da Luka Eventos. Sua expertise abrange desde a concepção até a execução de projetos 
+                complexos, sempre com foco na excelência e inovação.
+              </p>
+              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                O que diferencia Lúcia no mercado é sua profunda rede de relacionamentos com fornecedores 
+                locais em Belém e região. Essa confiança construída ao longo dos anos garante que cada evento 
+                seja executado com a mais alta qualidade, pontualidade e custo-benefício.
+              </p>
+              <p className="text-lg text-gray-600 leading-relaxed">
+                Sob sua liderança, a Luka Eventos se tornou sinônimo de confiabilidade e inovação, 
+                transformando cada projeto em uma experiência única e memorável para clientes e participantes.
+              </p>
+            </div>
+            <div className="order-1 md:order-2 flex justify-center">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-600 rounded-2xl blur-lg opacity-20"></div>
+                <img
+                  src={getTeamImage('lucia')}
+                  alt="Lúcia Salgado - CEO da Luka Eventos"
+                  className="relative w-80 h-80 object-cover rounded-2xl shadow-2xl border-4 border-white"
+                />
+              </div>
+            </div>
           </div>
+        </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <TeamCard
-              imageSrc={getTeamImage('lucia')}
-              name="Lúcia Salgado"
-              title="CEO"
-              location="Belém - PA"
-              index={0}
-            />
-            <TeamCard
-              imageSrc={getTeamImage('victor')}
-              name="Victor Santos"
-              title="Diretor Comercial"
-              location="Novo Hamburgo - RS"
-              index={1}
-            />
-            <TeamCard
-              imageSrc={getTeamImage('leda')}
-              name="Lêda Salgado"
-              title="Arquiteta"
-              location="Belém - PA"
-              index={2}
-            />
-            <TeamCard
-              imageSrc={getTeamImage('manuzza')}
-              name="Manuzza Franco"
-              title="Executiva de Contas"
-              location="Novo Hamburgo - RS"
-              index={3}
-            />
+        {/* Seção da Arquiteta Leda Salgado */}
+        <div className="mt-20">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="flex justify-center">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-600 rounded-2xl blur-lg opacity-20"></div>
+                <img
+                  src={getTeamImage('leda')}
+                  alt="Lêda Salgado - Arquiteta da Luka Eventos"
+                  className="relative w-80 h-80 object-cover rounded-2xl shadow-2xl border-4 border-white"
+                />
+              </div>
+            </div>
+            <div>
+              <h2 className="text-4xl font-bold text-dark-gray mb-6">
+                Conheça Nossa Arquiteta
+              </h2>
+              <h3 className="text-2xl font-semibold text-primary-orange mb-6">
+                Lêda Salgado
+              </h3>
+              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                Lêda Salgado é a mente criativa responsável por dar vida aos espaços dos eventos da Luka. 
+                Formada em Arquitetura, ela traz uma visão única que vai além dos eventos, incorporando 
+                sua experiência em projetos residenciais e comerciais.
+              </p>
+              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                Na Luka Eventos, Lêda é responsável pelos serviços de <strong>projeto 3D, decoração, iluminação 
+                e paisagismo</strong>. Sua capacidade de visualizar e materializar conceitos permite criar ambientes 
+                que não apenas impressionam visualmente, mas também proporcionam experiências inesquecíveis.
+              </p>
+              <p className="text-lg text-gray-600 leading-relaxed">
+                Seu portfólio inclui projetos arquitetônicos diversos, mas é nos eventos que sua criatividade 
+                realmente brilha, transformando espaços comuns em cenários extraordinários que contam histórias 
+                e conectam pessoas.
+              </p>
+            </div>
           </div>
         </div>
       </div>
