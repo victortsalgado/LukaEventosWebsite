@@ -28,6 +28,7 @@ export function ImageCarousel({ images, folder, serviceName, startDelay = 0 }: I
   }, [images.length, startDelay]);
 
   const handleImageError = (index: number) => {
+    console.log(`Erro ao carregar imagem ${index} da pasta ${folder}:`, images[index]);
     setImageErrors(prev => ({ ...prev, [index]: true }));
   };
 
@@ -54,6 +55,7 @@ export function ImageCarousel({ images, folder, serviceName, startDelay = 0 }: I
                   alt={`${serviceName} - Imagem ${idx + 1}`}
                   className="w-full h-full object-cover"
                   onError={() => handleImageError(idx)}
+                  onLoad={() => console.log(`Imagem carregada com sucesso: ${folder}/${image}`)}
                   loading="lazy"
                 />
               ) : (
