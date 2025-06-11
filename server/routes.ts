@@ -12,20 +12,41 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/images", async (req, res) => {
     try {
       const result = await client.list();
-      if (!result.ok) {
+      if (!result || typeof result !== 'object' || !('ok' in result) || !result.ok) {
         return res.status(500).json({ success: false, message: "Failed to list images" });
       }
       
-      const imageFiles = result.val.filter(file => 
-        /\.(jpg|jpeg|png|gif|webp)$/i.test(file)
-      );
+      const files = (result as any).val || [];
+      const imageFiles = files.filter((file: any) => {
+        const fileName = typeof file === 'string' ? file : file.name;
+        return /\.(jpg|jpeg|png|gif|webp)$/i.test(fileName);
+      });
       
       const categorizedImages = {
-        portfolio: imageFiles.filter(file => file.startsWith('Feiras/')),
-        services: imageFiles.filter(file => file.startsWith('Servicos/')),
-        team: imageFiles.filter(file => file.startsWith('Equipe/')),
-        gallery: imageFiles.filter(file => file.startsWith('Galeria/')),
-        other: imageFiles.filter(file => !file.match(/^(Feiras|Servicos|Equipe|Galeria)\//))
+        portfolio: imageFiles.filter((file: any) => {
+          const fileName = typeof file === 'string' ? file : file.name;
+          return fileName.startsWith('Feiras/');
+        }),
+        services: imageFiles.filter((file: any) => {
+          const fileName = typeof file === 'string' ? file : file.name;
+          return fileName.startsWith('Servicos/');
+        }),
+        team: imageFiles.filter((file: any) => {
+          const fileName = typeof file === 'string' ? file : file.name;
+          return fileName.startsWith('TimeLuka/');
+        }),
+        buffet: imageFiles.filter((file: any) => {
+          const fileName = typeof file === 'string' ? file : file.name;
+          return fileName.startsWith('Buffet/');
+        }),
+        decoracao: imageFiles.filter((file: any) => {
+          const fileName = typeof file === 'string' ? file : file.name;
+          return fileName.startsWith('Decoracao/');
+        }),
+        other: imageFiles.filter((file: any) => {
+          const fileName = typeof file === 'string' ? file : file.name;
+          return !fileName.match(/^(Feiras|Servicos|TimeLuka|Buffet|Decoracao)\//);
+        })
       };
       
       res.json({ success: true, images: categorizedImages });

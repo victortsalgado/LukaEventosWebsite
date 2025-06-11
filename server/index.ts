@@ -14,13 +14,23 @@ app.get("/api/images/:folder/:filename", async (req: Request, res: Response) => 
     const { folder, filename } = req.params;
     const filePath = `${folder}/${filename}`;
 
-    // Download image from object storage
-    const imageData = await client.downloadAsBytes(filePath);
+    console.log(`Attempting to load image: ${filePath}`);
+
+    // Download image from object storage using proper method
+    const result = await client.downloadAsBytes(filePath);
     
-    // Check if we got valid data
-    if (!imageData) {
-      console.log(`Image not found: ${filePath}`);
+    // Handle the Result type properly
+    if (!result || typeof result !== 'object' || !('ok' in result) || !result.ok) {
+      console.log(`Image not found or failed to download: ${filePath}`);
       return res.status(404).send('Image not found in Object Storage');
+    }
+
+    // Extract the buffer from the successful result
+    const imageBuffer = (result as any).val?.[0];
+    
+    if (!imageBuffer) {
+      console.log(`No image data in result for: ${filePath}`);
+      return res.status(404).send('No image data found');
     }
 
     const extension = filename.split('.').pop()?.toLowerCase();
@@ -48,22 +58,12 @@ app.get("/api/images/:folder/:filename", async (req: Request, res: Response) => 
     res.setHeader('Content-Type', contentType);
     res.setHeader('Cache-Control', 'public, max-age=31536000');
     
-    // Convert to buffer and send
-    let buffer;
-    if (Buffer.isBuffer(imageData)) {
-      buffer = imageData;
-    } else if (imageData instanceof Uint8Array) {
-      buffer = Buffer.from(imageData);
-    } else {
-      // Handle other formats
-      buffer = Buffer.from(imageData as any);
-    }
-    
-    res.send(buffer);
+    console.log(`Successfully serving image: ${filePath}, size: ${imageBuffer.length} bytes`);
+    res.send(imageBuffer);
 
   } catch (error) {
     console.error(`Error fetching image ${req.params.folder}/${req.params.filename}:`, error);
-    res.status(404).send("Image not found");
+    res.status(500).send("Internal server error while fetching image");
   }
 });
 
