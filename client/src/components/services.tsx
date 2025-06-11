@@ -217,7 +217,7 @@ function ServiceCard({ service, index }: { service: ServiceData; index: number }
         />
         {images.length > 1 && (
           <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
-            {images.map((_, idx) => (
+            {images.map((_: string, idx: number) => (
               <div
                 key={idx}
                 className={`w-2 h-2 rounded-full transition-colors duration-300 ${
