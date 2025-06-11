@@ -188,10 +188,10 @@ function ServiceCard({ service, index }: { service: ServiceData; index: number }
     // Se é "Produção e Montagem" e não há imagens, verificar se há vídeo disponível
     if (service.videoFile && service.title === "Produção e Montagem") {
       // Primeiro verificar se o vídeo existe nos arquivos retornados pela API
-      const hasVideo = images.some(file => file.toLowerCase().includes('.mp4') || file.toLowerCase().includes('.webm'));
+      const hasVideo = images.some((file: string) => file.toLowerCase().includes('.mp4') || file.toLowerCase().includes('.webm'));
       
       if (hasVideo) {
-        const videoFile = images.find(file => file.toLowerCase().includes('.mp4') || file.toLowerCase().includes('.webm'));
+        const videoFile = images.find((file: string) => file.toLowerCase().includes('.mp4') || file.toLowerCase().includes('.webm'));
         return (
           <div className="h-48 overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative">
             <video
