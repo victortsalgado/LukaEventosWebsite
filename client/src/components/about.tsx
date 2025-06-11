@@ -43,7 +43,7 @@ export default function About() {
             }`}
           >
             <img
-              src="https://storage.replit.com/v1/objects/equipe-profissional-luka-eventos.jpg"
+              src="/api/images/Equipe/equipe_profissional_luka_eventos.jpg"
               alt="Equipe profissional da Luka Eventos planejando eventos"
               className="rounded-2xl shadow-2xl w-full h-auto"
             />
@@ -105,28 +105,28 @@ export default function About() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <TeamCard
-              imageSrc="https://storage.replit.com/v1/objects/lucia-salgado-ceo.jpg"
+              imageSrc="/api/images/TimeLuka/lucia_salgado.jpg"
               name="Lúcia Salgado"
               title="CEO"
               location="Belém - PA"
               index={0}
             />
             <TeamCard
-              imageSrc="https://storage.replit.com/v1/objects/victor-santos-diretor-comercial.jpg"
+              imageSrc="/api/images/TimeLuka/victor_santos.jpg"
               name="Victor Santos"
               title="Diretor Comercial"
               location="Novo Hamburgo - RS"
               index={1}
             />
             <TeamCard
-              imageSrc="https://storage.replit.com/v1/objects/leda-salgado-arquiteta.jpg"
+              imageSrc="/api/images/TimeLuka/leda_salgado.jpg"
               name="Lêda Salgado"
               title="Arquiteta"
               location="Belém - PA"
               index={2}
             />
             <TeamCard
-              imageSrc="https://storage.replit.com/v1/objects/manuzza-franco-executiva.jpg"
+              imageSrc="/api/images/TimeLuka/manuzza_franco.jpg"
               name="Manuzza Franco"
               title="Executiva de Contas"
               location="Novo Hamburgo - RS"
