@@ -9,19 +9,23 @@ const client = new Client();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Endpoint para servir imagens do Object Storage
 app.get("/api/images/:folder/:filename", async (req: Request, res: Response) => {
   try {
     const { folder, filename } = req.params;
     const filePath = `${folder}/${filename}`;
-    
-    // Download da imagem do Object Storage
-    const bytesValue = await client.downloadAsBytes(filePath);
-    
-    // Determinar Content-Type baseado na extensão do arquivo
+
+    const imageBuffer = await client.downloadAsBytes(filePath);
+
+    // ---- INÍCIO DA CORREÇÃO ESSENCIAL ----
+    // Se o buffer for nulo, o arquivo não existe. Retorne um erro 404.
+    if (!imageBuffer) {
+      return res.status(404).send('Image not found in Object Storage');
+    }
+    // ---- FIM DA CORREÇÃO ESSENCIAL ----
+
     const extension = filename.split('.').pop()?.toLowerCase();
-    let contentType = 'application/octet-stream'; // default
-    
+    let contentType = 'application/octet-stream';
+
     switch (extension) {
       case 'png':
         contentType = 'image/png';
@@ -40,20 +44,15 @@ app.get("/api/images/:folder/:filename", async (req: Request, res: Response) => 
         contentType = 'image/svg+xml';
         break;
     }
-    
-    // Configurar o cabeçalho da resposta
+
     res.setHeader('Content-Type', contentType);
-    res.setHeader('Cache-Control', 'public, max-age=31536000'); // Cache por 1 ano
-    
-    // Enviar o buffer da imagem
-    res.send(bytesValue);
-    
+    res.setHeader('Cache-Control', 'public, max-age=31536000');
+
+    res.send(imageBuffer);
+
   } catch (error) {
-    console.error('Error serving image:', error);
-    res.status(404).json({ 
-      success: false, 
-      message: 'Imagem não encontrada' 
-    });
+    console.error(`Error fetching image ${req.params.folder}/${req.params.filename}:`, error);
+    res.status(500).send("Internal server error while fetching image");
   }
 });
 
