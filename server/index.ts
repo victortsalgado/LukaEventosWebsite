@@ -18,7 +18,7 @@ app.get("/api/images/:folder/:filename", async (req: Request, res: Response) => 
 
     // ---- INÍCIO DA CORREÇÃO ESSENCIAL ----
     // Se o buffer for nulo, o arquivo não existe. Retorne um erro 404.
-    if (!imageBuffer) {
+    if (!imageBuffer || imageBuffer.length === 0) {
       return res.status(404).send('Image not found in Object Storage');
     }
     // ---- FIM DA CORREÇÃO ESSENCIAL ----
