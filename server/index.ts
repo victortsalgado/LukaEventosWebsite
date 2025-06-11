@@ -9,28 +9,45 @@ const client = new Client();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+
+
 app.get("/api/images/:folder/:filename", async (req: Request, res: Response) => {
   try {
     const { folder, filename } = req.params;
     const filePath = `${folder}/${filename}`;
 
-    console.log(`Attempting to load image: ${filePath}`);
+    console.log(`Tentando carregar imagem: ${filePath}`);
 
-    // Download image from object storage using proper method
-    const result = await client.downloadAsBytes(filePath);
+    // Baixar imagem do object storage
+    const downloadResult = await client.downloadAsBytes(filePath);
     
-    // Handle the Result type properly
-    if (!result || typeof result !== 'object' || !('ok' in result) || !result.ok) {
-      console.log(`Image not found or failed to download: ${filePath}`);
-      return res.status(404).send('Image not found in Object Storage');
+    console.log(`Resultado do download:`, typeof downloadResult, downloadResult);
+
+    // Verificar se o resultado é válido
+    let imageBuffer;
+    
+    // Tentar diferentes formatos de resposta do client
+    if (downloadResult && typeof downloadResult === 'object') {
+      if ('ok' in downloadResult && downloadResult.ok) {
+        // Formato Result com ok: true
+        imageBuffer = (downloadResult as any).val?.[0] || (downloadResult as any).value?.[0];
+      } else if (Buffer.isBuffer(downloadResult)) {
+        // Resultado direto como Buffer
+        imageBuffer = downloadResult;
+      } else if (downloadResult instanceof Uint8Array) {
+        // Resultado como Uint8Array
+        imageBuffer = Buffer.from(downloadResult);
+      } else if (Array.isArray(downloadResult) && downloadResult.length > 0) {
+        // Resultado como array de buffers
+        imageBuffer = downloadResult[0];
+      }
+    } else if (Buffer.isBuffer(downloadResult)) {
+      imageBuffer = downloadResult;
     }
-
-    // Extract the buffer from the successful result
-    const imageBuffer = (result as any).val?.[0];
     
-    if (!imageBuffer) {
-      console.log(`No image data in result for: ${filePath}`);
-      return res.status(404).send('No image data found');
+    if (!imageBuffer || imageBuffer.length === 0) {
+      console.log(`Imagem não encontrada ou vazia: ${filePath}`);
+      return res.status(404).send('Imagem não encontrada no Object Storage');
     }
 
     const extension = filename.split('.').pop()?.toLowerCase();
@@ -58,12 +75,12 @@ app.get("/api/images/:folder/:filename", async (req: Request, res: Response) => 
     res.setHeader('Content-Type', contentType);
     res.setHeader('Cache-Control', 'public, max-age=31536000');
     
-    console.log(`Successfully serving image: ${filePath}, size: ${imageBuffer.length} bytes`);
+    console.log(`Servindo imagem com sucesso: ${filePath}, tamanho: ${imageBuffer.length} bytes`);
     res.send(imageBuffer);
 
-  } catch (error) {
-    console.error(`Error fetching image ${req.params.folder}/${req.params.filename}:`, error);
-    res.status(500).send("Internal server error while fetching image");
+  } catch (error: any) {
+    console.error(`Erro ao buscar imagem ${req.params.folder}/${req.params.filename}:`, error);
+    res.status(500).send("Erro interno do servidor ao buscar imagem");
   }
 });
 
