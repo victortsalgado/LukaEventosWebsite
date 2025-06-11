@@ -1,6 +1,6 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { getPortfolioImage } from "@shared/imageConfig";
-import { useState } from "react";
+import React, { useState } from "react";
 
 const portfolioItems = [
   {
@@ -88,7 +88,7 @@ export default function Portfolio() {
 
 function PortfolioItem({ item, index }: { item: any; index: number }) {
   const { ref, isVisible } = useScrollAnimation();
-  const [imageError, setImageError] = React.useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const generatePortfolioPlaceholder = () => {
     const gradients = [

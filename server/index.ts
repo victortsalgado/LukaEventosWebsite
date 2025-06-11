@@ -9,23 +9,43 @@ const client = new Client();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Endpoint de debug para object storage (antes do setupVite)
-app.get("/api/storage/debug", async (req: Request, res: Response) => {
+// Debug endpoint antes do setupVite
+app.get("/debug/storage", async (req: Request, res: Response) => {
   try {
-    console.log("🔍 Listando todos os arquivos no object storage...");
+    console.log("🔍 Listando arquivos no object storage...");
     const result = await client.list();
     
-    console.log("📋 Resultado bruto da listagem:", JSON.stringify(result, null, 2));
+    console.log("📋 Resultado da listagem:", result);
+    
+    let files = [];
+    let resultInfo = {
+      type: typeof result,
+      hasOk: false,
+      isOk: false,
+      hasVal: false,
+      hasValue: false
+    };
+
+    if (result && typeof result === 'object') {
+      resultInfo.hasOk = 'ok' in result;
+      resultInfo.isOk = 'ok' in result ? (result as any).ok : false;
+      resultInfo.hasVal = 'val' in result;
+      resultInfo.hasValue = 'value' in result;
+      
+      if ('ok' in result && (result as any).ok) {
+        files = (result as any).val || (result as any).value || [];
+      }
+    }
     
     res.json({
       success: true,
-      rawResult: result,
-      resultType: typeof result,
-      hasOk: result && typeof result === 'object' && 'ok' in result,
-      okValue: result && typeof result === 'object' && 'ok' in result ? result.ok : null
+      totalFiles: Array.isArray(files) ? files.length : 0,
+      files: Array.isArray(files) ? files.slice(0, 20) : [], // Primeiros 20 arquivos
+      resultInfo,
+      rawType: typeof result
     });
   } catch (error: any) {
-    console.error("❌ Erro ao listar arquivos:", error);
+    console.error("❌ Erro:", error);
     res.status(500).json({ success: false, error: error.message });
   }
 });
@@ -136,6 +156,26 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  // Primeiro vamos verificar o object storage antes de configurar as rotas
+  try {
+    console.log("🔍 Verificando object storage...");
+    const storageResult = await client.list();
+    console.log("📋 Arquivos no storage:", storageResult);
+    
+    if (storageResult && typeof storageResult === 'object' && 'ok' in storageResult && storageResult.ok) {
+      const files = (storageResult as any).val || [];
+      console.log(`✅ ${files.length} arquivos encontrados no object storage:`);
+      files.slice(0, 10).forEach((file: any, index: number) => {
+        const fileName = typeof file === 'string' ? file : file.name || file.path || file;
+        console.log(`  ${index + 1}. ${fileName}`);
+      });
+    } else {
+      console.log("❌ Nenhum arquivo encontrado no object storage");
+    }
+  } catch (error) {
+    console.error("❌ Erro ao verificar object storage:", error);
+  }
+
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
