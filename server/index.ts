@@ -48,8 +48,19 @@ app.get("/api/images/:folder/:filename", async (req: Request, res: Response) => 
     res.setHeader('Content-Type', contentType);
     res.setHeader('Cache-Control', 'public, max-age=31536000');
 
-    // Convert Uint8Array to Buffer for proper Express response handling
-    const buffer = Buffer.from(imageBuffer);
+    // Handle different buffer types properly
+    let buffer;
+    if (imageBuffer instanceof Uint8Array) {
+      buffer = Buffer.from(imageBuffer);
+    } else if (Buffer.isBuffer(imageBuffer)) {
+      buffer = imageBuffer;
+    } else if (ArrayBuffer.isView(imageBuffer)) {
+      buffer = Buffer.from(imageBuffer.buffer);
+    } else {
+      console.error('Unexpected imageBuffer type:', typeof imageBuffer);
+      return res.status(500).send('Invalid image buffer format');
+    }
+    
     res.send(buffer);
 
   } catch (error) {
