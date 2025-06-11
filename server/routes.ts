@@ -8,6 +8,27 @@ import { Client } from '@replit/object-storage';
 export async function registerRoutes(app: Express): Promise<Server> {
   const client = new Client();
 
+  // Endpoint para debugar e listar todos os arquivos
+  app.get("/api/storage/debug", async (req, res) => {
+    try {
+      console.log("🔍 Listando todos os arquivos no object storage...");
+      const result = await client.list();
+      
+      console.log("📋 Resultado bruto da listagem:", JSON.stringify(result, null, 2));
+      
+      res.json({
+        success: true,
+        rawResult: result,
+        resultType: typeof result,
+        hasOk: result && typeof result === 'object' && 'ok' in result,
+        okValue: result && typeof result === 'object' && 'ok' in result ? result.ok : null
+      });
+    } catch (error: any) {
+      console.error("❌ Erro ao listar arquivos:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
   // API endpoint to list images from object storage
   app.get("/api/images", async (req, res) => {
     try {

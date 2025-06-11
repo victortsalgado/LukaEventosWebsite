@@ -9,6 +9,27 @@ const client = new Client();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Endpoint de debug para object storage (antes do setupVite)
+app.get("/api/storage/debug", async (req: Request, res: Response) => {
+  try {
+    console.log("🔍 Listando todos os arquivos no object storage...");
+    const result = await client.list();
+    
+    console.log("📋 Resultado bruto da listagem:", JSON.stringify(result, null, 2));
+    
+    res.json({
+      success: true,
+      rawResult: result,
+      resultType: typeof result,
+      hasOk: result && typeof result === 'object' && 'ok' in result,
+      okValue: result && typeof result === 'object' && 'ok' in result ? result.ok : null
+    });
+  } catch (error: any) {
+    console.error("❌ Erro ao listar arquivos:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 
 
 app.get("/api/images/:folder/:filename", async (req: Request, res: Response) => {

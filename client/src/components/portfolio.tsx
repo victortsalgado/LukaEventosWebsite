@@ -1,5 +1,6 @@
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { getPortfolioImage } from "@shared/imageConfig";
+import { useState } from "react";
 
 const portfolioItems = [
   {
@@ -87,6 +88,31 @@ export default function Portfolio() {
 
 function PortfolioItem({ item, index }: { item: any; index: number }) {
   const { ref, isVisible } = useScrollAnimation();
+  const [imageError, setImageError] = React.useState(false);
+
+  const generatePortfolioPlaceholder = () => {
+    const gradients = [
+      'from-orange-400 to-orange-600',
+      'from-orange-500 to-red-500', 
+      'from-yellow-400 to-orange-500',
+      'from-orange-300 to-orange-700'
+    ];
+    
+    return (
+      <div className={`w-full h-64 bg-gradient-to-br ${gradients[index % gradients.length]} flex items-center justify-center relative overflow-hidden`}>
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="relative z-10 text-center text-white p-6">
+          <div className="w-16 h-16 mx-auto mb-4 bg-white/20 rounded-lg flex items-center justify-center">
+            <span className="text-2xl font-bold">{item.title.charAt(0)}</span>
+          </div>
+          <h3 className="text-lg font-bold">{item.title}</h3>
+        </div>
+        <div className="absolute top-4 left-4 w-8 h-8 bg-white/20 rounded"></div>
+        <div className="absolute top-4 right-4 w-6 h-6 bg-white/20 rounded-full"></div>
+        <div className="absolute bottom-4 left-4 w-12 h-2 bg-white/20 rounded"></div>
+      </div>
+    );
+  };
 
   return (
     <div
@@ -97,11 +123,16 @@ function PortfolioItem({ item, index }: { item: any; index: number }) {
       style={{ transitionDelay: `${index * 100}ms` }}
     >
       <div className="relative overflow-hidden rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-300">
-        <img
-          src={item.image}
-          alt={item.alt}
-          className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
-        />
+        {!imageError ? (
+          <img
+            src={item.image}
+            alt={item.alt}
+            className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+            onError={() => setImageError(true)}
+          />
+        ) : (
+          generatePortfolioPlaceholder()
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
           <h3 className="text-xl font-bold mb-2">{item.title}</h3>
