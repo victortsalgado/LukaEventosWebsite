@@ -4,6 +4,24 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Client Logos Carousel Animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
+
 :root {
   --primary-color: #FF6600; /* Laranja Principal */
   --secondary-color: #333333; /* Cinza Escuro */

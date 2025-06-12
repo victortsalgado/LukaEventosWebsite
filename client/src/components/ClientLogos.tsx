@@ -18,101 +18,72 @@ function useClientImages() {
 
 export default function ClientLogos() {
   const { data: clientData, isLoading } = useClientImages();
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   const clientImages: ClientImage[] = clientData?.images?.map((filename: string) => ({
     name: filename.replace(/\.(png|jpg|jpeg|gif|webp)$/i, ''),
     url: `/api/images/Empresas Clientes/${filename}`
   })) || [];
 
-  // Auto-scroll carousel
-  useEffect(() => {
-    if (clientImages.length <= 1) return;
-    
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % clientImages.length);
-    }, 3000); // 3 segundos por logo
-
-    return () => clearInterval(interval);
-  }, [clientImages.length]);
-
-  if (isLoading) {
-    return (
-      <section className="py-12 bg-white border-t border-gray-100">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-gray-800 mb-2">Nossos Clientes</h3>
-            <p className="text-gray-600">Empresas que confiam em nossos serviços</p>
-          </div>
-          <div className="flex justify-center">
-            <div className="animate-pulse bg-gray-200 h-20 w-40 rounded"></div>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  if (!clientImages.length) {
+  if (isLoading || clientImages.length === 0) {
     return null;
   }
 
   return (
-    <section className="py-12 bg-white border-t border-gray-100">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-8">
-          <h3 className="text-2xl font-bold text-gray-800 mb-2">Nossos Clientes</h3>
-          <p className="text-gray-600">Empresas que confiam em nossos serviços</p>
+    <section className="w-full bg-gray-50 py-8 border-t border-gray-200">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="text-center mb-6">
+          <p className="text-gray-600 font-medium">Empresas que confiam em nossos serviços</p>
         </div>
         
-        {/* Carousel Container */}
+        {/* Continuous scrolling logos */}
         <div className="relative overflow-hidden">
-          <div className="flex justify-center items-center min-h-[120px]">
-            {clientImages.length > 0 && (
+          <div className="flex animate-scroll">
+            {/* First set of logos */}
+            {clientImages.map((client, index) => (
               <div 
-                className="flex transition-transform duration-1000 ease-in-out"
-                style={{ 
-                  transform: `translateX(-${currentIndex * 100}%)`,
-                  width: `${clientImages.length * 100}%`
-                }}
+                key={`first-${index}`}
+                className="flex-shrink-0 flex items-center justify-center mx-8 min-w-[150px]"
               >
-                {clientImages.map((client, index) => (
-                  <div 
-                    key={index}
-                    className="flex-shrink-0 flex items-center justify-center px-8"
-                    style={{ width: `${100 / clientImages.length}%` }}
-                  >
-                    <img
-                      src={client.url}
-                      alt={`Logo ${client.name}`}
-                      className="max-h-20 max-w-40 object-contain filter grayscale hover:grayscale-0 transition-all duration-300 opacity-80 hover:opacity-100"
-                      onError={(e) => {
-                        console.log(`Erro ao carregar logo do cliente: ${client.name}`);
-                        (e.target as HTMLElement).style.display = 'none';
-                      }}
-                      onLoad={() => {
-                        console.log(`Logo carregada com sucesso: ${client.name}`);
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-          
-          {/* Indicadores */}
-          {clientImages.length > 1 && (
-            <div className="flex justify-center mt-6 space-x-2">
-              {clientImages.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentIndex(index)}
-                  className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-                    index === currentIndex ? 'bg-orange-500' : 'bg-gray-300'
-                  }`}
+                <img
+                  src={client.url}
+                  alt={`Logo ${client.name}`}
+                  className="max-h-12 max-w-32 object-contain filter grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
+                  onError={(e) => {
+                    console.log(`Erro ao carregar logo do cliente: ${client.name}`);
+                    // Show placeholder if image fails
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'bg-gray-200 h-12 w-32 rounded flex items-center justify-center text-xs text-gray-500';
+                    placeholder.textContent = client.name;
+                    (e.target as HTMLElement).parentNode?.replaceChild(placeholder, e.target as HTMLElement);
+                  }}
+                  onLoad={() => {
+                    console.log(`Logo carregada com sucesso: ${client.name}`);
+                  }}
                 />
-              ))}
-            </div>
-          )}
+              </div>
+            ))}
+            {/* Duplicate set for seamless loop */}
+            {clientImages.map((client, index) => (
+              <div 
+                key={`second-${index}`}
+                className="flex-shrink-0 flex items-center justify-center mx-8 min-w-[150px]"
+              >
+                <img
+                  src={client.url}
+                  alt={`Logo ${client.name}`}
+                  className="max-h-12 max-w-32 object-contain filter grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
+                  onError={(e) => {
+                    console.log(`Erro ao carregar logo do cliente: ${client.name}`);
+                    // Show placeholder if image fails
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'bg-gray-200 h-12 w-32 rounded flex items-center justify-center text-xs text-gray-500';
+                    placeholder.textContent = client.name;
+                    (e.target as HTMLElement).parentNode?.replaceChild(placeholder, e.target as HTMLElement);
+                  }}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
