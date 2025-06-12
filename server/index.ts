@@ -44,6 +44,7 @@ app.get("/api/storage/images/:folder", async (req: Request, res: Response) => {
       'supernorte_marata.png', // Feiras - falha no carregamento
       'supernorte_okajima.png', // Feiras - falha no carregamento
       'promotoras_1.png', // Equipes - falha no carregamento
+      'paisagismo.jpg', // Decoracao - falha no carregamento no browser
     ];
     
     const folderImages = files
