@@ -44,8 +44,8 @@ export default function About() {
             }`}
           >
             <img
-              src="/api/images/Equipe/equipe_profissional_luka_eventos.jpg"
-              alt="Equipe profissional da Luka Eventos planejando eventos"
+              src="/api/images/Missao.png"
+              alt="Nossa missão - Luka Eventos"
               className="rounded-2xl shadow-2xl w-full h-auto"
             />
           </div>
