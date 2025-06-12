@@ -38,6 +38,19 @@ export function ImageCarousel({ images, folder, serviceName, startDelay = 0 }: I
   const handleImageError = (index: number) => {
     console.log(`Erro ao carregar imagem ${index} da pasta ${folder}:`, images[index]);
     setImageErrors(prev => ({ ...prev, [index]: true }));
+    
+    // Se esta era a imagem atual e falhou, muda para a próxima válida
+    if (index === currentIndex) {
+      let nextIndex = (currentIndex + 1) % images.length;
+      let attempts = 0;
+      while (imageErrors[nextIndex] && attempts < images.length) {
+        nextIndex = (nextIndex + 1) % images.length;
+        attempts++;
+      }
+      if (attempts < images.length) {
+        setCurrentIndex(nextIndex);
+      }
+    }
   };
 
   if (images.length === 0) return null;
