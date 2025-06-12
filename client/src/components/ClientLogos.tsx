@@ -8,8 +8,8 @@ interface ClientImage {
 
 function useClientImages() {
   return useQuery({
-    queryKey: ['/api/storage/images', 'Empresas Clientes'],
-    queryFn: () => fetch('/api/storage/images/Empresas Clientes').then(res => res.json()),
+    queryKey: ['/api/storage/images', 'Logo Clientes'],
+    queryFn: () => fetch('/api/storage/images/Logo Clientes').then(res => res.json()),
     staleTime: 5 * 60 * 1000, // 5 minutos
     refetchOnMount: false,
     refetchOnWindowFocus: false,
@@ -21,7 +21,7 @@ export default function ClientLogos() {
 
   const clientImages: ClientImage[] = clientData?.images?.map((filename: string) => ({
     name: filename.replace(/\.(png|jpg|jpeg|gif|webp)$/i, ''),
-    url: `/api/images/Empresas Clientes/${filename}`
+    url: `/api/images/Logo Clientes/${filename}`
   })) || [];
 
   if (isLoading || clientImages.length === 0) {
@@ -50,11 +50,7 @@ export default function ClientLogos() {
                   className="max-h-12 max-w-32 object-contain filter grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
                   onError={(e) => {
                     console.log(`Erro ao carregar logo do cliente: ${client.name}`);
-                    // Show placeholder if image fails
-                    const placeholder = document.createElement('div');
-                    placeholder.className = 'bg-gray-200 h-12 w-32 rounded flex items-center justify-center text-xs text-gray-500';
-                    placeholder.textContent = client.name;
-                    (e.target as HTMLElement).parentNode?.replaceChild(placeholder, e.target as HTMLElement);
+                    (e.target as HTMLImageElement).style.display = 'none';
                   }}
                   onLoad={() => {
                     console.log(`Logo carregada com sucesso: ${client.name}`);
@@ -74,11 +70,7 @@ export default function ClientLogos() {
                   className="max-h-12 max-w-32 object-contain filter grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
                   onError={(e) => {
                     console.log(`Erro ao carregar logo do cliente: ${client.name}`);
-                    // Show placeholder if image fails
-                    const placeholder = document.createElement('div');
-                    placeholder.className = 'bg-gray-200 h-12 w-32 rounded flex items-center justify-center text-xs text-gray-500';
-                    placeholder.textContent = client.name;
-                    (e.target as HTMLElement).parentNode?.replaceChild(placeholder, e.target as HTMLElement);
+                    (e.target as HTMLImageElement).style.display = 'none';
                   }}
                 />
               </div>
