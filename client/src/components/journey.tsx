@@ -5,35 +5,35 @@ const journeySteps = [
     number: 1,
     title: "Briefing",
     description: "Reunião detalhada para entender suas necessidades, objetivos, orçamento e visão para o evento perfeito.",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=400",
+    image: "/api/images/briefing.avif",
     alt: "Reunião de briefing inicial com cliente"
   },
   {
     number: 2,
     title: "Consultoria+",
     description: "Desenvolvimento de estratégia personalizada, seleção de fornecedores e criação do conceito visual único.",
-    image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=400",
+    image: "/api/images/consultoria.jpg",
     alt: "Processo de consultoria especializada"
   },
   {
     number: 3,
     title: "Proposta",
     description: "Apresentação da proposta completa com cronograma detalhado, orçamento e todos os detalhes do projeto.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=400",
+    image: "/api/images/proposta.jpg",
     alt: "Apresentação de proposta detalhada"
   },
   {
     number: 4,
     title: "Evento",
     description: "Execução impecável com coordenação em tempo real, garantindo que cada detalhe saia conforme planejado.",
-    image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=400",
+    image: "/api/images/evento.jpeg",
     alt: "Evento sendo executado com sucesso"
   },
   {
     number: 5,
     title: "Pós Evento",
     description: "Acompanhamento pós-evento, análise de resultados e feedback para garantir total satisfação do cliente.",
-    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=400",
+    image: "/api/images/pos_evento.avif",
     alt: "Análise pós-evento e feedback"
   }
 ];
