@@ -1,10 +1,32 @@
 import express, { type Request, Response, NextFunction } from "express";
+import session from "express-session";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { Client } from '@replit/object-storage';
 
 const app = express();
 const client = new Client();
+
+// Environment variable validation and fallbacks
+const SESSION_SECRET = process.env.SESSION_SECRET || "fallback-secret-for-development-only";
+const NODE_ENV = process.env.NODE_ENV || "development";
+
+// Warn if using fallback secret in production
+if (NODE_ENV === "production" && SESSION_SECRET === "fallback-secret-for-development-only") {
+  console.warn("⚠️  WARNING: Using fallback session secret in production. Set SESSION_SECRET environment variable.");
+}
+
+// Session configuration
+app.use(session({
+  secret: SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: NODE_ENV === "production",
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  }
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -328,24 +350,69 @@ app.use((req, res, next) => {
     throw err;
   });
 
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
-  if (app.get("env") === "development") {
-    await setupVite(app, server);
-  } else {
-    serveStatic(app);
+  // Environment-aware setup with error handling
+  const isProduction = NODE_ENV === "production";
+  const isDevelopment = NODE_ENV === "development";
+  
+  try {
+    if (isDevelopment) {
+      log("Setting up Vite development server...");
+      await setupVite(app, server);
+    } else {
+      log("Setting up static file serving for production...");
+      serveStatic(app);
+    }
+  } catch (setupError) {
+    console.error(`Failed to setup ${isProduction ? "production" : "development"} environment:`, setupError);
+    process.exit(1);
   }
 
-  // ALWAYS serve the app on port 5000
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
-  const port = 5000;
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true,
-  }, () => {
-    log(`serving on port ${port}`);
+  // Configure port and host for production deployment
+  const port = parseInt(process.env.PORT || "5000", 10);
+  const host = "0.0.0.0"; // Always bind to all interfaces for deployment compatibility
+  
+  // Validate port number
+  if (isNaN(port) || port < 1 || port > 65535) {
+    console.error(`Invalid port number: ${process.env.PORT || "5000"}`);
+    process.exit(1);
+  }
+  
+  // Start server with comprehensive error handling
+  server.listen(port, host, () => {
+    log(`Server started successfully on ${host}:${port} (${NODE_ENV})`);
+    if (isProduction) {
+      log("Production mode: Static files served, sessions secured");
+    } else {
+      log("Development mode: Vite HMR enabled");
+    }
+  });
+  
+  // Handle server errors
+  server.on('error', (error: any) => {
+    if (error.code === 'EADDRINUSE') {
+      console.error(`Port ${port} is already in use`);
+    } else if (error.code === 'EACCES') {
+      console.error(`Permission denied to bind to port ${port}`);
+    } else {
+      console.error(`Server error:`, error);
+    }
+    process.exit(1);
+  });
+  
+  // Graceful shutdown handling
+  process.on('SIGTERM', () => {
+    log('SIGTERM received, shutting down gracefully');
+    server.close(() => {
+      log('Process terminated');
+      process.exit(0);
+    });
+  });
+  
+  process.on('SIGINT', () => {
+    log('SIGINT received, shutting down gracefully');
+    server.close(() => {
+      log('Process terminated');
+      process.exit(0);
+    });
   });
 })();
