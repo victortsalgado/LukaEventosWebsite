@@ -45,17 +45,17 @@ export default function ClientLogos() {
         
         {/* Continuous scrolling logos */}
         <div className="relative overflow-hidden">
-          <div className="flex animate-scroll">
+          <div className="animate-scroll" style={{ width: 'calc(300%)' }}>
             {/* First set of logos */}
             {clientImages.map((client, index) => (
               <div 
                 key={`first-${index}`}
-                className="flex-shrink-0 flex items-center justify-center mx-4 min-w-[120px]"
+                className="inline-flex items-center justify-center mx-6 w-[160px] h-[80px]"
               >
                 <img
                   src={client.url}
                   alt={`Logo ${client.name}`}
-                  className="max-h-12 max-w-28 object-contain filter grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
+                  className="max-h-12 max-w-32 object-contain filter grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
                   onError={(e) => {
                     console.log(`Erro ao carregar logo do cliente: ${client.name}`);
                     (e.target as HTMLImageElement).style.display = 'none';
@@ -66,16 +66,16 @@ export default function ClientLogos() {
                 />
               </div>
             ))}
-            {/* Duplicate set for seamless loop */}
+            {/* Second set for seamless loop */}
             {clientImages.map((client, index) => (
               <div 
                 key={`second-${index}`}
-                className="flex-shrink-0 flex items-center justify-center mx-4 min-w-[120px]"
+                className="inline-flex items-center justify-center mx-6 w-[160px] h-[80px]"
               >
                 <img
                   src={client.url}
                   alt={`Logo ${client.name}`}
-                  className="max-h-12 max-w-28 object-contain filter grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
+                  className="max-h-12 max-w-32 object-contain filter grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
                   onError={(e) => {
                     console.log(`Erro ao carregar logo do cliente: ${client.name}`);
                     (e.target as HTMLImageElement).style.display = 'none';
@@ -87,12 +87,12 @@ export default function ClientLogos() {
             {clientImages.map((client, index) => (
               <div 
                 key={`third-${index}`}
-                className="flex-shrink-0 flex items-center justify-center mx-4 min-w-[120px]"
+                className="inline-flex items-center justify-center mx-6 w-[160px] h-[80px]"
               >
                 <img
                   src={client.url}
                   alt={`Logo ${client.name}`}
-                  className="max-h-12 max-w-28 object-contain filter grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
+                  className="max-h-12 max-w-32 object-contain filter grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
                   onError={(e) => {
                     console.log(`Erro ao carregar logo do cliente: ${client.name}`);
                     (e.target as HTMLImageElement).style.display = 'none';
@@ -100,6 +100,7 @@ export default function ClientLogos() {
                 />
               </div>
             ))}
+
           </div>
         </div>
       </div>
