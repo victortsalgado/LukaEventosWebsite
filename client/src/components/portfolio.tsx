@@ -54,7 +54,7 @@ export default function Portfolio() {
           }`}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-6">
-            Eventos que Inspiram Confiança
+            Nosso Portfólio
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Conheça alguns dos eventos únicos que criamos para nossos clientes. Cada
