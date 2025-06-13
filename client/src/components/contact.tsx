@@ -14,6 +14,7 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 type ContactFormData = {
   nome: string;
+  empresa: string;
   email: string;
   telefone: string;
   mensagem: string;
@@ -31,6 +32,7 @@ export default function Contact() {
     resolver: zodResolver(insertContactMessageSchema),
     defaultValues: {
       nome: "",
+      empresa: "",
       email: "",
       telefone: "",
       mensagem: "",
@@ -173,13 +175,13 @@ export default function Contact() {
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <div>
                   <Label htmlFor="nome" className="text-sm font-semibold text-dark-gray">
-                    Nome Completo *
+                    Nome *
                   </Label>
                   <Input
                     id="nome"
                     {...form.register("nome")}
                     placeholder="Seu nome completo"
-                    className="mt-2 focus:ring-primary-orange focus:border-primary-orange"
+                    className="mt-2 text-dark-gray placeholder:text-gray-400 bg-white border-gray-300 focus:ring-primary-orange focus:border-primary-orange"
                   />
                   {form.formState.errors.nome && (
                     <p className="text-red-500 text-sm mt-1">
@@ -189,15 +191,32 @@ export default function Contact() {
                 </div>
 
                 <div>
+                  <Label htmlFor="empresa" className="text-sm font-semibold text-dark-gray">
+                    Empresa *
+                  </Label>
+                  <Input
+                    id="empresa"
+                    {...form.register("empresa")}
+                    placeholder="Nome da sua empresa"
+                    className="mt-2 text-dark-gray placeholder:text-gray-400 bg-white border-gray-300 focus:ring-primary-orange focus:border-primary-orange"
+                  />
+                  {form.formState.errors.empresa && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {form.formState.errors.empresa.message}
+                    </p>
+                  )}
+                </div>
+
+                <div>
                   <Label htmlFor="email" className="text-sm font-semibold text-dark-gray">
-                    Email *
+                    E-mail *
                   </Label>
                   <Input
                     id="email"
                     type="email"
                     {...form.register("email")}
                     placeholder="seu@email.com"
-                    className="mt-2 focus:ring-primary-orange focus:border-primary-orange"
+                    className="mt-2 text-dark-gray placeholder:text-gray-400 bg-white border-gray-300 focus:ring-primary-orange focus:border-primary-orange"
                   />
                   {form.formState.errors.email && (
                     <p className="text-red-500 text-sm mt-1">
@@ -215,7 +234,19 @@ export default function Contact() {
                     type="tel"
                     {...form.register("telefone")}
                     placeholder="(11) 99999-9999"
-                    className="mt-2 focus:ring-primary-orange focus:border-primary-orange"
+                    className="mt-2 text-dark-gray placeholder:text-gray-400 bg-white border-gray-300 focus:ring-primary-orange focus:border-primary-orange"
+                    onChange={(e) => {
+                      let value = e.target.value.replace(/\D/g, '');
+                      if (value.length <= 11) {
+                        if (value.length > 6) {
+                          value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
+                        } else if (value.length > 2) {
+                          value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+                        }
+                        e.target.value = value;
+                        form.setValue("telefone", value);
+                      }
+                    }}
                   />
                   {form.formState.errors.telefone && (
                     <p className="text-red-500 text-sm mt-1">
@@ -233,7 +264,7 @@ export default function Contact() {
                     {...form.register("mensagem")}
                     rows={5}
                     placeholder="Conte-nos sobre seu evento. Que tipo de evento você está planejando? Qual é a data prevista? Quantos convidados você espera?"
-                    className="mt-2 focus:ring-primary-orange focus:border-primary-orange resize-none"
+                    className="mt-2 text-dark-gray placeholder:text-gray-400 bg-white border-gray-300 focus:ring-primary-orange focus:border-primary-orange resize-none"
                   />
                   {form.formState.errors.mensagem && (
                     <p className="text-red-500 text-sm mt-1">

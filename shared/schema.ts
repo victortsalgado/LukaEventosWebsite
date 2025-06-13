@@ -11,6 +11,7 @@ export const users = pgTable("users", {
 export const contactMessages = pgTable("contact_messages", {
   id: serial("id").primaryKey(),
   nome: text("nome").notNull(),
+  empresa: text("empresa").notNull(),
   email: text("email").notNull(),
   telefone: text("telefone").notNull(),
   mensagem: text("mensagem").notNull(),
@@ -24,9 +25,13 @@ export const insertUserSchema = createInsertSchema(users).pick({
 
 export const insertContactMessageSchema = createInsertSchema(contactMessages).pick({
   nome: true,
+  empresa: true,
   email: true,
   telefone: true,
   mensagem: true,
+}).extend({
+  email: z.string().email("Email inválido"),
+  telefone: z.string().regex(/^\(\d{2}\)\s\d{4,5}-\d{4}$/, "Formato de telefone inválido. Use (XX) XXXXX-XXXX"),
 });
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
