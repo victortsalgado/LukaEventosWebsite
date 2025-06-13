@@ -3,7 +3,7 @@ import Hero from "@/components/hero";
 import About from "@/components/about";
 import ClientLogos from "@/components/ClientLogos";
 import Services from "@/components/services";
-import Portfolio from "@/components/portfolio";
+
 import Journey from "@/components/journey";
 import Gallery from "@/components/gallery";
 
@@ -21,7 +21,7 @@ export default function Home() {
         <Services />
         <Journey />
         <Gallery />
-        <Portfolio />
+
 
         <Contact />
       </main>
