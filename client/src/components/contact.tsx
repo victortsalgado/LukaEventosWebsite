@@ -90,20 +90,6 @@ export default function Contact() {
             <div className="space-y-8">
               <div className="flex items-start">
                 <div className="w-12 h-12 bg-primary-orange rounded-full flex items-center justify-center mr-6 flex-shrink-0">
-                  <MapPin className="text-white" size={20} />
-                </div>
-                <div>
-                  <h4 className="text-xl font-semibold mb-2">Nosso Escritório</h4>
-                  <p className="text-gray-300">
-                    Rua das Flores, 123
-                    <br />
-                    São Paulo - SP, 01234-567
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <div className="w-12 h-12 bg-primary-orange rounded-full flex items-center justify-center mr-6 flex-shrink-0">
                   <Phone className="text-white" size={20} />
                 </div>
                 <div>
@@ -121,7 +107,7 @@ export default function Contact() {
                 <div>
                   <h4 className="text-xl font-semibold mb-2">Email</h4>
                   <p className="text-gray-300">
-                    lucia.salgado@lukaeventos.com.br
+                    contato@lukaeventos.com.br
                   </p>
                 </div>
               </div>
@@ -146,28 +132,28 @@ export default function Contact() {
               <h4 className="text-xl font-semibold mb-6">Siga-nos nas Redes Sociais</h4>
               <div className="flex space-x-4">
                 <a
-                  href="#"
+                  href="https://www.instagram.com/lukaevento/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-12 h-12 bg-primary-orange rounded-full flex items-center justify-center hover:bg-orange-700 transition-colors duration-300"
                 >
                   <Instagram className="text-white" size={20} />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.facebook.com/profile.php?id=61553048040229"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-12 h-12 bg-primary-orange rounded-full flex items-center justify-center hover:bg-orange-700 transition-colors duration-300"
                 >
                   <Facebook className="text-white" size={20} />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/company/97838556"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-12 h-12 bg-primary-orange rounded-full flex items-center justify-center hover:bg-orange-700 transition-colors duration-300"
                 >
                   <Linkedin className="text-white" size={20} />
-                </a>
-                <a
-                  href="#"
-                  className="w-12 h-12 bg-primary-orange rounded-full flex items-center justify-center hover:bg-orange-700 transition-colors duration-300"
-                >
-                  <MessageCircle className="text-white" size={20} />
                 </a>
               </div>
             </div>
