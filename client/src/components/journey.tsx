@@ -103,6 +103,13 @@ function JourneyStep({ step, index }: { step: any; index: number }) {
           src={step.image}
           alt={step.alt}
           className="rounded-2xl shadow-lg w-full h-auto"
+          onError={(e) => {
+            console.error(`Erro ao carregar imagem da metodologia: ${step.image}`);
+            (e.target as HTMLImageElement).style.display = 'none';
+          }}
+          onLoad={() => {
+            console.log(`Imagem da metodologia carregada: ${step.image}`);
+          }}
         />
       </div>
     </div>
