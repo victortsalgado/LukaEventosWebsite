@@ -50,12 +50,12 @@ export default function ClientLogos() {
             {clientImages.map((client, index) => (
               <div 
                 key={`first-${index}`}
-                className="flex-shrink-0 flex items-center justify-center mx-8 min-w-[150px]"
+                className="flex-shrink-0 flex items-center justify-center mx-4 min-w-[120px]"
               >
                 <img
                   src={client.url}
                   alt={`Logo ${client.name}`}
-                  className="max-h-12 max-w-32 object-contain filter grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
+                  className="max-h-12 max-w-28 object-contain filter grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
                   onError={(e) => {
                     console.log(`Erro ao carregar logo do cliente: ${client.name}`);
                     (e.target as HTMLImageElement).style.display = 'none';
@@ -70,12 +70,29 @@ export default function ClientLogos() {
             {clientImages.map((client, index) => (
               <div 
                 key={`second-${index}`}
-                className="flex-shrink-0 flex items-center justify-center mx-8 min-w-[150px]"
+                className="flex-shrink-0 flex items-center justify-center mx-4 min-w-[120px]"
               >
                 <img
                   src={client.url}
                   alt={`Logo ${client.name}`}
-                  className="max-h-12 max-w-32 object-contain filter grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
+                  className="max-h-12 max-w-28 object-contain filter grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
+                  onError={(e) => {
+                    console.log(`Erro ao carregar logo do cliente: ${client.name}`);
+                    (e.target as HTMLImageElement).style.display = 'none';
+                  }}
+                />
+              </div>
+            ))}
+            {/* Third set for seamless infinite flow */}
+            {clientImages.map((client, index) => (
+              <div 
+                key={`third-${index}`}
+                className="flex-shrink-0 flex items-center justify-center mx-4 min-w-[120px]"
+              >
+                <img
+                  src={client.url}
+                  alt={`Logo ${client.name}`}
+                  className="max-h-12 max-w-28 object-contain filter grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
                   onError={(e) => {
                     console.log(`Erro ao carregar logo do cliente: ${client.name}`);
                     (e.target as HTMLImageElement).style.display = 'none';
