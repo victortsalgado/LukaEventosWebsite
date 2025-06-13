@@ -123,6 +123,77 @@ app.get("/debug/storage", async (req: Request, res: Response) => {
 
 
 
+// Endpoint para imagens da raiz do Object Storage
+app.get("/api/images/:filename", async (req: Request, res: Response) => {
+  try {
+    const { filename } = req.params;
+
+    console.log(`Tentando carregar imagem da raiz: ${filename}`);
+
+    // Baixar imagem do object storage (raiz)
+    const downloadResult = await client.downloadAsBytes(filename);
+    
+    console.log(`Resultado do download da raiz:`, typeof downloadResult);
+
+    // Verificar se o resultado é válido
+    let imageBuffer;
+    
+    if (downloadResult && typeof downloadResult === 'object') {
+      if ('ok' in downloadResult && downloadResult.ok) {
+        imageBuffer = (downloadResult as any).val?.[0] || (downloadResult as any).value?.[0];
+      } else if (Buffer.isBuffer(downloadResult)) {
+        imageBuffer = downloadResult;
+      } else if (downloadResult instanceof Uint8Array) {
+        imageBuffer = Buffer.from(downloadResult);
+      } else if (Array.isArray(downloadResult) && downloadResult.length > 0) {
+        imageBuffer = downloadResult[0];
+      }
+    } else if (Buffer.isBuffer(downloadResult)) {
+      imageBuffer = downloadResult;
+    }
+    
+    if (!imageBuffer || imageBuffer.length === 0) {
+      console.log(`Imagem não encontrada ou vazia na raiz: ${filename}`);
+      return res.status(404).send('Imagem não encontrada no Object Storage');
+    }
+
+    const extension = filename.split('.').pop()?.toLowerCase();
+    let contentType = 'application/octet-stream';
+
+    switch (extension) {
+      case 'png':
+        contentType = 'image/png';
+        break;
+      case 'jpg':
+      case 'jpeg':
+        contentType = 'image/jpeg';
+        break;
+      case 'gif':
+        contentType = 'image/gif';
+        break;
+      case 'webp':
+        contentType = 'image/webp';
+        break;
+      case 'avif':
+        contentType = 'image/avif';
+        break;
+      case 'svg':
+        contentType = 'image/svg+xml';
+        break;
+    }
+
+    res.setHeader('Content-Type', contentType);
+    res.setHeader('Cache-Control', 'public, max-age=31536000');
+    
+    console.log(`Servindo imagem da raiz com sucesso: ${filename}, tamanho: ${imageBuffer.length} bytes`);
+    res.send(imageBuffer);
+
+  } catch (error: any) {
+    console.error(`Erro ao buscar imagem da raiz ${req.params.filename}:`, error);
+    res.status(500).send("Erro interno do servidor ao buscar imagem");
+  }
+});
+
 app.get("/api/images/:folder/:filename", async (req: Request, res: Response) => {
   try {
     const { folder, filename } = req.params;
