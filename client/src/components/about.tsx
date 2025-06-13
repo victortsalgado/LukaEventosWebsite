@@ -36,23 +36,10 @@ export default function About() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-16 items-center">
-          <div
-            ref={imageRef}
-            className={`transition-all duration-1000 ${
-              imageVisible ? "animate-on-scroll visible" : "animate-on-scroll"
-            }`}
-          >
-            <img
-              src="/api/images/Missao.png"
-              alt="Nossa missão - Luka Eventos"
-              className="rounded-2xl shadow-2xl w-full h-auto"
-            />
-          </div>
-          
+        <div className="max-w-4xl mx-auto">
           <div
             ref={contentRef}
-            className={`transition-all duration-1000 ${
+            className={`text-center transition-all duration-1000 ${
               contentVisible ? "animate-on-scroll visible" : "animate-on-scroll"
             }`}
           >
