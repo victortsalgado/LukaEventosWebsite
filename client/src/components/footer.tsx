@@ -24,28 +24,28 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4">
               <a
-                href="#"
+                href="https://www.instagram.com/lukaevento/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-300 hover:text-primary-orange transition-colors duration-300"
               >
                 <Instagram size={24} />
               </a>
               <a
-                href="#"
+                href="https://www.facebook.com/profile.php?id=61553048040229"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-300 hover:text-primary-orange transition-colors duration-300"
               >
                 <Facebook size={24} />
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/company/97838556"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-300 hover:text-primary-orange transition-colors duration-300"
               >
                 <Linkedin size={24} />
-              </a>
-              <a
-                href="#"
-                className="text-gray-300 hover:text-primary-orange transition-colors duration-300"
-              >
-                <MessageCircle size={24} />
               </a>
             </div>
           </div>
@@ -97,11 +97,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center">
                 <Mail className="mr-2 text-primary-orange" size={16} />
-                lucia.salgado@lukaeventos.com.br
-              </li>
-              <li className="flex items-center">
-                <MapPin className="mr-2 text-primary-orange" size={16} />
-                São Paulo - SP
+                contato@lukaeventos.com.br
               </li>
             </ul>
           </div>
