@@ -4,6 +4,7 @@ import { storage } from "./storage";
 import { insertContactMessageSchema } from "@shared/schema";
 import { z } from "zod";
 import { Client } from '@replit/object-storage';
+import { sendContactEmail } from "./email";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   const client = new Client();
@@ -123,11 +124,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log("New contact message received:", {
         id: message.id,
         nome: message.nome,
+        empresa: message.empresa,
         email: message.email,
         telefone: message.telefone,
         mensagem: message.mensagem.substring(0, 100) + (message.mensagem.length > 100 ? "..." : ""),
         createdAt: message.createdAt
       });
+      
+      // Send email notification
+      const emailSent = await sendContactEmail(validatedData);
+      if (emailSent) {
+        console.log("✅ Email notification sent successfully");
+      } else {
+        console.log("⚠️  Email notification failed or disabled");
+      }
       
       res.status(201).json({ 
         success: true, 
