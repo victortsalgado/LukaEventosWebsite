@@ -95,8 +95,15 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-4">Contato</h4>
             <ul className="space-y-2 text-gray-300">
               <li className="flex items-center">
-                <Phone className="mr-2 text-primary-orange" size={16} />
-                (91) 9 8155-3464
+                <a
+                  href="https://wa.me/5591981553464"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center hover:text-primary-orange transition-colors duration-300"
+                >
+                  <MessageCircle className="mr-2 text-primary-orange" size={16} />
+                  (91) 9 8155-3464
+                </a>
               </li>
               <li className="flex items-center">
                 <Mail className="mr-2 text-primary-orange" size={16} />
