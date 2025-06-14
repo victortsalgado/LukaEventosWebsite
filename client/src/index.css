@@ -305,7 +305,7 @@ body {
 }
 
 .card {
-  display: inline-block;
+  display: inline;
 }
 
 .loader {
@@ -317,12 +317,11 @@ body {
   box-sizing: content-box;
   height: 1em;
   padding: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: inline-flex;
   border-radius: 8px;
-  align-items: center;
+  align-items: baseline;
   gap: 0.5rem;
+  vertical-align: baseline;
 }
 
 .loader p {
@@ -349,8 +348,8 @@ body {
 
 @keyframes spin_4991 {
   20% {
-    -webkit-transform: translateY(-102%);
-    transform: translateY(-102%);
+    -webkit-transform: translateY(-120%);
+    transform: translateY(-120%);
   }
 
   25% {
@@ -359,8 +358,8 @@ body {
   }
 
   35% {
-    -webkit-transform: translateY(-202%);
-    transform: translateY(-202%);
+    -webkit-transform: translateY(-220%);
+    transform: translateY(-220%);
   }
 
   50% {
@@ -369,8 +368,8 @@ body {
   }
 
   60% {
-    -webkit-transform: translateY(-302%);
-    transform: translateY(-302%);
+    -webkit-transform: translateY(-320%);
+    transform: translateY(-320%);
   }
 
   75% {
@@ -379,8 +378,8 @@ body {
   }
 
   85% {
-    -webkit-transform: translateY(-402%);
-    transform: translateY(-402%);
+    -webkit-transform: translateY(-420%);
+    transform: translateY(-420%);
   }
 
   100% {
