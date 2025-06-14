@@ -21,39 +21,16 @@ export default function Hero() {
       id="hero"
       className="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center overflow-hidden"
     >
-      {/* Logo da Luka no canto superior esquerdo */}
-      <div className="absolute top-6 left-6 z-20 p-2">
-        <div className="h-20 w-20 md:h-24 md:w-24 opacity-95 hover:opacity-100 transition-all duration-300 hover:scale-105 filter drop-shadow-lg">
-          <svg 
-            viewBox="0 0 100 100" 
-            className="w-full h-full"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* Círculo com efeito brush */}
-            <circle 
-              cx="50" 
-              cy="50" 
-              r="45" 
-              fill="none" 
-              stroke="white" 
-              strokeWidth="6"
-              strokeDasharray="8,4"
-              opacity="0.9"
-            />
-            {/* Letra L */}
-            <text 
-              x="50" 
-              y="65" 
-              textAnchor="middle" 
-              fontSize="48" 
-              fontFamily="serif" 
-              fontWeight="bold" 
-              fill="white"
-            >
-              L
-            </text>
-          </svg>
-        </div>
+      {/* Logo marca d'água no quadrante superior esquerdo */}
+      <div className="absolute top-0 left-0 w-1/2 h-1/2 z-5 flex items-center justify-center p-4">
+        <img 
+          src="/images/logo-luka.png" 
+          alt="Logo Luka Eventos" 
+          className="w-full h-full max-w-80 max-h-80 opacity-20 object-contain filter brightness-150"
+          onError={(e) => {
+            console.error('Erro ao carregar logo marca d\'água');
+          }}
+        />
       </div>
 
       {/* Background Pattern */}
