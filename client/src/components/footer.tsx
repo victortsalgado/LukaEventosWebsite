@@ -17,7 +17,10 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
-            <h3 className="text-2xl font-bold text-primary-orange mb-4">Luka Eventos</h3>
+            <svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-12 mb-4">
+              <text x="10" y="32" fontFamily="serif" fontSize="28" fontWeight="300" fill="#ea5a0c" letterSpacing="3px">LUKA</text>
+              <text x="10" y="52" fontFamily="serif" fontSize="14" fontWeight="300" fill="#ffffff" letterSpacing="2px">Eventos</text>
+            </svg>
             <p className="text-gray-300 mb-6">
               Transformamos momentos especiais em experiências inesquecíveis. Com
               paixão, dedicação e excelência em cada detalhe.

@@ -37,7 +37,13 @@ export default function Hero() {
           isVisible ? "animate-fade-in" : "opacity-0"
         }`}
       >
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-dark-gray mb-6 leading-tight">
+        <div className="mb-8">
+          <svg width="300" height="100" viewBox="0 0 300 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="mx-auto mb-6 h-20">
+            <text x="30" y="50" fontFamily="serif" fontSize="42" fontWeight="300" fill="#ea5a0c" letterSpacing="4px">LUKA</text>
+            <text x="30" y="78" fontFamily="serif" fontSize="20" fontWeight="300" fill="#374151" letterSpacing="3px">Eventos</text>
+          </svg>
+        </div>
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-dark-gray mb-6 leading-tight font-serif">
           Transformamos seu evento em um{" "}
           <span className="text-primary-orange block mt-2">marco de sucesso</span>
         </h1>
