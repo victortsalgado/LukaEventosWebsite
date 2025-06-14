@@ -41,21 +41,21 @@ export default function Hero() {
           isVisible ? "animate-fade-in" : "opacity-0"
         }`}
       >
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <img 
             src="/images/logo-luka.png" 
             alt="Logo Luka Eventos" 
-            className="w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96 object-contain mx-auto filter brightness-150 opacity-20 hover:opacity-30 transition-all duration-500"
+            className="w-32 h-32 sm:w-48 sm:h-48 md:w-72 md:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96 object-contain mx-auto filter brightness-150 opacity-20 hover:opacity-30 transition-all duration-500"
           />
         </div>
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+        <h1 className="text-2xl sm:text-3xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
           <span className="block">Transformamos seu evento</span>
           <span className="block">em um <AnimatedText /></span>
         </h1>
-        <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed px-4">
           Planejamento, organização e produção de feiras, congressos e eventos corporativos em todo o Brasil.
         </p>
-        <div className="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center">
+        <div className="flex flex-col space-y-4 sm:space-y-0 sm:space-x-4 sm:flex-row sm:justify-center px-4">
           <AnimatedButton 
             onClick={() => scrollToSection("contact")}
             icon={<Calendar size={20} />}
@@ -64,7 +64,7 @@ export default function Hero() {
           </AnimatedButton>
           <button
             onClick={() => scrollToSection("gallery")}
-            className="inline-flex items-center border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-gray-900 transition-all duration-300"
+            className="inline-flex items-center justify-center border-2 border-white text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-base sm:text-lg font-semibold hover:bg-white hover:text-gray-900 transition-all duration-300"
           >
             <Images className="mr-2" size={20} />
             Conheça Nosso Portfólio
@@ -72,12 +72,12 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Floating Elements */}
-      <div className="absolute top-20 left-10 animate-bounce-gentle">
+      {/* Floating Elements - Hidden on mobile */}
+      <div className="hidden md:block absolute top-20 left-10 animate-bounce-gentle">
         <div className="w-16 h-16 bg-primary-gray opacity-20 rounded-full" />
       </div>
       <div
-        className="absolute bottom-20 right-10 animate-bounce-gentle"
+        className="hidden md:block absolute bottom-20 right-10 animate-bounce-gentle"
         style={{ animationDelay: "1s" }}
       >
         <div className="w-12 h-12 bg-accent-gray opacity-30 rounded-full" />
