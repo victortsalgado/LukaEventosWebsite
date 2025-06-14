@@ -31,16 +31,13 @@ export default function ClientLogos() {
   return (
     <section className="w-full bg-gradient-to-r from-gray-50 via-white to-gray-50 py-12 border-t border-gray-100">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-3 mb-3">
-            <div className="w-12 h-[1px] bg-gradient-to-r from-transparent to-gray-600"></div>
-            <span className="text-sm font-semibold text-gray-600 tracking-wider uppercase">Parceiros de Sucesso</span>
-            <div className="w-12 h-[1px] bg-gradient-to-l from-transparent to-gray-600"></div>
+        <div className="text-center mb-12">
+          <div className="relative inline-block">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 tracking-wide">
+              Parceiros de Sucesso
+            </h2>
+            <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-gray-300 via-gray-600 to-gray-300 rounded-full"></div>
           </div>
-          <h3 className="text-lg font-bold text-gray-800 mb-2">Marcas que Confiam na Nossa Excelência</h3>
-          <p className="text-sm text-gray-500 max-w-2xl mx-auto">
-            Grandes empresas escolhem a Luka Eventos para criar experiências memoráveis e impactantes
-          </p>
         </div>
         
         {/* Continuous scrolling logos */}
