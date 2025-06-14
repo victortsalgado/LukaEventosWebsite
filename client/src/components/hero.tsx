@@ -63,7 +63,7 @@ export default function Hero() {
             Solicite um Orçamento
           </AnimatedButton>
           <button
-            onClick={() => scrollToSection("portfolio")}
+            onClick={() => scrollToSection("gallery")}
             className="inline-flex items-center border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-gray-900 transition-all duration-300"
           >
             <Images className="mr-2" size={20} />
