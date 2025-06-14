@@ -71,7 +71,7 @@ export default function About() {
 
             <button
               onClick={scrollToContact}
-              className="inline-block bg-primary-orange text-white px-8 py-3 rounded-full font-semibold hover:bg-orange-700 transition-colors duration-300"
+              className="inline-block bg-gray-800 text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-all duration-300 shadow-lg"
             >
               Fale Conosco
             </button>
