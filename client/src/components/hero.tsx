@@ -76,7 +76,7 @@ export default function Hero() {
         className="absolute bottom-20 right-10 animate-bounce-gentle"
         style={{ animationDelay: "1s" }}
       >
-        <div className="w-12 h-12 bg-primary-orange opacity-30 rounded-full" />
+        <div className="w-12 h-12 bg-accent-gray opacity-30 rounded-full" />
       </div>
     </section>
   );

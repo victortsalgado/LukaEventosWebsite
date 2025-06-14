@@ -18,7 +18,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
             <svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-12 mb-4">
-              <text x="10" y="32" fontFamily="serif" fontSize="28" fontWeight="300" fill="#ea5a0c" letterSpacing="3px">LUKA</text>
+              <text x="10" y="32" fontFamily="serif" fontSize="28" fontWeight="300" fill="#3d4852" letterSpacing="3px">LUKA</text>
               <text x="10" y="52" fontFamily="serif" fontSize="14" fontWeight="300" fill="#ffffff" letterSpacing="2px">Eventos</text>
             </svg>
             <p className="text-gray-300 mb-6">
@@ -30,7 +30,7 @@ export default function Footer() {
                 href="https://www.instagram.com/lukaevento/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-primary-orange transition-colors duration-300"
+                className="text-gray-300 hover:text-primary-gray transition-colors duration-300"
               >
                 <Instagram size={24} />
               </a>
@@ -38,7 +38,7 @@ export default function Footer() {
                 href="https://www.facebook.com/profile.php?id=61553048040229"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-primary-orange transition-colors duration-300"
+                className="text-gray-300 hover:text-primary-gray transition-colors duration-300"
               >
                 <Facebook size={24} />
               </a>
@@ -46,7 +46,7 @@ export default function Footer() {
                 href="https://www.linkedin.com/company/97838556"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-primary-orange transition-colors duration-300"
+                className="text-gray-300 hover:text-primary-gray transition-colors duration-300"
               >
                 <Linkedin size={24} />
               </a>
