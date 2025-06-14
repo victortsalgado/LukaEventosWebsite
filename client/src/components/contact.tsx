@@ -65,7 +65,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 bg-dark-gray text-white">
+    <section id="contact" className="py-20 bg-light-background text-dark-text">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           ref={titleRef}

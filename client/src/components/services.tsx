@@ -111,7 +111,7 @@ export default function Services() {
   };
 
   return (
-    <section id="services" className="py-20 bg-light-gray">
+    <section id="services" className="py-20 bg-light-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           ref={titleRef}
@@ -119,10 +119,10 @@ export default function Services() {
             titleVisible ? "animate-on-scroll visible" : "animate-on-scroll"
           }`}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-6 font-serif">
+          <h2 className="text-4xl md:text-5xl font-bold text-primary-gold mb-6">
             Soluções Completas para o Seu Evento
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-secondary-text max-w-3xl mx-auto">
             Oferecemos soluções completas para todos os tipos de eventos, desde a
             concepção até a execução final.
           </p>
@@ -144,7 +144,7 @@ export default function Services() {
         >
           <button
             onClick={scrollToContact}
-            className="inline-block bg-primary-orange text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-orange-700 transform hover:scale-105 transition-all duration-300 shadow-lg"
+            className="inline-block bg-primary-gold text-light-background px-8 py-4 rounded-full text-lg font-semibold hover:opacity-90 transform hover:scale-105 transition-all duration-300 shadow-lg"
           >
             Solicitar Orçamento Personalizado
           </button>

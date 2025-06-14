@@ -28,10 +28,10 @@ export default function About() {
             titleVisible ? "animate-on-scroll visible" : "animate-on-scroll"
           }`}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-6 font-serif">
+          <h2 className="text-4xl md:text-5xl font-bold text-primary-gold mb-6">
             Experiência que Gera Resultados
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-secondary-text max-w-3xl mx-auto">
             Somos um time experiente, coordenando várias equipes capacitadas e prontas para acertar cada detalhe. A diretora Lúcia Salgado é acessível e fará com que tudo saia como o esperado, além de preparar o time para qualquer situação.
           </p>
         </div>
@@ -43,8 +43,8 @@ export default function About() {
               contentVisible ? "animate-on-scroll visible" : "animate-on-scroll"
             }`}
           >
-            <h3 className="text-3xl font-bold text-dark-gray mb-6 font-serif">Nossa Missão</h3>
-            <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+            <h3 className="text-3xl font-bold text-primary-gold mb-6">Nossa Missão</h3>
+            <p className="text-lg text-secondary-text mb-6 leading-relaxed">
               Criamos experiências únicas e memoráveis através do planejamento
               meticuloso e execução impecável de eventos que refletem a personalidade
               e objetivos de nossos clientes.

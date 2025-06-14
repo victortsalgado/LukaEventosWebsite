@@ -45,7 +45,7 @@ export default function Portfolio() {
   };
 
   return (
-    <section id="portfolio" className="py-20 bg-white">
+    <section id="portfolio" className="py-20 bg-section-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           ref={titleRef}
@@ -53,10 +53,10 @@ export default function Portfolio() {
             titleVisible ? "animate-on-scroll visible" : "animate-on-scroll"
           }`}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-6 font-serif">
+          <h2 className="text-4xl md:text-5xl font-bold text-primary-gold mb-6">
             Nosso Portfólio
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-secondary-text max-w-3xl mx-auto">
             Conheça alguns dos eventos únicos que criamos para nossos clientes. Cada
             projeto é uma história de sucesso.
           </p>
