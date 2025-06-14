@@ -284,3 +284,17 @@ body {
 .animate-glow-pulse {
   animation: glow-pulse 4s ease-in-out infinite;
 }
+
+/* Wave text animation */
+@keyframes wave-text {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animated-text-effect {
+  animation: wave-text 3s ease-in-out infinite;
+}
