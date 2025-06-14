@@ -394,7 +394,8 @@ body {
   overflow: hidden;
   z-index: 1;
   color: #090909;
-  padding: 0.7em 3.3em 0.7em 1.7em;
+  padding: 0.7em 1.7em 0.7em 2.8em;
+  text-align: center;
   font-size: 18px;
   border-radius: 0.5em;
   background: #e8e8e8;
