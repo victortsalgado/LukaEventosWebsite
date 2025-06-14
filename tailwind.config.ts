@@ -6,8 +6,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'serif': ['Playfair Display', 'serif'],
-        'sans': ['Montserrat', 'sans-serif'],
+        'serif': ['Crimson Text', 'serif'],
+        'sans': ['Poppins', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",
