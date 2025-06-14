@@ -31,13 +31,7 @@ export default function ClientLogos() {
   return (
     <section className="w-full bg-gradient-to-r from-gray-50 via-white to-gray-50 py-12 border-t border-gray-100">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-3 mb-3">
-            <div className="w-12 h-[1px] bg-gradient-to-r from-transparent to-orange-400"></div>
-            <span className="text-sm font-semibold text-orange-500 tracking-wider uppercase">Parceiros de Sucesso</span>
-            <div className="w-12 h-[1px] bg-gradient-to-l from-transparent to-orange-400"></div>
-          </div>
-        </div>
+
         
         {/* Continuous scrolling logos */}
         <div className="relative overflow-hidden">
