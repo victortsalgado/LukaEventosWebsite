@@ -1,5 +1,6 @@
 import { Calendar, Images } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import AnimatedButton from "./AnimatedButton";
 
 export default function Hero() {
   const { ref, isVisible } = useScrollAnimation();
@@ -51,13 +52,12 @@ export default function Hero() {
           Planejamento, organização e produção de feiras, congressos e eventos corporativos em todo o Brasil.
         </p>
         <div className="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center">
-          <button
+          <AnimatedButton 
             onClick={() => scrollToSection("contact")}
-            className="inline-flex items-center bg-primary-gray text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-accent-gray transform hover:scale-105 transition-all duration-300 shadow-lg"
+            icon={<Calendar size={20} />}
           >
-            <Calendar className="mr-2" size={20} />
             Solicite um Orçamento
-          </button>
+          </AnimatedButton>
           <button
             onClick={() => scrollToSection("portfolio")}
             className="inline-flex items-center border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-gray-900 transition-all duration-300"

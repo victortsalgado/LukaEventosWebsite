@@ -199,3 +199,47 @@ body {
 .hover\:bg-accent-gray:hover {
   background-color: hsl(var(--accent-gray));
 }
+
+/* Animated Button Styles */
+.animated-btn {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px 0 rgba(61, 72, 82, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.animated-btn:hover {
+  box-shadow: 0 8px 25px 0 rgba(61, 72, 82, 0.5), 0 0 20px rgba(61, 72, 82, 0.3);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.animated-btn:active {
+  transform: scale(0.96);
+}
+
+/* Custom shimmer animation */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animated-btn:hover .shimmer {
+  animation: shimmer 1s ease-in-out;
+}
+
+/* Floating particle effect */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-10px) rotate(180deg);
+    opacity: 0.8;
+  }
+}
