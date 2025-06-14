@@ -53,7 +53,8 @@
   --radius: 0.5rem;
 
   /* Custom Color Variables */
-  --primary-orange: 17 88% 52%;
+  --primary-gray: 220 13% 18%;
+  --accent-gray: 220 9% 46%;
   --dark-gray: 0 0% 10%;
 }
 
@@ -159,12 +160,20 @@ body {
 }
 
 /* Utility classes for colors */
-.text-primary-orange {
-  color: hsl(var(--primary-orange));
+.text-primary-gray {
+  color: hsl(var(--primary-gray));
 }
 
-.bg-primary-orange {
-  background-color: hsl(var(--primary-orange));
+.bg-primary-gray {
+  background-color: hsl(var(--primary-gray));
+}
+
+.text-accent-gray {
+  color: hsl(var(--accent-gray));
+}
+
+.bg-accent-gray {
+  background-color: hsl(var(--accent-gray));
 }
 
 .text-dark-gray {
@@ -175,14 +184,18 @@ body {
   background-color: hsl(var(--dark-gray));
 }
 
-.border-primary-orange {
-  border-color: hsl(var(--primary-orange));
+.border-primary-gray {
+  border-color: hsl(var(--primary-gray));
 }
 
-.hover\:text-primary-orange:hover {
-  color: hsl(var(--primary-orange));
+.hover\:text-primary-gray:hover {
+  color: hsl(var(--primary-gray));
 }
 
-.hover\:bg-primary-orange:hover {
-  background-color: hsl(var(--primary-orange));
+.hover\:bg-primary-gray:hover {
+  background-color: hsl(var(--primary-gray));
+}
+
+.hover\:bg-accent-gray:hover {
+  background-color: hsl(var(--accent-gray));
 }

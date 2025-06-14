@@ -39,13 +39,13 @@ export default function Hero() {
       >
         <div className="mb-8">
           <svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="mx-auto">
-            <text x="10" y="32" fontFamily="serif" fontSize="28" fontWeight="300" fill="#ea5a0c" letterSpacing="3px">LUKA</text>
+            <text x="10" y="32" fontFamily="serif" fontSize="28" fontWeight="300" fill="#3d4852" letterSpacing="3px">LUKA</text>
             <text x="10" y="52" fontFamily="serif" fontSize="14" fontWeight="300" fill="#ffffff" letterSpacing="2px">Eventos</text>
           </svg>
         </div>
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
           Transformamos seu evento em um{" "}
-          <span className="text-primary-orange block mt-2">marco de sucesso</span>
+          <span className="text-primary-gray block mt-2">marco de sucesso</span>
         </h1>
         <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
           Planejamento, organização e produção de feiras, congressos e eventos corporativos em todo o Brasil.
@@ -53,7 +53,7 @@ export default function Hero() {
         <div className="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center">
           <button
             onClick={() => scrollToSection("contact")}
-            className="inline-flex items-center bg-primary-orange text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary-orange/90 transform hover:scale-105 transition-all duration-300 shadow-lg"
+            className="inline-flex items-center bg-primary-gray text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-accent-gray transform hover:scale-105 transition-all duration-300 shadow-lg"
           >
             <Calendar className="mr-2" size={20} />
             Solicite um Orçamento
@@ -70,7 +70,7 @@ export default function Hero() {
 
       {/* Floating Elements */}
       <div className="absolute top-20 left-10 animate-bounce-gentle">
-        <div className="w-16 h-16 bg-primary-orange opacity-20 rounded-full" />
+        <div className="w-16 h-16 bg-primary-gray opacity-20 rounded-full" />
       </div>
       <div
         className="absolute bottom-20 right-10 animate-bounce-gentle"

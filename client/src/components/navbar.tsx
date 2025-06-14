@@ -44,7 +44,7 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <text x="5" y="22" fontFamily="serif" fontSize="18" fontWeight="300" fill="#ea5a0c" letterSpacing="2px">LUKA</text>
+              <text x="5" y="22" fontFamily="serif" fontSize="18" fontWeight="300" fill="#3d4852" letterSpacing="2px">LUKA</text>
               <text x="5" y="35" fontFamily="serif" fontSize="10" fontWeight="300" fill="#333" letterSpacing="1px">Eventos</text>
             </svg>
           </div>
@@ -56,14 +56,14 @@ export default function Navbar() {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="text-gray-900 hover:text-primary-orange transition-colors duration-300 font-medium"
+                  className="text-gray-900 hover:text-primary-gray transition-colors duration-300 font-medium"
                 >
                   {item.label}
                 </button>
               ))}
               <button
                 onClick={() => scrollToSection("contact")}
-                className="bg-primary-orange text-white px-6 py-2 rounded-lg hover:bg-primary-orange/90 transition-colors duration-300 font-medium"
+                className="bg-primary-gray text-white px-6 py-2 rounded-lg hover:bg-accent-gray transition-colors duration-300 font-medium"
               >
                 Solicite um Orçamento
               </button>
@@ -75,7 +75,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-900 hover:text-primary-orange focus:outline-none focus:text-primary-orange"
+              className="text-gray-900 hover:text-primary-gray focus:outline-none focus:text-primary-gray"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
