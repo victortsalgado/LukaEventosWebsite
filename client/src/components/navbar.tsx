@@ -63,7 +63,7 @@ export default function Navbar() {
               ))}
               <button
                 onClick={() => scrollToSection("contact")}
-                className="bg-primary-gold text-light-background px-6 py-2 rounded-full hover:opacity-90 transition-all duration-300 font-medium"
+                className="bg-primary-orange text-white px-6 py-2 rounded-lg hover:bg-primary-orange/90 transition-colors duration-300 font-medium"
               >
                 Solicite um Orçamento
               </button>
@@ -75,7 +75,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-dark-text hover:text-primary-gold focus:outline-none focus:text-primary-gold"
+              className="text-gray-900 hover:text-primary-orange focus:outline-none focus:text-primary-orange"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
