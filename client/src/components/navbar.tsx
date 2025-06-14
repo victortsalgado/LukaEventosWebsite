@@ -44,7 +44,7 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Mobile Layout */}
-        <div className="flex md:hidden justify-between items-center h-16">
+        <div className="flex md:hidden items-center h-16 relative">
           {/* Logo - Left */}
           <div className="flex-shrink-0">
             <svg width="80" height="30" viewBox="0 0 80 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -53,8 +53,8 @@ export default function Navbar() {
             </svg>
           </div>
 
-          {/* WhatsApp Button - Center */}
-          <div className="flex-1 flex justify-center">
+          {/* WhatsApp Button - Absolute Center */}
+          <div className="absolute left-1/2 transform -translate-x-1/2">
             <a
               href="https://wa.me/5591981553464"
               target="_blank"
@@ -73,7 +73,7 @@ export default function Navbar() {
           </div>
 
           {/* Menu Button - Right */}
-          <div>
+          <div className="ml-auto">
             <button
               type="button"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
