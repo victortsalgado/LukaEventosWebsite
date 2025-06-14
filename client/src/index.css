@@ -329,14 +329,19 @@ body {
   height: 1em;
   min-width: 280px;
 }
-
+.words::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+}
 .word {
   display: block;
   height: 120%;
   padding-left: 6px;
   color: #ffffff;
   font-weight: 700;
-  animation: spin_4991 4s infinite;
+  animation: spin_4991 5s infinite;
 }
 
 @keyframes spin_4991 {
@@ -345,48 +350,63 @@ body {
     transform: translateY(0%);
   }
 
-  20% {
+  14% {
     -webkit-transform: translateY(-102%);
     transform: translateY(-102%);
   }
 
-  25% {
+  16.67% {
     -webkit-transform: translateY(-100%);
     transform: translateY(-100%);
   }
 
-  35% {
+  30.67% {
     -webkit-transform: translateY(-202%);
     transform: translateY(-202%);
   }
 
-  50% {
+  33.33% {
     -webkit-transform: translateY(-200%);
     transform: translateY(-200%);
   }
 
-  60% {
+  47.33% {
     -webkit-transform: translateY(-302%);
     transform: translateY(-302%);
   }
 
-  75% {
+  50% {
     -webkit-transform: translateY(-300%);
     transform: translateY(-300%);
   }
 
-  85% {
+  64% {
     -webkit-transform: translateY(-402%);
     transform: translateY(-402%);
   }
 
-  95% {
+  66.67% {
     -webkit-transform: translateY(-400%);
     transform: translateY(-400%);
   }
 
-  100% {
+  80.67% {
     -webkit-transform: translateY(-502%);
     transform: translateY(-502%);
+  }
+
+  83.33% {
+    -webkit-transform: translateY(-500%);
+    transform: translateY(-500%);
+  }
+
+  97.33% {
+    -webkit-transform: translateY(-602%);
+    transform: translateY(-602%);
+  }
+
+  100% {
+    -webkit-transform: translateY(-600%);
+    transform: translateY(-600%);
   }
 }
