@@ -65,7 +65,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 bg-light-background text-dark-text">
+    <section id="contact" className="py-20 bg-dark-gray text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           ref={titleRef}
@@ -73,8 +73,8 @@ export default function Contact() {
             titleVisible ? "animate-on-scroll visible" : "animate-on-scroll"
           }`}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-primary-gold">Vamos planejar seu próximo grande evento?</h2>
-          <p className="text-xl text-secondary-text max-w-3xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 font-serif">Vamos planejar seu próximo grande evento?</h2>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Pronto para criar um evento inesquecível? Entre em contato conosco e vamos
             transformar sua visão em realidade.
           </p>
