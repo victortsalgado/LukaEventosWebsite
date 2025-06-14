@@ -338,19 +338,6 @@ body {
   min-width: 300px;
 }
 
-.words::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    var(--bg-color) 10%,
-    transparent 30%,
-    transparent 70%,
-    var(--bg-color) 90%
-  );
-  z-index: 20;
-}
-
 .word {
   display: block;
   height: 100%;
@@ -358,7 +345,6 @@ body {
   color: #ffffff;
   font-weight: 800;
   animation: spin_4991 20s infinite;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
 @keyframes spin_4991 {
