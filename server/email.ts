@@ -1,18 +1,15 @@
 import sgMail from '@sendgrid/mail';
 
 // Configure SendGrid
-const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY || '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';
+const SENDGRID_API_KEY = process.env.SENDGRID_SECRET || process.env.SENDGRID_API_KEY;
 const FROM_EMAIL = 'contato@lukaeventos.com.br';
 const TO_EMAIL = 'contato@lukaeventos.com.br';
 
-if (SENDGRID_API_KEY && SENDGRID_API_KEY !== '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') {
+if (SENDGRID_API_KEY) {
   sgMail.setApiKey(SENDGRID_API_KEY);
-  console.log('✅ SendGrid configured with environment variable');
-} else if (SENDGRID_API_KEY) {
-  sgMail.setApiKey(SENDGRID_API_KEY);
-  console.log('✅ SendGrid configured with provided API key');
+  console.log('✅ SendGrid configured successfully');
 } else {
-  console.warn('⚠️  SENDGRID_API_KEY not found. Email functionality will be disabled.');
+  console.warn('⚠️  SENDGRID_SECRET not found. Email functionality will be disabled.');
 }
 
 interface ContactFormData {

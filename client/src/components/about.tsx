@@ -60,8 +60,8 @@ export default function About() {
                 <div className="text-sm text-gray-600">Anos de Experiência</div>
               </div>
               <div className="text-center p-6 bg-light-gray rounded-xl">
-                <div className="text-3xl font-bold text-primary-orange mb-2">98%</div>
-                <div className="text-sm text-gray-600">Satisfação</div>
+                <div className="text-3xl font-bold text-primary-orange mb-2">5000+</div>
+                <div className="text-sm text-gray-600">Metros quadrados de standes construídos</div>
               </div>
               <div className="text-center p-6 bg-light-gray rounded-xl">
                 <div className="text-3xl font-bold text-primary-orange mb-2">24/7</div>
