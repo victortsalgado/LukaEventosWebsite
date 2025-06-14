@@ -44,7 +44,7 @@ export default function Hero() {
           <img 
             src="/images/logo-luka.png" 
             alt="Logo Luka Eventos" 
-            className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 object-contain mx-auto filter brightness-125 contrast-110 drop-shadow-2xl opacity-90 hover:opacity-100 transition-all duration-500 hover:scale-105"
+            className="w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96 object-contain mx-auto filter brightness-150 opacity-20 hover:opacity-30 transition-all duration-500"
           />
         </div>
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
