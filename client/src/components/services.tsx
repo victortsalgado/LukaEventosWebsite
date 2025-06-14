@@ -119,16 +119,16 @@ export default function Services() {
             titleVisible ? "animate-on-scroll visible" : "animate-on-scroll"
           }`}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-primary-gold mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary-gold mb-6">
             Soluções Completas para o Seu Evento
           </h2>
-          <p className="text-xl text-secondary-text max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-secondary-text max-w-3xl mx-auto px-4">
             Oferecemos soluções completas para todos os tipos de eventos, desde a
             concepção até a execução final.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8">
           {servicesConfig.map((service, index) => (
             <ErrorBoundary key={index}>
               <ServiceCard service={service} index={index} />
