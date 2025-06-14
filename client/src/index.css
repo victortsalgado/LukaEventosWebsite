@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@300;400;600;700&family=Crimson+Text:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -25,38 +25,56 @@
 }
 
 :root {
-  --primary-color: #FF6600; /* Laranja Principal */
-  --secondary-color: #333333; /* Cinza Escuro */
-  --background-light: #ffffff; /* Branco */
-  --background-dark: #f4f4f4; /* Cinza Claro */
-  --text-light: #ffffff;
-  --text-dark: #333333;
+  --primary-gold: #D4A24E; /* O dourado/ocre da marca para detalhes */
+  --dark-text: #212121; /* O cinza-escuro/chumbo para texto principal */
+  --secondary-text: #555555; /* Um cinza mais suave para parágrafos */
+  --light-background: #FFFFFF; /* Fundo principal branco */
+  --section-background: #f9f9f9; /* Um cinza muito claro para separar seções */
 
-  --background: var(--background-light);
-  --foreground: var(--text-dark);
-  --muted: hsl(210, 40%, 96%);
-  --muted-foreground: hsl(215, 16%, 47%);
-  --popover: var(--background-light);
-  --popover-foreground: var(--text-dark);
-  --card: var(--background-light);
-  --card-foreground: var(--text-dark);
-  --border: hsl(214, 32%, 91%);
-  --input: hsl(214, 32%, 91%);
-  --primary: var(--primary-color);
-  --primary-foreground: var(--text-light);
-  --secondary: hsl(210, 40%, 96%);
-  --secondary-foreground: var(--text-dark);
-  --accent: hsl(210, 40%, 96%);
-  --accent-foreground: var(--text-dark);
+  --background: var(--light-background);
+  --foreground: var(--dark-text);
+  --muted: var(--section-background);
+  --muted-foreground: var(--secondary-text);
+  --popover: var(--light-background);
+  --popover-foreground: var(--dark-text);
+  --card: var(--light-background);
+  --card-foreground: var(--dark-text);
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --primary: var(--primary-gold);
+  --primary-foreground: var(--light-background);
+  --secondary: var(--section-background);
+  --secondary-foreground: var(--dark-text);
+  --accent: var(--section-background);
+  --accent-foreground: var(--dark-text);
   --destructive: hsl(0, 84%, 60%);
-  --destructive-foreground: var(--text-light);
-  --ring: var(--primary-color);
+  --destructive-foreground: var(--light-background);
+  --ring: var(--primary-gold);
   --radius: 0.5rem;
 
-  /* Custom Luka Eventos colors */
-  --primary-orange: var(--primary-color);
-  --dark-gray: var(--secondary-color);
-  --light-gray: var(--background-dark);
+  /* Legacy color variables for compatibility */
+  --primary-orange: var(--primary-gold);
+  --dark-gray: var(--dark-text);
+  --light-gray: var(--section-background);
+}
+
+/* Base typography and body styles */
+@layer base {
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--light-background);
+    color: var(--secondary-text);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    color: var(--primary-gold);
+    font-weight: 600;
+  }
+
+  p {
+    color: var(--secondary-text);
+  }
 }
 
 .dark {

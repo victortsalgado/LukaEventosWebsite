@@ -43,10 +43,11 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-10">
-              <text x="10" y="32" fontFamily="serif" fontSize="28" fontWeight="300" fill="#ea5a0c" letterSpacing="3px">LUKA</text>
-              <text x="10" y="52" fontFamily="serif" fontSize="14" fontWeight="300" fill="#374151" letterSpacing="2px">Eventos</text>
-            </svg>
+            <img 
+              src="/api/images/Branding/Nome%20Preto%20Sem%20Fundo.png" 
+              alt="Logo da Luka Eventos" 
+              className="h-10"
+            />
           </div>
 
           {/* Desktop Navigation */}
@@ -56,7 +57,7 @@ export default function Navbar() {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="text-dark-gray hover:text-primary-orange transition-colors duration-300 font-medium"
+                  className="text-dark-text hover:text-primary-gold transition-colors duration-300 font-medium"
                 >
                   {item.label}
                 </button>

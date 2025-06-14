@@ -1,0 +1,31 @@
+Aja como um designer de UI/UX e desenvolvedor frontend sênior. Sua tarefa é executar uma completa reformulação visual da aplicação React existente para criar uma estética limpa, arejada e profissional com um fundo predominantemente branco.
+
+1. Atualização da Paleta de Cores Global:
+
+No arquivo CSS global (client/src/index.css), substitua as variáveis de cores existentes no :root pela nova paleta de cores oficial da marca para um tema claro:
+CSS
+
+:root {
+  --primary-gold: #D4A24E; /* O dourado/ocre da marca para detalhes */
+  --dark-text: #212121; /* O cinza-escuro/chumbo para texto principal */
+  --secondary-text: #555555; /* Um cinza mais suave para parágrafos */
+  --light-background: #FFFFFF; /* Fundo principal branco */
+  --section-background: #f9f9f9; /* Um cinza muito claro para separar seções */
+}
+Altere o background-color do body para var(--light-background) e a color padrão para var(--secondary-text).
+2. Atualização da Tipografia:
+
+No arquivo CSS global, confirme que as fontes 'Playfair Display' e 'Montserrat' do Google Fonts estão sendo importadas.
+Defina a font-family padrão do body para 'Montserrat'.
+Em todos os componentes, garanta que os títulos principais (tags h1, h2, h3) utilizem a fonte 'Playfair Display' e a cor var(--primary-gold). O texto principal dos parágrafos deve usar a cor var(--secondary-text).
+3. Substituição da Logomarca (Importante):
+
+No componente Navbar.tsx, remova qualquer logo existente.
+No lugar, insira uma tag <img>. Como o fundo do menu agora será claro, o src desta imagem deve apontar para a logomarca preta: "/api/images/Branding/Nome%20Preto%20Sem%20Fundo.png". Dê a ela um alt="Logo da Luka Eventos".
+4. Reestilização de Componentes:
+
+Botões: O botão principal "Solicite um Orçamento" deve ter o fundo var(--primary-gold) e o texto var(--light-background) (branco) para bom contraste.
+Links: Os links de navegação no menu devem ter a cor var(--dark-text) e, ao passar o mouse (hover), devem mudar para a cor var(--primary-gold).
+Seções: Garanta que as seções alternem entre o fundo var(--light-background) e var(--section-background) para criar uma separação visual sutil.
+Ícones: Os ícones da seção de serviços devem ser atualizados para usar a cor var(--primary-gold).
+Resumo do Objetivo: Transforme o site em uma experiência limpa e arejada, com fundo branco, texto principal em cinza escuro, e detalhes de destaque (títulos, ícones, botões) na cor dourada da marca.
