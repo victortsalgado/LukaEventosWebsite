@@ -8,14 +8,14 @@ interface AnimatedTextProps {
 export default function AnimatedText({ children, className = "" }: AnimatedTextProps) {
   return (
     <span className={`relative inline-block ${className}`}>
-      <span className="relative z-10 bg-gradient-to-r from-primary-gray via-gray-200 to-primary-gray bg-clip-text text-transparent font-extrabold tracking-wide">
+      <span className="relative z-10 text-primary-gray font-extrabold tracking-wide animate-glow-pulse">
         {children}
       </span>
       <span 
-        className="absolute inset-0 text-primary-gray opacity-20 blur-sm animate-glow-pulse"
+        className="absolute inset-0 text-primary-gray opacity-10 blur-md"
         aria-hidden="true"
         style={{
-          textShadow: '0 0 20px rgba(61, 72, 82, 0.6), 0 0 40px rgba(61, 72, 82, 0.3)'
+          textShadow: '0 0 15px rgba(61, 72, 82, 0.8), 0 0 30px rgba(61, 72, 82, 0.4)'
         }}
       >
         {children}
