@@ -6,15 +6,15 @@ interface AnimatedTextProps {
 
 export default function AnimatedText({ className = "" }: AnimatedTextProps) {
   return (
-    <div className={`rotating-text-container ${className}`}>
-      <div className="rotating-text-loader">
-        <p className="text-white">marco de</p>
-        <div className="rotating-words">
-          <span className="rotating-word">oportunidades</span>
-          <span className="rotating-word">networking</span>
-          <span className="rotating-word">impacto</span>
-          <span className="rotating-word">crescimento</span>
-          <span className="rotating-word">relevância</span>
+    <div className={`card ${className}`}>
+      <div className="loader">
+        <p>marco de</p>
+        <div className="words">
+          <span className="word">oportunidades</span>
+          <span className="word">networking</span>
+          <span className="word">impacto</span>
+          <span className="word">crescimento</span>
+          <span className="word">relevância</span>
         </div>
       </div>
     </div>
