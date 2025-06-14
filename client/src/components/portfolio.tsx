@@ -53,7 +53,7 @@ export default function Portfolio() {
             titleVisible ? "animate-on-scroll visible" : "animate-on-scroll"
           }`}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-6 font-serif">
             Nosso Portfólio
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">

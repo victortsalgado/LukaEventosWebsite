@@ -73,7 +73,7 @@ export default function Contact() {
             titleVisible ? "animate-on-scroll visible" : "animate-on-scroll"
           }`}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">Vamos planejar seu próximo grande evento?</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 font-serif">Vamos planejar seu próximo grande evento?</h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Pronto para criar um evento inesquecível? Entre em contato conosco e vamos
             transformar sua visão em realidade.

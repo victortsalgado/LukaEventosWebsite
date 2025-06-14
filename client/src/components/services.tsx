@@ -119,7 +119,7 @@ export default function Services() {
             titleVisible ? "animate-on-scroll visible" : "animate-on-scroll"
           }`}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-6 font-serif">
             Soluções Completas para o Seu Evento
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">

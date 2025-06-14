@@ -28,7 +28,7 @@ export default function About() {
             titleVisible ? "animate-on-scroll visible" : "animate-on-scroll"
           }`}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-6 font-serif">
             Experiência que Gera Resultados
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -43,7 +43,7 @@ export default function About() {
               contentVisible ? "animate-on-scroll visible" : "animate-on-scroll"
             }`}
           >
-            <h3 className="text-3xl font-bold text-dark-gray mb-6">Nossa Missão</h3>
+            <h3 className="text-3xl font-bold text-dark-gray mb-6 font-serif">Nossa Missão</h3>
             <p className="text-lg text-gray-600 mb-6 leading-relaxed">
               Criamos experiências únicas e memoráveis através do planejamento
               meticuloso e execução impecável de eventos que refletem a personalidade
