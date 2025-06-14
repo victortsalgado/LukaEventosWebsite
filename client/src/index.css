@@ -348,8 +348,8 @@ body {
 
 @keyframes spin_4991 {
   20% {
-    -webkit-transform: translateY(-120%);
-    transform: translateY(-120%);
+    -webkit-transform: translateY(-140%);
+    transform: translateY(-140%);
   }
 
   25% {
@@ -358,8 +358,8 @@ body {
   }
 
   35% {
-    -webkit-transform: translateY(-220%);
-    transform: translateY(-220%);
+    -webkit-transform: translateY(-240%);
+    transform: translateY(-240%);
   }
 
   50% {
@@ -368,8 +368,8 @@ body {
   }
 
   60% {
-    -webkit-transform: translateY(-320%);
-    transform: translateY(-320%);
+    -webkit-transform: translateY(-340%);
+    transform: translateY(-340%);
   }
 
   75% {
@@ -378,8 +378,8 @@ body {
   }
 
   85% {
-    -webkit-transform: translateY(-420%);
-    transform: translateY(-420%);
+    -webkit-transform: translateY(-440%);
+    transform: translateY(-440%);
   }
 
   100% {
