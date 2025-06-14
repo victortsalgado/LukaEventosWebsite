@@ -21,17 +21,7 @@ export default function Hero() {
       id="hero"
       className="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center overflow-hidden"
     >
-      {/* Logo marca d'água no quadrante superior esquerdo */}
-      <div className="absolute top-0 left-0 w-1/2 h-1/2 z-5 flex items-center justify-center p-4">
-        <img 
-          src="/images/logo-luka.png" 
-          alt="Logo Luka Eventos" 
-          className="w-full h-full max-w-80 max-h-80 opacity-20 object-contain filter brightness-150"
-          onError={(e) => {
-            console.error('Erro ao carregar logo marca d\'água');
-          }}
-        />
-      </div>
+
 
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
@@ -51,10 +41,11 @@ export default function Hero() {
         }`}
       >
         <div className="mb-8">
-          <svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="mx-auto">
-            <text x="10" y="32" fontFamily="serif" fontSize="28" fontWeight="300" fill="#3d4852" letterSpacing="3px">LUKA</text>
-            <text x="10" y="52" fontFamily="serif" fontSize="14" fontWeight="300" fill="#ffffff" letterSpacing="2px">Eventos</text>
-          </svg>
+          <img 
+            src="/images/logo-luka.png" 
+            alt="Logo Luka Eventos" 
+            className="w-48 h-48 md:w-56 md:h-56 object-contain mx-auto filter brightness-110"
+          />
         </div>
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
           Transformamos seu evento em um{" "}
