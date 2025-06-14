@@ -1,26 +1,22 @@
 import React from 'react';
 
 interface AnimatedTextProps {
-  children: React.ReactNode;
   className?: string;
 }
 
-export default function AnimatedText({ children, className = "" }: AnimatedTextProps) {
+export default function AnimatedText({ className = "" }: AnimatedTextProps) {
   return (
-    <span className={`relative inline-block ${className}`}>
-      <span 
-        className="text-primary-gray font-extrabold tracking-wide animated-text-effect"
-        style={{
-          background: 'linear-gradient(90deg, #3d4852, #6b7280, #3d4852)',
-          backgroundSize: '200% 100%',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text',
-          animation: 'wave-text 3s ease-in-out infinite'
-        }}
-      >
-        {children}
-      </span>
-    </span>
+    <div className={`rotating-text-container ${className}`}>
+      <div className="rotating-text-loader">
+        <p className="text-white">marco de</p>
+        <div className="rotating-words">
+          <span className="rotating-word">oportunidades</span>
+          <span className="rotating-word">networking</span>
+          <span className="rotating-word">impacto</span>
+          <span className="rotating-word">crescimento</span>
+          <span className="rotating-word">relevância</span>
+        </div>
+      </div>
+    </div>
   );
 }

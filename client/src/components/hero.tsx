@@ -50,7 +50,7 @@ export default function Hero() {
         </div>
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
           Transformamos seu evento em um{" "}
-          <AnimatedText className="block mt-2">marco de sucesso</AnimatedText>
+          <AnimatedText className="block mt-2" />
         </h1>
         <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
           Planejamento, organização e produção de feiras, congressos e eventos corporativos em todo o Brasil.
