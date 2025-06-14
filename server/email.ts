@@ -24,10 +24,14 @@ interface ContactFormData {
 }
 
 export async function sendContactEmail(data: ContactFormData): Promise<boolean> {
+  console.log('🔧 Attempting to send email via SendGrid...');
+  
   if (!SENDGRID_API_KEY) {
-    console.log('SendGrid not configured, skipping email send');
+    console.log('❌ SendGrid not configured, skipping email send');
     return false;
   }
+  
+  console.log('✅ SendGrid API key found, proceeding with email send');
 
   try {
     const emailHtml = `
