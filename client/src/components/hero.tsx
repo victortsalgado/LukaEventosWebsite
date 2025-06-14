@@ -41,10 +41,11 @@ export default function Hero() {
         }`}
       >
         <div className="mb-8">
-          <svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="mx-auto">
-            <text x="10" y="32" fontFamily="serif" fontSize="28" fontWeight="300" fill="#3d4852" letterSpacing="3px">LUKA</text>
-            <text x="10" y="52" fontFamily="serif" fontSize="14" fontWeight="300" fill="#ffffff" letterSpacing="2px">Eventos</text>
-          </svg>
+          <img 
+            src="/images/logo-luka.png" 
+            alt="Logo Luka Eventos" 
+            className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 object-contain mx-auto filter brightness-125 contrast-110 drop-shadow-2xl opacity-90 hover:opacity-100 transition-all duration-500 hover:scale-105"
+          />
         </div>
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
           Transformamos seu evento em um{" "}
