@@ -15,7 +15,6 @@ export default function AnimatedText({ className = "" }: AnimatedTextProps) {
           <span className="word">impacto</span>
           <span className="word">crescimento</span>
           <span className="word">relevância</span>
-          <span className="word">oportunidades</span>
           
         </div>
       </div>

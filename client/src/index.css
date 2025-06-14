@@ -341,72 +341,47 @@ body {
   padding-left: 6px;
   color: #ffffff;
   font-weight: 700;
-  animation: spin_4991 5s infinite;
+  animation: spin_4991 4s infinite;
 }
 
 @keyframes spin_4991 {
-  0% {
-    -webkit-transform: translateY(0%);
-    transform: translateY(0%);
-  }
-
-  14% {
+  20% {
     -webkit-transform: translateY(-102%);
     transform: translateY(-102%);
   }
 
-  16.67% {
+  25% {
     -webkit-transform: translateY(-100%);
     transform: translateY(-100%);
   }
 
-  30.67% {
+  35% {
     -webkit-transform: translateY(-202%);
     transform: translateY(-202%);
   }
 
-  33.33% {
+  50% {
     -webkit-transform: translateY(-200%);
     transform: translateY(-200%);
   }
 
-  47.33% {
+  60% {
     -webkit-transform: translateY(-302%);
     transform: translateY(-302%);
   }
 
-  50% {
+  75% {
     -webkit-transform: translateY(-300%);
     transform: translateY(-300%);
   }
 
-  64% {
+  85% {
     -webkit-transform: translateY(-402%);
     transform: translateY(-402%);
   }
 
-  66.67% {
+  100% {
     -webkit-transform: translateY(-400%);
     transform: translateY(-400%);
-  }
-
-  80.67% {
-    -webkit-transform: translateY(-502%);
-    transform: translateY(-502%);
-  }
-
-  83.33% {
-    -webkit-transform: translateY(-500%);
-    transform: translateY(-500%);
-  }
-
-  97.33% {
-    -webkit-transform: translateY(-602%);
-    transform: translateY(-602%);
-  }
-
-  100% {
-    -webkit-transform: translateY(-600%);
-    transform: translateY(-600%);
   }
 }
