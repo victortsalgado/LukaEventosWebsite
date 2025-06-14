@@ -21,6 +21,15 @@ export default function Hero() {
       id="hero"
       className="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center overflow-hidden"
     >
+      {/* Logo da Luka no canto superior esquerdo */}
+      <div className="absolute top-6 left-6 z-20 p-2">
+        <img 
+          src="/images/logo-luka.png" 
+          alt="Logo Luka Eventos" 
+          className="h-20 w-20 md:h-24 md:w-24 opacity-95 hover:opacity-100 transition-all duration-300 hover:scale-105 filter drop-shadow-lg"
+        />
+      </div>
+
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div
