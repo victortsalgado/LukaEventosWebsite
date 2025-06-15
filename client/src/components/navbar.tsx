@@ -4,10 +4,8 @@ import { Menu, X } from "lucide-react";
 const navItems = [
   { id: "about", label: "Sobre" },
   { id: "services", label: "Serviços" },
-  { id: "portfolio", label: "Portfólio" },
+  { id: "gallery", label: "Portfólio" },
   { id: "journey", label: "Metodologia" },
-  { id: "clients", label: "Clientes" },
-  { id: "gallery", label: "Galeria" },
   { id: "contact", label: "Contato" },
 ];
 
