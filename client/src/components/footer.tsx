@@ -93,7 +93,14 @@ export default function Footer() {
 
           <div>
             <h4 className="text-lg font-semibold mb-4">Contato</h4>
-            <ul className="space-y-2 text-gray-300">
+            <ul className="space-y-3 text-gray-300">
+              <li className="flex items-start">
+                <MapPin className="mr-2 text-primary-orange mt-1 flex-shrink-0" size={16} />
+                <span className="text-sm">
+                  Conjunto Médici II, Travessa Prainha n°274<br />
+                  CEP: 666620-140, Belém, PA
+                </span>
+              </li>
               <li className="flex items-center">
                 <a
                   href="https://wa.me/5591981553464"
@@ -102,8 +109,12 @@ export default function Footer() {
                   className="flex items-center hover:text-primary-orange transition-colors duration-300"
                 >
                   <MessageCircle className="mr-2 text-primary-orange" size={16} />
-                  (91) 9 8155-3464
+                  (91) 98155-3464
                 </a>
+              </li>
+              <li className="flex items-center">
+                <Phone className="mr-2 text-primary-orange" size={16} />
+                (91) 98155-3464
               </li>
               <li className="flex items-center">
                 <Mail className="mr-2 text-primary-orange" size={16} />
