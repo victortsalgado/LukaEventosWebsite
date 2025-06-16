@@ -7,6 +7,7 @@ const navItems = [
   { id: "services", label: "Serviços" },
   { id: "journey", label: "Metodologia" },
   { id: "gallery", label: "Portfólio" },
+  { id: "cop30", label: "COP30", isRoute: true },
   { id: "blog", label: "Blog", isRoute: true },
   { id: "contact", label: "Contato" },
 ];

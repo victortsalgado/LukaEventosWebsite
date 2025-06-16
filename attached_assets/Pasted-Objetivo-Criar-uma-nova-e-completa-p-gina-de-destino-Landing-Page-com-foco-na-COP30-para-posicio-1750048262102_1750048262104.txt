@@ -1,0 +1,47 @@
+Objetivo: Criar uma nova e completa página de destino (Landing Page) com foco na COP30, para posicionar a Luka Eventos como a parceira ideal em Belém para agências e empresas.
+
+Contexto Técnico:
+
+O projeto utiliza React, React Router e Tailwind CSS.
+A nova página precisa ter uma nova rota, seu próprio conteúdo e otimizações de SEO.
+Critérios para Sucesso:
+
+Criação da Rota e do Arquivo:
+
+Crie uma nova rota. O caminho deve ser /cop30.
+Crie o arquivo do componente para esta página em src/pages/Cop30Page.jsx.
+Otimização de SEO da Página:
+
+Configure os metadados de SEO para esta página. A tag <title> deve ser: "Luka Eventos: Sua Parceira Estratégica para a COP30 em Belém".
+A <meta name="description"> deve ser: "Soluções completas para eventos, stands e ativações na COP30. A Luka Eventos é a agência local em Belém com a expertise que você precisa para um evento de sucesso.".
+Estrutura e Conteúdo da Página:
+
+Seção Principal (Hero):
+
+Use a imagem oficial da COP30 (o arquivo cop30.jpg que já está nos assets) como um banner de fundo ou imagem de destaque.
+Título Principal (<h1>): "COP30 em Belém: Da Estratégia à Execução Impecável, Somos a Sua Parceira Local."
+Subtítulo: "Para agências e empresas que buscam excelência, a Luka Eventos oferece a expertise e a estrutura necessárias para realizar projetos de alto impacto durante a conferência."
+Adicione um botão de Call-to-Action proeminente com o texto "Planeje seu Evento na COP30 Conosco".
+Seção "Por que uma Parceira Local é Essencial?" (<h2>):
+
+Crie uma seção com 3 colunas ou cards, cada um com um ícone e o seguinte texto:
+Card 1 (Logística Integrada): "Navegamos pela complexa logística de Belém, garantindo acesso aos melhores fornecedores, transporte e montagem, para que seu evento aconteça sem imprevistos."
+Card 2 (Conhecimento Burocrático): "Compreendemos as regulamentações locais e os processos do Hangar Centro de Convenções, agilizando licenças e garantindo conformidade total."
+Card 3 (Conexão Cultural): "Incorporamos a riqueza da cultura amazônica de forma autêntica, criando experiências que ressoam com um público global e respeitam as tradições locais."
+Seção "Nossos Serviços para a COP30" (<h2>):
+
+Crie uma lista ou grid visual destacando os principais serviços da Luka, adaptados para a COP30:
+Design e Montagem de Stands e Pavilhões
+Produção de Eventos Paralelos e Ativações de Marca
+Serviços Completos de Buffet e Hospitalidade
+Contratação e Gestão de Equipes (Recepcionistas, Seguranças, Apoio)
+Locação de Mobiliário e Equipamentos Audiovisuais
+Consultoria Estratégica para Agências Parceiras
+Seção de Chamada Final (<h2>):
+
+Adicione uma seção final com o título: "Não deixe seu projeto da COP30 ao acaso."
+Adicione um parágrafo: "A complexidade de um evento global exige um parceiro local à altura. A Luka Eventos está pronta para ser o seu braço direito em Belém, assegurando que seu projeto seja executado com a excelência que sua marca merece."
+Insira um botão de contato final.
+Atualização da Navegação:
+
+Adicione um novo item de menu na navegação principal com o texto "COP30" que aponte para a nova rota /cop30. Posicione-o de forma destacada, talvez antes de "Blog".
