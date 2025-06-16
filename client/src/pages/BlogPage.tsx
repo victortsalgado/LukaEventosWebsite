@@ -141,7 +141,7 @@ export default function BlogPage() {
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <a
-                      href="https://www.instagram.com/lukaeventos"
+                      href="https://www.instagram.com/lukaevento"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="group relative inline-flex items-center justify-center overflow-hidden rounded-full px-6 py-3 font-semibold text-white transition-all duration-300 hover:scale-105 shadow-lg"
