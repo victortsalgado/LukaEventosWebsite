@@ -1,17 +1,20 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { useLocation } from "wouter";
 
 const navItems = [
   { id: "about", label: "Sobre" },
   { id: "services", label: "Serviços" },
   { id: "journey", label: "Metodologia" },
   { id: "gallery", label: "Portfólio" },
+  { id: "blog", label: "Blog", isRoute: true },
   { id: "contact", label: "Contato" },
 ];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [location, setLocation] = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +25,25 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleNavigation = (item: any) => {
+    if (item.isRoute) {
+      // Navigate to route
+      setLocation(`/${item.id}`);
+    } else {
+      // Scroll to section (only works on home page)
+      if (location !== '/') {
+        setLocation('/');
+        // Small delay to allow page to load before scrolling
+        setTimeout(() => {
+          scrollToSection(item.id);
+        }, 100);
+      } else {
+        scrollToSection(item.id);
+      }
+    }
+    setIsMenuOpen(false);
+  };
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -31,7 +53,6 @@ export default function Navbar() {
         behavior: "smooth",
       });
     }
-    setIsMenuOpen(false);
   };
 
   return (
@@ -97,7 +118,7 @@ export default function Navbar() {
             {navItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
+                onClick={() => handleNavigation(item)}
                 className="text-gray-900 hover:text-primary-gray transition-colors duration-300 font-medium"
               >
                 {item.label}
@@ -129,7 +150,7 @@ export default function Navbar() {
             {navItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
+                onClick={() => handleNavigation(item)}
                 className="block w-full text-left px-3 py-2 text-gray-900 hover:text-primary-gray transition-colors duration-300 font-medium"
               >
                 {item.label}
