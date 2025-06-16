@@ -137,22 +137,21 @@ export default function CaseOkajima() {
                   O resultado foi um dos stands mais comentados da SUPERNORTE 2024, um espaço que combinou estética sofisticada com máxima funcionalidade. A satisfação do nosso cliente é a nossa maior métrica de sucesso. Tivemos a honra de receber um depoimento em vídeo de Jansen Barros, Diretor de Marketing da Okajima, que compartilhou sua experiência positiva com o trabalho da Luka Eventos.
                 </p>
 
-                {/* Video Placeholder */}
-                <div className="mb-8">
-                  <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg aspect-video flex items-center justify-center border-2 border-gray-700">
-                    <div className="text-center text-white p-8">
-                      <Play size={64} className="mx-auto mb-4 opacity-80" />
-                      <p className="text-xl font-medium mb-2">Depoimento em Vídeo</p>
-                      <p className="text-sm opacity-80 max-w-md">
-                        Assista ao depoimento completo de Jansen Barros sobre nossa parceria de sucesso na SUPERNORTE 2024
-                      </p>
-                      <p className="text-xs opacity-60 mt-4">Em breve disponível</p>
-                    </div>
-                  </div>
-                  <p className="text-sm text-gray-600 mt-3 italic text-center">
-                    Depoimento de Jansen Barros, Diretor de Marketing da Okajima
-                  </p>
+                {/* YouTube Video */}
+                <div className="relative w-full aspect-video my-8">
+                  <iframe 
+                    className="absolute top-0 left-0 w-full h-full" 
+                    src="https://www.youtube.com/embed/OkrNyuJQbE6dDtbg" 
+                    title="Depoimento Okajima: O Sucesso do Stand na SUPERNORTE 2024 com a Luka Eventos" 
+                    frameBorder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerPolicy="strict-origin-when-cross-origin" 
+                    allowFullScreen>
+                  </iframe>
                 </div>
+                <p className="text-sm text-gray-600 mt-3 italic text-center">
+                  Depoimento de Jansen Barros, Diretor de Marketing da Okajima
+                </p>
 
                 {/* Conclusion */}
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Conclusão</h2>
