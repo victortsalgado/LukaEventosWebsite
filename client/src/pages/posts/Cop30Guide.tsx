@@ -198,12 +198,17 @@ export default function Cop30Guide() {
                     >
                       Fale Conosco no WhatsApp
                     </a>
-                    <a
-                      href="#contact"
+                    <button
+                      onClick={() => {
+                        const contactSection = document.getElementById('contact');
+                        if (contactSection) {
+                          contactSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }}
                       className="inline-flex items-center justify-center border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-green-700 transition-all duration-300"
                     >
                       Solicitar Proposta
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>

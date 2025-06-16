@@ -175,16 +175,21 @@ export default function CaseOkajima() {
                       href="https://wa.me/5591981553464"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center bg-white text-primary-orange px-8 py-3 rounded-full font-semibold hover:opacity-90 transition-opacity duration-300"
+                      className="inline-flex items-center justify-center bg-white text-primary-orange px-8 py-4 rounded-full font-bold text-lg hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                     >
-                      Fale Conosco no WhatsApp
+                      💬 Fale Conosco no WhatsApp
                     </a>
-                    <a
-                      href="#contact"
-                      className="inline-flex items-center justify-center border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-primary-orange transition-all duration-300"
+                    <button
+                      onClick={() => {
+                        const contactSection = document.getElementById('contact');
+                        if (contactSection) {
+                          contactSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }}
+                      className="inline-flex items-center justify-center border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-primary-orange transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                     >
                       Solicitar Orçamento
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>

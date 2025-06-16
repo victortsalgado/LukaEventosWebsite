@@ -30,14 +30,6 @@ export default function BlogPage() {
       readTime: "8 min de leitura",
       image: caseOkajimaImage,
       link: "/blog/case-okajima-supernorte-2024"
-    },
-    {
-      id: 3,
-      title: "Tendências em Stands para Feiras 2025",
-      excerpt: "Conheça as últimas tendências em design de stands, tecnologias interativas e estratégias que fazem sua marca se destacar nas principais feiras do país.",
-      author: "Luka Eventos",
-      date: "10 de Janeiro, 2025",
-      readTime: "7 min de leitura"
     }
   ];
 
