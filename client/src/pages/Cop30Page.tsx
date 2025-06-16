@@ -123,7 +123,13 @@ export default function Cop30Page() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button
                   onClick={() => {
-                    window.location.href = '/#contact';
+                    window.location.href = '/';
+                    setTimeout(() => {
+                      const contactSection = document.getElementById('contact');
+                      if (contactSection) {
+                        contactSection.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }, 100);
                   }}
                   className="inline-flex items-center justify-center bg-white text-green-700 px-8 py-4 rounded-full font-bold text-lg hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                 >
@@ -215,16 +221,20 @@ export default function Cop30Page() {
                 Fale Conosco no WhatsApp
                 <ArrowRight className="ml-2 h-5 w-5" />
               </a>
-              <a
-                href="#contato"
-                onClick={(e) => {
-                  e.preventDefault();
-                  window.location.href = '/#contact';
+              <button
+                onClick={() => {
+                  window.location.href = '/';
+                  setTimeout(() => {
+                    const contactSection = document.getElementById('contact');
+                    if (contactSection) {
+                      contactSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }, 100);
                 }}
                 className="inline-flex items-center justify-center border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-gray-900 transition-all duration-300"
               >
                 Solicitar Proposta
-              </a>
+              </button>
             </div>
 
             {/* Trust Indicators */}
