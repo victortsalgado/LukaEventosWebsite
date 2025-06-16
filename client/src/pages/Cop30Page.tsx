@@ -121,17 +121,15 @@ export default function Cop30Page() {
                 Para agências e empresas que buscam excelência, a Luka Eventos oferece a expertise e a estrutura necessárias para realizar projetos de alto impacto durante a conferência.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="#contato"
-                  onClick={(e) => {
-                    e.preventDefault();
+                <button
+                  onClick={() => {
                     window.location.href = '/#contact';
                   }}
                   className="inline-flex items-center justify-center bg-white text-green-700 px-8 py-4 rounded-full font-bold text-lg hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                 >
                   Planeje seu Evento na COP30 Conosco
                   <ArrowRight className="ml-2 h-5 w-5" />
-                </a>
+                </button>
               </div>
             </div>
           </div>
