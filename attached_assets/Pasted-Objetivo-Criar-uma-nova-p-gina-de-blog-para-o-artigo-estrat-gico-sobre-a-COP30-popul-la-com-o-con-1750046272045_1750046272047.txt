@@ -1,0 +1,63 @@
+Objetivo: Criar uma nova página de blog para o artigo estratégico sobre a COP30, populá-la com o conteúdo fornecido e a imagem oficial do evento, e conectar tudo ao site principal.
+
+Contexto Técnico:
+
+O projeto utiliza React, React Router e Tailwind CSS.
+A página será um novo componente com uma nova rota.
+A página precisa ter suas próprias tags de SEO (Title e Meta Description).
+Critérios para Sucesso:
+
+Criação da Rota e do Arquivo:
+
+Crie uma nova rota. O caminho deve ser /blog/guia-cop30-parceiro-local.
+Crie o arquivo do componente para esta página em src/pages/posts/Cop30Guide.jsx.
+Otimização de SEO da Página:
+
+Configure os metadados de SEO para esta página. A tag <title> deve ser: "Guia COP30: Como Agências Podem Escolher um Parceiro de Eventos em Belém | Luka Eventos".
+A <meta name="description"> deve ser: "Prepare sua agência para a COP30 em Belém. Saiba por que um parceiro local de execução é crucial e como a Luka Eventos pode garantir o sucesso do seu evento.".
+Estrutura e Conteúdo da Página:
+
+Imagem Principal: Use a imagem oficial da COP30 que foi anexada a este prompt como a imagem de destaque no topo do artigo. Salve-a no diretório de assets do projeto.
+
+Título Principal (<h1>): Use o texto a seguir: "COP30 em Belém: O Guia Definitivo para Agências Nacionais e Internacionais Encontrarem o Parceiro de Execução Perfeito".
+
+Corpo do Artigo: Crie o corpo do artigo com as seguintes seções e textos, utilizando <h2> para os subtítulos em negrito:
+
+&lt;h2>Introdução&lt;/h2>
+
+&lt;p>A COP30 está prestes a transformar Belém do Pará no epicentro das discussões climáticas globais. Para agências de marketing e eventos de todo o Brasil e do mundo, isso representa uma oportunidade única de realizar ativações de marca, eventos paralelos e recepções de alto nível. Contudo, o sucesso em um palco tão complexo e com uma logística tão particular depende de um fator crucial que muitas vezes é subestimado: a execução local. Como garantir uma operação impecável em uma cidade com características tão únicas? A resposta está em encontrar o parceiro local certo.&lt;/p>
+
+&lt;h2>A Vantagem Competitiva da Expertise Local&lt;/h2>
+
+&lt;p>Organizar um evento em Belém, especialmente durante um acontecimento da magnitude da COP30, vai muito além de reservar um espaço. Agências de fora da região enfrentam desafios que só uma equipe local experiente pode prever e solucionar com agilidade. A expertise local é a sua maior vantagem competitiva. Um parceiro estabelecido em Belém possui um conhecimento profundo sobre:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Fornecedores Confiáveis:&lt;/strong> Acesso direto aos melhores buffets, empresas de audiovisual, segurança e transporte da região.&lt;/li>
+&lt;li>&lt;strong>Logística e Regulamentação:&lt;/strong> Entendimento dos trâmites burocráticos do Hangar Centro de Convenções e de outras venues, além da logística de transporte e montagem na cidade.&lt;/li>
+&lt;li>&lt;strong>Cultura Regional:&lt;/strong> Capacidade de integrar elementos da rica cultura amazônica de forma autêntica e respeitosa, criando experiências mais ricas para os participantes.&lt;/li>
+&lt;/ul>
+
+&lt;h2>Checklist: O que Exigir do seu Parceiro de Execução em Belém?&lt;/h2>
+
+&lt;p>Antes de fechar uma parceria, certifique-se de que seu fornecedor local atenda a estes critérios essenciais:&lt;/p>
+&lt;ul>
+&lt;li>✅ &lt;strong>Portfólio Robusto:&lt;/strong> Verifique se a empresa possui experiência comprovada na organização e produção de eventos de grande porte, como feiras e congressos. Peça para ver cases de sucesso.&lt;/li>
+&lt;li>✅ &lt;strong>Estrutura de Gestão Completa:&lt;/strong> O parceiro ideal deve ser capaz de gerenciar múltiplos serviços de forma integrada, oferecendo uma solução "one-stop-shop".&lt;/li>
+&lt;li>✅ &lt;strong>Capacidade de Personalização:&lt;/strong> A empresa tem estrutura para criar projetos personalizados, como stands em marcenaria e soluções de cenografia que fujam do básico?&lt;/li>
+&lt;li>✅ &lt;strong>Comprovação de Sucesso:&lt;/strong> Depoimentos de outros clientes, especialmente de grandes marcas, são o selo de qualidade que garante a tranquilidade da sua agência.&lt;/li>
+&lt;/ul>
+
+&lt;h2>Luka Eventos: Seu Braço Direito para a COP30&lt;/h2>
+
+&lt;p>A Luka Eventos nasceu e cresceu em Belém, e por mais de uma década tem sido a parceira estratégica de grandes marcas e agências nacionais para a execução de seus eventos mais importantes na região amazônica. Nossa metodologia de trabalho se baseia em ser o seu "braço direito" em Belém, traduzindo as expectativas de agências de fora em uma execução local impecável, com a qualidade e o padrão que seus clientes exigem.&lt;/p>
+
+&lt;h2>Conclusão&lt;/h2>
+
+&lt;p>A COP30 é uma oportunidade histórica. Não deixe que desafios logísticos ou a falta de conhecimento local coloquem em risco o seu projeto. A escolha de um parceiro de execução experiente e estabelecido em Belém não é um custo, mas um investimento na garantia do sucesso.&lt;/p>
+&lt;p>&lt;strong>Sua agência está planejando ações para a COP30? Vamos conversar sobre como a Luka Eventos pode ser a sua parceira estratégica em Belém. Entre em contato conosco.&lt;/strong>&lt;/p>
+
+Atualização da Página do Blog:
+
+Abra o componente da página principal do blog (src/pages/BlogPage.jsx).
+Modifique o primeiro card de placeholder para que ele se torne o card oficial deste novo artigo.
+Atualize a imagem do card para usar a imagem oficial da COP30 que foi anexada a este prompt, o título para "Guia COP30: Como Escolher seu Parceiro de Eventos em Belém" e um resumo apropriado.
+Faça o botão "Leia Mais →" do card apontar para a nova rota /blog/guia-cop30-parceiro-local.

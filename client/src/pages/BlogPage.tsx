@@ -4,6 +4,7 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { Calendar, User, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
 import caseOkajimaImage from "@assets/Case_okajima_foto1_1750041688851.jpg";
+import cop30Image from "@assets/cop30_1750046278318.jpg";
 
 export default function BlogPage() {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
@@ -12,6 +13,16 @@ export default function BlogPage() {
   const blogPosts = [
     {
       id: 1,
+      title: "Guia COP30: Como Escolher seu Parceiro de Eventos em Belém",
+      excerpt: "Prepare sua agência para a COP30 em Belém. Saiba por que um parceiro local de execução é crucial e como a Luka Eventos pode garantir o sucesso do seu evento.",
+      author: "Luka Eventos",
+      date: "16 de Janeiro, 2025",
+      readTime: "6 min de leitura",
+      image: cop30Image,
+      link: "/blog/guia-cop30-parceiro-local"
+    },
+    {
+      id: 2,
       title: "Case de Sucesso: Okajima na SUPERNORTE 2024",
       excerpt: "Veja como a Luka Eventos planejou e executou um stand de impacto para a Okajima em um dos maiores eventos da Amazônia.",
       author: "Luka Eventos",
@@ -21,20 +32,12 @@ export default function BlogPage() {
       link: "/blog/case-okajima-supernorte-2024"
     },
     {
-      id: 2,
+      id: 3,
       title: "Tendências em Stands para Feiras 2025",
       excerpt: "Conheça as últimas tendências em design de stands, tecnologias interativas e estratégias que fazem sua marca se destacar nas principais feiras do país.",
       author: "Luka Eventos",
       date: "10 de Janeiro, 2025",
       readTime: "7 min de leitura"
-    },
-    {
-      id: 3,
-      title: "Case de Sucesso: Exposibram 2024",
-      excerpt: "Acompanhe os bastidores e resultados do nosso trabalho na Exposibram 2024, onde criamos stands únicos que geraram grande impacto para nossos clientes.",
-      author: "Luka Eventos",
-      date: "5 de Janeiro, 2025",
-      readTime: "6 min de leitura"
     }
   ];
 

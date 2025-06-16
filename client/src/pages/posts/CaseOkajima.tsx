@@ -141,7 +141,7 @@ export default function CaseOkajima() {
                 <div className="relative w-full aspect-video my-8">
                   <iframe 
                     className="absolute top-0 left-0 w-full h-full" 
-                    src="https://www.youtube.com/embed/OkrNyuJQbE6dDtbg" 
+                    src="https://www.youtube.com/embed/oGpSgvBGCPc" 
                     title="Depoimento Okajima: O Sucesso do Stand na SUPERNORTE 2024 com a Luka Eventos" 
                     frameBorder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 

@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Home from "@/pages/home";
 import BlogPage from "@/pages/BlogPage";
 import CaseOkajima from "@/pages/posts/CaseOkajima";
+import Cop30Guide from "@/pages/posts/Cop30Guide";
 import NotFound from "@/pages/not-found";
 import ScrollToTop from "@/components/ScrollToTop";
 
@@ -15,6 +16,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/blog" component={BlogPage} />
       <Route path="/blog/case-okajima-supernorte-2024" component={CaseOkajima} />
+      <Route path="/blog/guia-cop30-parceiro-local" component={Cop30Guide} />
       <Route component={NotFound} />
     </Switch>
   );
