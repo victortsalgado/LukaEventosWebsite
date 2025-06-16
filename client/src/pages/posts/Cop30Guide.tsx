@@ -189,7 +189,15 @@ export default function Cop30Guide() {
                   <p className="mb-6 text-lg opacity-90">
                     Entre em contato e descubra como podemos ser seu parceiro local de confiança em Belém.
                   </p>
-                  <div className="flex justify-center">
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a
+                      href="https://www.instagram.com/lukaeventos"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-green-700 transition-all duration-300"
+                    >
+                      Siga no Instagram
+                    </a>
                     <a
                       href="https://wa.me/5591981553464"
                       target="_blank"
