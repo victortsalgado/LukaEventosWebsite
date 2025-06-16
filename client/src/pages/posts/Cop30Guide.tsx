@@ -189,7 +189,7 @@ export default function Cop30Guide() {
                   <p className="mb-6 text-lg opacity-90">
                     Entre em contato e descubra como podemos ser seu parceiro local de confiança em Belém.
                   </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <div className="flex justify-center">
                     <a
                       href="https://wa.me/5591981553464"
                       target="_blank"
@@ -198,15 +198,6 @@ export default function Cop30Guide() {
                     >
                       Fale Conosco no WhatsApp
                     </a>
-                    <button
-                      onClick={() => {
-                        // Navigate to home page and scroll to contact
-                        window.location.href = '/#contact';
-                      }}
-                      className="inline-flex items-center justify-center border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-green-700 transition-all duration-300"
-                    >
-                      Solicitar Proposta
-                    </button>
                   </div>
                 </div>
               </div>
