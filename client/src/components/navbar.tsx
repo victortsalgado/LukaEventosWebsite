@@ -120,7 +120,11 @@ export default function Navbar() {
               <button
                 key={item.id}
                 onClick={() => handleNavigation(item)}
-                className="text-gray-900 hover:text-primary-gray transition-colors duration-300 font-medium"
+                className={`transition-colors duration-300 font-medium ${
+                  item.id === 'cop30' 
+                    ? 'text-green-600 hover:text-green-700 font-bold text-lg shadow-sm' 
+                    : 'text-gray-900 hover:text-primary-gray'
+                }`}
               >
                 {item.label}
               </button>
@@ -152,7 +156,11 @@ export default function Navbar() {
               <button
                 key={item.id}
                 onClick={() => handleNavigation(item)}
-                className="block w-full text-left px-3 py-2 text-gray-900 hover:text-primary-gray transition-colors duration-300 font-medium"
+                className={`block w-full text-left px-3 py-2 transition-colors duration-300 font-medium ${
+                  item.id === 'cop30' 
+                    ? 'text-green-600 hover:text-green-700 font-bold' 
+                    : 'text-gray-900 hover:text-primary-gray'
+                }`}
               >
                 {item.label}
               </button>
