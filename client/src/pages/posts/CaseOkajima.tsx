@@ -163,33 +163,23 @@ export default function CaseOkajima() {
                 </p>
 
                 {/* Call to Action */}
-                <div className="bg-gradient-to-br from-primary-orange to-accent-gray rounded-2xl p-8 text-center text-white mt-12">
-                  <h3 className="text-2xl font-bold mb-4">
+                <div className="bg-gradient-to-br from-primary-orange to-accent-gray rounded-2xl p-8 md:p-12 text-center text-white mt-12">
+                  <h3 className="text-2xl md:text-3xl font-bold mb-4">
                     Transforme Seu Próximo Evento em um Case de Sucesso
                   </h3>
-                  <p className="mb-6 text-lg opacity-90">
+                  <p className="mb-8 text-lg md:text-xl opacity-90 max-w-2xl mx-auto">
                     Entre em contato e descubra como podemos criar uma experiência inesquecível para sua marca.
                   </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <div className="flex justify-center">
                     <a
                       href="https://wa.me/5591981553464"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center bg-white text-primary-orange px-8 py-4 rounded-full font-bold text-lg hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                      className="inline-flex items-center justify-center bg-white text-primary-orange px-10 py-4 rounded-full font-bold text-lg md:text-xl hover:opacity-95 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 border-4 border-white"
                     >
-                      💬 Fale Conosco no WhatsApp
+                      <span className="mr-3 text-2xl">💬</span>
+                      Fale Conosco no WhatsApp
                     </a>
-                    <button
-                      onClick={() => {
-                        const contactSection = document.getElementById('contact');
-                        if (contactSection) {
-                          contactSection.scrollIntoView({ behavior: 'smooth' });
-                        }
-                      }}
-                      className="inline-flex items-center justify-center border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-primary-orange transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-                    >
-                      Solicitar Orçamento
-                    </button>
                   </div>
                 </div>
               </div>
