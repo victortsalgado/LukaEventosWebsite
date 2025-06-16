@@ -175,10 +175,29 @@ export default function CaseOkajima() {
                       href="https://wa.me/5591981553464"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center bg-white text-primary-orange px-10 py-4 rounded-full font-bold text-lg md:text-xl hover:opacity-95 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 border-4 border-white"
+                      className="group relative inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-primary-gray to-accent-gray px-8 py-4 text-lg font-semibold text-white transition-all duration-300 ease-out hover:scale-105 active:scale-95 shadow-lg"
                     >
-                      <span className="mr-3 text-2xl">💬</span>
-                      Fale Conosco no WhatsApp
+                      {/* Background gradient */}
+                      <span className="absolute inset-0 bg-gradient-to-r from-primary-gray via-accent-gray to-primary-gray"></span>
+                      
+                      {/* Shimmer effect */}
+                      <span className="absolute inset-0 h-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full transform transition-transform duration-700 group-hover:translate-x-full"></span>
+                      
+                      {/* Glow effect */}
+                      <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-primary-gray/50 to-accent-gray/50 opacity-0 blur-xl transition-all duration-500 group-hover:opacity-60"></span>
+                      
+                      {/* Button content */}
+                      <span className="relative flex items-center gap-2 z-10">
+                        <span className="transition-all duration-300 ease-out group-hover:rotate-12 group-hover:scale-110">
+                          💬
+                        </span>
+                        <span className="transition-all duration-300 ease-out group-hover:translate-x-1">
+                          Fale Conosco no WhatsApp
+                        </span>
+                      </span>
+                      
+                      {/* Border highlight */}
+                      <span className="absolute inset-0 rounded-lg border border-white/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
                     </a>
                   </div>
                 </div>
