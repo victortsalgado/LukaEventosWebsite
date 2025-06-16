@@ -175,7 +175,7 @@ export default function CaseOkajima() {
                       href="https://wa.me/5591981553464"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group relative inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-primary-gray to-accent-gray px-8 py-4 text-lg font-semibold text-white transition-all duration-300 ease-out hover:scale-105 active:scale-95 shadow-lg z-10"
+                      className="group relative inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-primary-gray to-accent-gray px-8 py-4 text-lg font-semibold text-gray-900 transition-all duration-300 ease-out hover:scale-105 active:scale-95 shadow-lg z-10"
                     >
                       {/* Background gradient */}
                       <span className="absolute inset-0 bg-gradient-to-r from-primary-gray via-accent-gray to-primary-gray -z-10"></span>
@@ -188,9 +188,6 @@ export default function CaseOkajima() {
                       
                       {/* Button content */}
                       <span className="relative flex items-center gap-2 z-20">
-                        <span className="transition-all duration-300 ease-out group-hover:rotate-12 group-hover:scale-110">
-                          💬
-                        </span>
                         <span className="transition-all duration-300 ease-out group-hover:translate-x-1">
                           Fale Conosco no WhatsApp
                         </span>
