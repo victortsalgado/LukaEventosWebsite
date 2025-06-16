@@ -200,10 +200,8 @@ export default function Cop30Guide() {
                     </a>
                     <button
                       onClick={() => {
-                        const contactSection = document.getElementById('contact');
-                        if (contactSection) {
-                          contactSection.scrollIntoView({ behavior: 'smooth' });
-                        }
+                        // Navigate to home page and scroll to contact
+                        window.location.href = '/#contact';
                       }}
                       className="inline-flex items-center justify-center border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-green-700 transition-all duration-300"
                     >
