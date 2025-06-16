@@ -1,0 +1,60 @@
+Objetivo: Criar uma nova página de blog para o case de sucesso da "Okajima", populá-la com o conteúdo completo fornecido abaixo e conectar tudo ao site principal.
+
+Contexto Técnico:
+
+O projeto utiliza React, React Router e Tailwind CSS.
+A página deve ser um novo componente, com uma nova rota dinâmica dentro do blog.
+A página precisa ter suas próprias tags de SEO (Title e Meta Description).
+Critérios para Sucesso:
+
+Criação da Rota e do Arquivo:
+
+Crie uma nova rota dinâmica. O caminho deve ser /blog/case-okajima-supernorte-2024.
+Crie o arquivo do componente para esta página em src/pages/posts/CaseOkajima.jsx.
+Otimização de SEO da Página:
+
+Configure os metadados de SEO para esta página. A tag <title> deve ser: "Case de Sucesso: Okajima na SUPERNORTE 2024 | Luka Eventos".
+A tag <meta name="description"> deve ser: "Veja como a Luka Eventos planejou e executou um stand de 100m² para a Okajima na SUPERNORTE 2024, com soluções de design, funcionalidade e hospitalidade.".
+Estrutura e Conteúdo da Página:
+
+Imagem Principal: Use a imagem Case_okajima_foto1.jpg (que foi anexada ao chat) como a imagem de destaque no topo do artigo. Adicione a seguinte legenda abaixo da imagem: "Jansen Barros, Diretor de Marketing da Okajima, em conversa com Lúcia Salgado, CEO da Luka Eventos, no stand da SUPERNORTE 2024."
+
+Título Principal (<h1>): Use o texto a seguir para o título principal: "Case de Sucesso: O Stand de Impacto da Okajima na SUPERNORTE 2024, por Luka Eventos".
+
+Corpo do Artigo: Crie o corpo do artigo com as seguintes seções e textos, usando <h2> para os subtítulos em negrito:
+
+&lt;h2>Introdução&lt;/h2>
+
+&lt;p>Quando um gigante da distribuição como a Okajima participa de um dos maiores eventos do setor na Amazônia, a SUPERNORTE, a presença precisa ser mais do que um simples stand: precisa ser uma declaração de força, organização e liderança. Em outubro de 2024, a Luka Eventos teve a honra de aceitar este desafio, transformando um espaço de 100m² no Hangar Centro de Convenções em uma experiência de marca inesquecível.&lt;/p>
+
+&lt;h2>O Desafio: Criar um Ponto de Encontro Memorável e Funcional&lt;/h2>
+
+&lt;p>O objetivo da Okajima era claro: criar um stand na SUPERNORTE 2024 que não apenas se destacasse visualmente em meio a um evento de grande porte, mas que também fosse extremamente funcional para a equipe, confortável para os visitantes e que expusesse seus produtos de forma estratégica. O espaço precisava facilitar o networking, acomodar reuniões e, acima de tudo, reforçar a imagem de excelência da marca.&lt;/p>
+
+&lt;h2>A Solução da Luka Eventos: Planejamento Detalhado e Execução Impecável&lt;/h2>
+
+&lt;p>Nossa equipe trabalhou em estreita colaboração com a Okajima para desenvolver um projeto que atendesse a todas as necessidades, desde a estrutura macro até os mínimos detalhes de acabamento.&lt;/p>
+&lt;p>&lt;strong>Estrutura e Design de Impacto:&lt;/strong> Projetamos um stand de 100m² (10x10m) com um piso elevado para criar uma presença dominante, incluindo uma rampa lateral para garantir total acessibilidade. As paredes e a marquise foram construídas em carpintaria personalizada, com uma iluminação de spots estrategicamente posicionada para valorizar cada detalhe, seguindo o projeto à risca.&lt;/p>
+&lt;p>&lt;strong>Funcionalidade e Tecnologia:&lt;/strong> Um depósito robusto de 12m² foi integrado à estrutura, com prateleiras internas e uma porta com chave para segurança. Pensando na necessidade de mídia do cliente, criamos uma parede especial com encaixe perfeito para um grande painel de LED (fornecido pela Okajima), garantindo uma integração limpa e profissional.&lt;/p>
+&lt;p>&lt;strong>Exposição Estratégica de Produtos:&lt;/strong> Para destacar os produtos da Okajima, desenvolvemos quatro grandes vitrines personalizadas, cada uma com três níveis de prateleiras iluminadas e fechamento em acrílico. Adicionalmente, criamos duas vitrines em formato de nicho, também com iluminação individual, transformando os produtos em verdadeiras peças de exposição.&lt;/p>
+&lt;p>&lt;strong>Ambientação e Conforto:&lt;/strong> O espaço foi mobiliado com 10 mesas e 40 cadeiras de design para acomodar os visitantes com conforto. Um grande cachepô com plantas naturais, que receberam manutenção durante os três dias do evento, trouxe um toque de sofisticação e natureza ao ambiente.&lt;/p>
+&lt;p>&lt;strong>Gestão Completa do Projeto:&lt;/strong> Nosso serviço incluiu a montagem e desmontagem de toda a estrutura e a supervisão contínua durante todos os dias do evento, garantindo que a equipe da Okajima pudesse focar exclusivamente em seus negócios, com a tranquilidade de que tudo funcionaria perfeitamente.&lt;/p>
+
+&lt;h2>Resultados e o Veredito do Cliente&lt;/h2>
+
+&lt;p>O resultado foi um dos stands mais comentados da SUPERNORTE 2024, um espaço que combinou estética sofisticada com máxima funcionalidade. A satisfação do nosso cliente é a nossa maior métrica de sucesso. Tivemos a honra de receber um depoimento em vídeo de Jansen Barros, Diretor de Marketing da Okajima, que compartilhou sua experiência positiva com o trabalho da Luka Eventos.&lt;/p>
+
+Placeholder do Vídeo: Abaixo da seção "Resultados", crie um placeholder visual para o vídeo. Deve ser uma caixa retangular (proporção 16:9) com uma cor de fundo (ex: bg-gray-800) e um ícone de "play" no centro. Adicione uma legenda abaixo: "Depoimento de Jansen Barros, Diretor de Marketing da Okajima".
+
+Conclusão e CTA:
+&lt;h2>Conclusão&lt;/h2>
+
+&lt;p>O projeto para a Okajima na SUPERNORTE 2024 exemplifica a filosofia da Luka Eventos: transformar as necessidades de um cliente em um evento estratégico e bem-sucedido. Cuidamos de cada detalhe para que a única preocupação do nosso cliente seja brilhar.&lt;/p>
+&lt;p>&lt;strong>Pronto para transformar seu próximo evento em um case de sucesso? Fale com a nossa equipe.&lt;/strong>&lt;/p>
+
+Atualização da Página do Blog:
+
+Abra o componente da página principal do blog (src/pages/BlogPage.jsx).
+Modifique o primeiro card de placeholder para que ele se torne o card oficial deste novo artigo.
+Atualize a imagem do card para usar Case_okajima_foto1.jpg, o título para "Case de Sucesso: Okajima na SUPERNORTE 2024" e o resumo para "Veja como a Luka Eventos planejou e executou um stand de impacto para a Okajima em um dos maiores eventos da Amazônia."
+Faça o botão "Leia Mais →" do card apontar para a nova rota /blog/case-okajima-supernorte-2024.

@@ -2,6 +2,8 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { Calendar, User, ArrowRight } from "lucide-react";
+import { Link } from "wouter";
+import caseOkajimaImage from "@assets/Case_okajima_foto1_1750041688851.jpg";
 
 export default function BlogPage() {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
@@ -10,11 +12,13 @@ export default function BlogPage() {
   const blogPosts = [
     {
       id: 1,
-      title: "Como Planejar um Evento Corporativo de Sucesso",
-      excerpt: "Descubra as etapas fundamentais para organizar eventos corporativos que impressionam e geram resultados. Desde o briefing inicial até a execução final.",
+      title: "Case de Sucesso: Okajima na SUPERNORTE 2024",
+      excerpt: "Veja como a Luka Eventos planejou e executou um stand de impacto para a Okajima em um dos maiores eventos da Amazônia.",
       author: "Luka Eventos",
       date: "15 de Janeiro, 2025",
-      readTime: "5 min de leitura"
+      readTime: "8 min de leitura",
+      image: caseOkajimaImage,
+      link: "/blog/case-okajima-supernorte-2024"
     },
     {
       id: 2,
@@ -75,13 +79,23 @@ export default function BlogPage() {
                     }`}
                     style={{ transitionDelay: `${index * 200}ms` }}
                   >
-                    {/* Post Image Placeholder */}
-                    <div className="bg-gradient-to-br from-primary-orange to-accent-gray h-56 w-full flex items-center justify-center">
-                      <div className="text-white text-center">
-                        <Calendar size={48} className="mx-auto mb-2 opacity-60" />
-                        <p className="text-sm opacity-80">Imagem do Artigo</p>
+                    {/* Post Image */}
+                    {post.image ? (
+                      <div className="h-56 w-full overflow-hidden">
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
-                    </div>
+                    ) : (
+                      <div className="bg-gradient-to-br from-primary-orange to-accent-gray h-56 w-full flex items-center justify-center">
+                        <div className="text-white text-center">
+                          <Calendar size={48} className="mx-auto mb-2 opacity-60" />
+                          <p className="text-sm opacity-80">Imagem do Artigo</p>
+                        </div>
+                      </div>
+                    )}
 
                     <div className="p-6">
                       {/* Post Meta */}
@@ -105,10 +119,17 @@ export default function BlogPage() {
                       </p>
 
                       {/* Read More Button */}
-                      <button className="inline-flex items-center text-primary-orange font-semibold hover:text-accent-gray transition-colors duration-300">
-                        Leia Mais
-                        <ArrowRight size={16} className="ml-2" />
-                      </button>
+                      {post.link ? (
+                        <Link href={post.link} className="inline-flex items-center text-primary-orange font-semibold hover:text-accent-gray transition-colors duration-300">
+                          Leia Mais
+                          <ArrowRight size={16} className="ml-2" />
+                        </Link>
+                      ) : (
+                        <button className="inline-flex items-center text-primary-orange font-semibold hover:text-accent-gray transition-colors duration-300">
+                          Leia Mais
+                          <ArrowRight size={16} className="ml-2" />
+                        </button>
+                      )}
                     </div>
                   </article>
                 ))}
