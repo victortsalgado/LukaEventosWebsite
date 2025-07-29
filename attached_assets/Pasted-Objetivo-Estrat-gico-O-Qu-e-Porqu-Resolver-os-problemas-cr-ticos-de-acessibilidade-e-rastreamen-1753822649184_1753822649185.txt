@@ -1,0 +1,53 @@
+Objetivo Estratégico (O Quê e Porquê):
+Resolver os problemas críticos de acessibilidade e rastreamento que impedem o site da Luka Eventos (lukaeventos.com.br e www.lukaeventos.com.br) de ser totalmente acessível e compreendido pelos motores de busca e IAs. O objetivo é garantir que todas as versões do site possam ser rastreadas e indexadas sem impedimentos, estabelecendo uma base técnica sólida para futuras otimizações de SEO e AIO.
+
+Contexto e Problemas Identificados (com base nos dados de auditoria):
+
+A versão 
+
+https://www.lukaeventos.com.br/ não pôde ser aberta pelos crawlers. 
+
+A homepage 
+
+https://lukaeventos.com.br/ está bloqueada para rastreamento. 
+
+O arquivo 
+
+robots.txt possui um formato inválido. 
+
+O arquivo 
+
+llms.txt não foi encontrado. 
+
+Tarefas Chave para o Agente (Foco no Objetivo):
+
+Diagnosticar e Corrigir Problemas de Acessibilidade da URL Principal (www e não-www):
+
+Investigar a causa de "We couldn't open the page's URL" para https://www.lukaeventos.com.br/.
+
+Garantir que ambas as versões, com e sem www, sejam acessíveis e que uma seja corretamente redirecionada (301) para a versão preferencial (https://lukaeventos.com.br/ é a versão principal no HTML fornecido).
+
+O objetivo é que não haja erros de carregamento para os crawlers em nenhuma das versões.
+
+Corrigir o Formato e Conteúdo do robots.txt:
+
+Analisar o arquivo robots.txt existente em https://lukaeventos.com.br/robots.txt e identificar a causa do formato inválido.
+
+Gerar um arquivo robots.txt com formato válido que permita o rastreamento de todo o site, exceto por diretórios ou arquivos que sabidamente não devem ser indexados (ex: área de administração, dados sensíveis).
+
+O objetivo é remover a barreira de "Blocked from crawling" para a homepage e garantir a correta comunicação com os robôs.
+
+Endereçar a Ausência do llms.txt:
+
+Criar um arquivo llms.txt vazio na raiz do domínio (https://lukaeventos.com.br/llms.txt), ou, se houver uma estratégia de bloqueio de LLMs, implementar as diretrizes apropriadas.
+
+O objetivo é remover o aviso de "Llms.txt not found" e garantir que a Luka Eventos tenha controle sobre o acesso de LLMs, se desejar.
+
+Critérios de Sucesso:
+
+Nenhuma das URLs principais (https://lukaeventos.com.br/ e https://www.lukaeventos.com.br/) deve apresentar "We couldn't open the page's URL" ou "Blocked from crawling" em futuras auditorias.
+
+O arquivo robots.txt deve ter um formato válido e não impedir o rastreamento das páginas essenciais do site.
+
+O aviso "Llms.txt not found" deve ser resolvido.
+
