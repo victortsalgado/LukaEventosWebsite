@@ -1,0 +1,84 @@
+Objetivo Estratégico (O Quê e Porquê):
+Melhorar a performance geral do site da Luka Eventos, garantindo um carregamento rápido e eficiente, e resolver todos os problemas de rastreabilidade e acessibilidade que impedem a indexação completa pelos motores de busca. O propósito é otimizar a experiência do usuário, reduzir a taxa de rejeição, e assegurar que o site seja totalmente compreendido e classificado pelos algoritmos de busca e de IA.
+
+Contexto e Problemas Confirmados (com base nos relatórios de auditoria):
+
+Site apresenta "Slow page load speed".
+
+Página possui "Too much content".
+
+Problemas de acesso à URL 
+
+https://www.lukaeventos.com.br/ pelos crawlers.
+
+Homepage 
+
+https://lukaeventos.com.br/ foi reportada como "Blocked from crawling".
+
+Arquivo 
+
+robots.txt em https://lukaeventos.com.br/robots.txt está com "Invalid robots.txt format".
+
+Arquivo 
+
+llms.txt não encontrado.
+
+Tarefas Chave para o Agente (Foco no Objetivo):
+
+Diagnosticar e Corrigir Acessibilidade e Redirecionamentos de URL:
+
+Investigar a fundo a causa do erro "We couldn't open the page's URL" para https://www.lukaeventos.com.br/.
+
+Garantir que ambas as versões do domínio (com e sem www) estejam acessíveis e que uma redirecione para a versão preferencial (301 redirect), que parece ser a não-www (https://lukaeventos.com.br/) com base no HTML fornecido anteriormente.
+
+O objetivo é eliminar quaisquer barreiras de acesso para os crawlers.
+
+Validar e Corrigir o Arquivo robots.txt:
+
+Analisar o conteúdo atual do robots.txt para corrigir o "Invalid robots.txt format" e garantir que ele permita o rastreamento de todas as páginas essenciais do site.
+
+O objetivo é desbloquear a homepage e assegurar a correta comunicação de rastreamento.
+
+Tratar a Ausência do llms.txt:
+
+Criar e posicionar um arquivo llms.txt (mesmo que vazio, se não houver uma estratégia de exclusão específica de conteúdo para LLMs) na raiz do domínio.
+
+O objetivo é resolver o aviso de "Llms.txt not found" e permitir o controle futuro sobre o acesso de Large Language Models ao conteúdo, se desejado.
+
+Otimizar a Velocidade de Carregamento da Página:
+
+Implementar técnicas de otimização de performance para reduzir o "Slow page load speed". Isso pode incluir:
+
+Otimização e compressão de imagens.
+
+Minificação de arquivos CSS e JavaScript.
+
+Implementação de cache do navegador.
+
+Otimização da entrega de fontes (font-display: swap).
+
+O objetivo é melhorar as métricas de Core Web Vitals (LCP, INP, CLS) para uma experiência de usuário fluida.
+
+Gerenciar o Excesso de Conteúdo na Página Inicial:
+
+Analisar o volume de conteúdo na homepage que foi sinalizado como "Too much content".
+
+Propor e, se aprovado, implementar estratégias de reestruturação do conteúdo, como:
+
+Segmentar informações e mover detalhes menos críticos para páginas internas dedicadas (seções de serviços, estudos de caso detalhados, FAQ).
+
+Otimizar a apresentação visual do conteúdo remanescente para ser mais escaneável e conciso.
+
+O objetivo é melhorar a legibilidade e a percepção de valor da homepage, sem sobrecarregar o usuário.
+
+Critérios de Sucesso:
+
+Nenhuma das URLs principais da Luka Eventos deve apresentar erros de acessibilidade para crawlers.
+
+O arquivo robots.txt deve ser válido e permitir o rastreamento adequado.
+
+O aviso sobre llms.txt deve ser resolvido.
+
+As métricas de velocidade de carregamento devem melhorar significativamente (a ser validado em futura auditoria de performance).
+
+A página inicial deve ter uma densidade de conteúdo otimizada, melhorando a legibilidade sem perder informações essenciais.
