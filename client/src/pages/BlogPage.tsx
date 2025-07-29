@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
@@ -7,6 +8,28 @@ import caseOkajimaImage from "@assets/Case_okajima_foto1_1750041688851.jpg";
 import cop30Image from "@assets/cop30_1750046278318.jpg";
 
 export default function BlogPage() {
+  useEffect(() => {
+    // SEO Meta Tags for Blog page
+    document.title = "Blog Luka Eventos | Insights e Cases de Sucesso em Organização de Eventos";
+    
+    // Update meta description
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (!metaDescription) {
+      metaDescription = document.createElement('meta');
+      metaDescription.setAttribute('name', 'description');
+      document.head.appendChild(metaDescription);
+    }
+    metaDescription.setAttribute('content', 'Acompanhe cases de sucesso, dicas de planejamento e as últimas tendências em organização de eventos corporativos. Blog oficial da Luka Eventos.');
+
+    // Cleanup function to restore original meta tags when component unmounts
+    return () => {
+      document.title = "Luka Eventos | Empresa de Organização de Eventos em Belém-PA";
+      const originalMeta = document.querySelector('meta[name="description"]');
+      if (originalMeta) {
+        originalMeta.setAttribute('content', 'Planejamento e produção de eventos corporativos, feiras e congressos em Belém. A Luka Eventos oferece soluções completas, de stands a buffet. Fale conosco!');
+      }
+    };
+  }, []);
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
   const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation();
 
