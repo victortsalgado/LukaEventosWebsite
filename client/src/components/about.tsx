@@ -87,6 +87,44 @@ export default function About() {
                 teamVisible ? "animate-on-scroll visible" : "animate-on-scroll"
               }`}
             >
+              {/* Schema.org for Lúcia Salgado */}
+              <script type="application/ld+json">
+              {JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Person",
+                "@id": "https://lukaeventos.com.br/#lucia-salgado",
+                "name": "Lúcia Salgado",
+                "jobTitle": "CEO e Fundadora",
+                "description": "CEO da Luka Eventos com mais de 15 anos de experiência no mercado de eventos. Especialista em planejamento estratégico e execução de projetos complexos, com extensa rede de relacionamentos com fornecedores locais em Belém e região.",
+                "image": "https://lukaeventos.com.br/api/storage/images/Time%20Luka/time_lucia.png",
+                "url": "https://lukaeventos.com.br/#about",
+                "worksFor": {
+                  "@type": "Organization",
+                  "@id": "https://lukaeventos.com.br/#organization"
+                },
+                "knowsAbout": [
+                  "Planejamento de Eventos",
+                  "Gestão de Projetos",
+                  "Relacionamento com Fornecedores",
+                  "Estratégia Empresarial",
+                  "Eventos Corporativos"
+                ],
+                "hasOccupation": {
+                  "@type": "Occupation",
+                  "name": "Chief Executive Officer",
+                  "occupationLocation": {
+                    "@type": "Place",
+                    "name": "Belém, PA, Brasil"
+                  }
+                },
+                "alumniOf": "Universidade da Amazônia (UNAMA)",
+                "sameAs": [
+                  "https://www.linkedin.com/in/lucia-salgado-luka-eventos",
+                  "https://www.instagram.com/luciasalgado.lukaeventos"
+                ]
+              })}
+              </script>
+
               <h2 className="text-4xl font-bold text-dark-gray mb-6">
                 Conheça Nossa CEO
               </h2>
@@ -135,6 +173,52 @@ export default function About() {
               </div>
             </div>
             <div>
+              {/* Schema.org for Lêda Salgado */}
+              <script type="application/ld+json">
+              {JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Person",
+                "@id": "https://lukaeventos.com.br/#leda-salgado",
+                "name": "Lêda Salgado",
+                "jobTitle": "Arquiteta e Designer de Eventos",
+                "description": "Arquiteta responsável pelos serviços de projeto 3D, decoração, iluminação e paisagismo na Luka Eventos. Especialista em transformar espaços comuns em cenários extraordinários, com formação em Arquitetura e experiência em projetos residenciais e comerciais.",
+                "image": "https://lukaeventos.com.br/api/storage/images/Time%20Luka/time_leda.png",
+                "url": "https://lukaeventos.com.br/#about",
+                "worksFor": {
+                  "@type": "Organization",
+                  "@id": "https://lukaeventos.com.br/#organization"
+                },
+                "knowsAbout": [
+                  "Projeto 3D",
+                  "Decoração de Eventos",
+                  "Iluminação Arquitetônica",
+                  "Paisagismo",
+                  "Design de Interiores",
+                  "Arquitetura",
+                  "Design de Experiências"
+                ],
+                "hasOccupation": {
+                  "@type": "Occupation",
+                  "name": "Arquiteta",
+                  "occupationLocation": {
+                    "@type": "Place",
+                    "name": "Belém, PA, Brasil"
+                  }
+                },
+                "hasCredential": {
+                  "@type": "EducationalOccupationalCredential",
+                  "credentialCategory": "Degree",
+                  "educationalLevel": "Bachelor",
+                  "about": "Arquitetura e Urbanismo"
+                },
+                "alumniOf": "Universidade Federal do Pará (UFPA)",
+                "sameAs": [
+                  "https://www.linkedin.com/in/leda-salgado-arquiteta",
+                  "https://www.instagram.com/ledasalgado.arquitetura"
+                ]
+              })}
+              </script>
+
               <h2 className="text-4xl font-bold text-dark-gray mb-6">
                 Conheça Nossa Arquiteta
               </h2>

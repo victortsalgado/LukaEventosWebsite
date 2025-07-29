@@ -96,6 +96,94 @@ export default function Cop30Page() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Schema.org for COP30 Event and FAQ */}
+      <script type="application/ld+json">
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Event",
+            "@id": "https://lukaeventos.com.br/cop30/#cop30-event",
+            "name": "COP30 - 30ª Conferência das Partes sobre Mudanças Climáticas",
+            "description": "A 30ª Conferência das Nações Unidas sobre Mudanças Climáticas (COP30) será realizada em Belém, PA, Brasil, em 2025",
+            "startDate": "2025-11-10",
+            "endDate": "2025-11-21",
+            "eventStatus": "https://schema.org/EventScheduled",
+            "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+            "location": {
+              "@type": "Place",
+              "name": "Belém, Pará, Brasil",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Belém",
+                "addressRegion": "PA", 
+                "addressCountry": "BR"
+              }
+            },
+            "organizer": {
+              "@type": "Organization",
+              "name": "UNFCCC - United Nations Framework Convention on Climate Change"
+            },
+            "offers": {
+              "@type": "Offer",
+              "description": "Serviços de organização de eventos para a COP30 pela Luka Eventos",
+              "seller": {
+                "@id": "https://lukaeventos.com.br/#organization"
+              }
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://lukaeventos.com.br/cop30/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Por que escolher a Luka Eventos para a COP30?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "A Luka Eventos é uma empresa local de Belém com mais de 15 anos de experiência em eventos corporativos. Conhecemos profundamente a cidade, temos uma rede consolidada de fornecedores locais e oferecemos preços competitivos por sermos baseados em Belém."
+                }
+              },
+              {
+                "@type": "Question", 
+                "name": "Quais serviços a Luka Eventos oferece para a COP30?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oferecemos design e montagem de stands e pavilhões, produção de eventos paralelos e ativações de marca, logística e coordenação local, catering e hospitalidade, suporte técnico e audiovisual, segurança e credenciamento, transporte e hospedagem, e tradução e interpretação."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Qual é a vantagem de trabalhar com uma empresa local para a COP30?", 
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Trabalhando com uma empresa local como a Luka Eventos, você tem acesso a conhecimento profundo da região, rede de fornecedores estabelecida, custos reduzidos de logística, resposta rápida a demandas, e suporte presencial durante todo o evento."
+                }
+              }
+            ]
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://lukaeventos.com.br/cop30/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Início",
+                "item": "https://lukaeventos.com.br/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "COP30",
+                "item": "https://lukaeventos.com.br/cop30"
+              }
+            ]
+          }
+        ]
+      })}
+      </script>
+
       <Navbar />
       
       <main>

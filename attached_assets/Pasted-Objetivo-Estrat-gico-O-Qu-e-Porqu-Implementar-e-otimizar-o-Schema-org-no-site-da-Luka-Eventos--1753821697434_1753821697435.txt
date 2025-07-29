@@ -1,0 +1,59 @@
+Objetivo Estratégico (O Quê e Porquê):
+Implementar e otimizar o Schema.org no site da Luka Eventos (https://www.lukaeventos.com.br/) para fortalecer o SEO técnico, melhorar a Otimização para Inteligência Artificial (AIO) e consolidar o E-E-A-T da marca. O propósito é garantir que motores de busca e modelos de IA compreendam profundamente a entidade "Luka Eventos", seus serviços e seus profissionais, favorecendo a exibição de Rich Snippets e a citação em respostas generativas, bem como a construção de um grafo de conhecimento coeso.
+
+Contexto e Dados de Entrada:
+O HTML completo da página inicial da Luka Eventos foi fornecido para extração de todas as informações necessárias (nome da empresa, endereço, telefone, descrição, URL, links de redes sociais, nomes e cargos dos profissionais, nomes e descrições dos serviços, etc.).
+
+Tarefas Chave para o Agente (Foco no Objetivo):
+
+Geração e Inserção de Schema.org Central:
+
+Crie um grafo de conhecimento (@graph) contendo os schemas LocalBusiness e WebSite.
+
+O schema LocalBusiness deve representar a Luka Eventos, utilizando todos os dados de contato e endereço disponíveis no HTML.
+
+Inclua o aggregateRating já presente no HTML.
+
+Adicione as URLs das redes sociais (Instagram, Facebook, LinkedIn) da Luka Eventos como propriedades sameAs dentro do LocalBusiness para fortalecer o perfil da organização.
+
+O schema WebSite deve referenciar o LocalBusiness como publisher e incluir uma SearchAction para ativar a caixa de pesquisa do site nos resultados do Google.
+
+Posicione este bloco de script JSON-LD dentro da seção <head> do HTML.
+
+Geração e Inserção de Schema.org para Pessoas Chave (E-E-A-T):
+
+Para cada profissional destacado na seção "Sobre" (Lúcia Salgado - CEO e Lêda Salgado - Arquiteta), crie um schema Person individual.
+
+Extraia seus nomes, cargos (jobTitle) e descrições (description) diretamente do HTML.
+
+Adicione URLs para suas imagens de perfil.
+
+Referencie o LocalBusiness da Luka Eventos como worksFor.
+
+Inclua placeholders para alumniOf (instituição de ensino) e sameAs (perfis de LinkedIn/Instagram individuais), indicando a necessidade de preenchimento manual posterior ou extração se links explícitos forem encontrados no HTML.
+
+Insira cada bloco de script JSON-LD de Person na seção <body> do HTML, próximo ao conteúdo de cada profissional.
+
+Geração e Inserção de Schema.org para Serviços (Ofertados):
+
+Para cada um dos serviços principais listados na seção "Serviços" (Feiras e Eventos, Projetos 3D, Locação, Decoração, Buffet, Equipes Especializadas, Ações Promocionais), crie um schema Service separado.
+
+Extraia o nome do serviço (name) e sua breve descrição (description) do HTML.
+
+Referencie o LocalBusiness da Luka Eventos como provider.
+
+Utilize OfferCatalog e itemListElement para detalhar os sub-itens ou benefícios de cada serviço, conforme listado no HTML.
+
+O url do serviço pode apontar para a seção #services da homepage, a menos que existam URLs de páginas de serviço dedicadas.
+
+Insira cada bloco de script JSON-LD de Service na seção <body> do HTML, próximo ao conteúdo de cada serviço.
+
+Diretrizes Técnicas Adicionais para o Agente:
+
+Utilize a sintaxe JSON-LD para todos os schemas.
+
+Garanta que todos os @ids sejam consistentes e referenciáveis dentro do grafo de conhecimento.
+
+Priorize a legibilidade e a validação do JSON-LD gerado.
+
+Considere a otimização para performance, garantindo que a inserção dos scripts não impacte negativamente o Core Web Vitals.

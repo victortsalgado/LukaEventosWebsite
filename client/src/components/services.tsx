@@ -113,6 +113,60 @@ export default function Services() {
   return (
     <section id="services" className="py-20 bg-light-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Schema.org for Services */}
+        {servicesConfig.map((service, index) => (
+          <script key={index} type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "@id": `https://lukaeventos.com.br/#service-${service.title.toLowerCase().replace(/\s+/g, '-')}`,
+            "name": service.title,
+            "description": service.description,
+            "provider": {
+              "@type": "Organization",
+              "@id": "https://lukaeventos.com.br/#organization"
+            },
+            "serviceType": service.title,
+            "areaServed": {
+              "@type": "Place",
+              "name": "Região Norte do Brasil",
+              "containedInPlace": {
+                "@type": "State",
+                "name": "Pará",
+                "containedInPlace": {
+                  "@type": "Country",
+                  "name": "Brasil"
+                }
+              }
+            },
+            "url": "https://lukaeventos.com.br/#services",
+            "category": "Event Planning Services",
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": `${service.title} - Catálogo de Serviços`,
+              "itemListElement": service.features.map((feature, idx) => ({
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": feature,
+                  "description": `${feature} como parte dos serviços de ${service.title}`
+                }
+              }))
+            },
+            "offers": {
+              "@type": "Offer",
+              "availability": "https://schema.org/InStock",
+              "priceSpecification": {
+                "@type": "PriceSpecification",
+                "priceCurrency": "BRL",
+                "price": "Sob consulta"
+              }
+            }
+          })}
+          </script>
+        ))}
+
         <div
           ref={titleRef}
           className={`text-center mb-16 transition-all duration-1000 ${

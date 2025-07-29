@@ -114,9 +114,15 @@ Preferred communication style: Simple, everyday language.
 
 ### SEO & Analytics
 - **Meta Tags**: Dynamic SEO tags per page
-- **Schema Markup**: Local business structured data
+- **Schema.org Optimization**: Complete knowledge graph implementation
+  - LocalBusiness and WebSite schema with @graph structure
+  - Person schemas for key team members (CEO and Architect)
+  - Service schemas for all 7 main service categories
+  - Event schema for COP30 with FAQ and Breadcrumb markup
+  - Search Action integration for site search functionality
 - **Open Graph**: Social media sharing optimization
 - **Performance**: Optimized loading and responsive design
+- **AIO Ready**: Schema markup optimized for AI search engines
 
 ### Special Features
 - **Auto-updating Images**: Content automatically updates when new images are added to object storage
