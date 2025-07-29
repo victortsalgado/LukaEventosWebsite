@@ -135,6 +135,24 @@ app.use(session({
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Performance and security headers
+app.use((req: Request, res: Response, next: NextFunction) => {
+  // Performance headers
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  
+  // Cache control for static assets
+  if (req.url.match(/\.(js|css|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/)) {
+    res.setHeader('Cache-Control', 'public, max-age=31536000'); // 1 year
+  }
+  
+  // SEO-friendly headers
+  res.setHeader('X-Robots-Tag', 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
+  
+  next();
+});
+
 
 
 // SEO and Accessibility Middleware
