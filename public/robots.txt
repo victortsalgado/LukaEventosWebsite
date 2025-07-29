@@ -1,0 +1,36 @@
+User-agent: *
+Allow: /
+
+# Permitir todos os robôs de busca
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+# Sitemap
+Sitemap: https://lukaeventos.com.br/sitemap.xml
+
+# Políticas específicas para crawlers de IA
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+# Bloquear apenas diretórios sensíveis se existirem
+# User-agent: *
+# Disallow: /admin/
+# Disallow: /private/

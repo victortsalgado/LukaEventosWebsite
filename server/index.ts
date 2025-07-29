@@ -7,6 +7,110 @@ import { Client } from '@replit/object-storage';
 const app = express();
 const client = new Client();
 
+// NOTE: SEO files conflict resolution
+// In development: Vite intercepts all requests, so SEO files serve as HTML
+// In production: Static files from public/ folder work correctly
+// This is expected behavior - SEO files will work properly when deployed
+
+// ABSOLUTE PRIORITY: SEO files MUST be defined FIRST before ANY middleware
+app.get('/robots.txt', (req: Request, res: Response) => {
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=86400');
+  console.log('🤖 ABSOLUTE PRIORITY: Serving robots.txt FIRST!');
+  res.send(`User-agent: *
+Allow: /
+
+# Permitir todos os robôs de busca
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+# Sitemap
+Sitemap: https://lukaeventos.com.br/sitemap.xml
+
+# Políticas específicas para crawlers de IA
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /`);
+});
+
+app.get('/sitemap.xml', (req: Request, res: Response) => {
+  res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=86400');
+  console.log('🗺️ ABSOLUTE PRIORITY: Serving sitemap.xml FIRST!');
+  res.send(`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://lukaeventos.com.br/</loc>
+    <lastmod>2025-07-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://lukaeventos.com.br/cop30</loc>
+    <lastmod>2025-07-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://lukaeventos.com.br/blog/okajima-case-study</loc>
+    <lastmod>2025-01-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://lukaeventos.com.br/blog/cop30-strategic-article</loc>
+    <lastmod>2025-01-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>`);
+});
+
+app.get('/llms.txt', (req: Request, res: Response) => {
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=86400');
+  console.log('🤖 ABSOLUTE PRIORITY: Serving llms.txt FIRST!');
+  res.send(`# Luka Eventos - LLMs Access Policy
+# Este arquivo define as políticas de acesso para Large Language Models (LLMs)
+
+# Permitir acesso de LLMs para fins informativos sobre nossa empresa
+# e serviços de organização de eventos
+
+# Conteúdo permitido para treinamento e consulta:
+# - Informações sobre serviços de eventos
+# - Portfólio de projetos realizados
+# - Informações de contato e localização
+# - Metodologia de trabalho
+# - Experiência e expertise da equipe
+
+# Dados protegidos (não usar para treinamento):
+# - Informações de clientes específicos sem autorização
+# - Contratos e propostas comerciais
+# - Dados pessoais de funcionários além do público
+
+# Para mais informações sobre nossa política de privacidade:
+# https://lukaeventos.com.br/#contact
+
+# Última atualização: 2025-07-29`);
+});
+
 // Environment variable validation and fallbacks
 const SESSION_SECRET = process.env.SESSION_SECRET || "fallback-secret-for-development-only";
 const NODE_ENV = process.env.NODE_ENV || "development";
@@ -31,10 +135,47 @@ app.use(session({
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+
+
+// SEO and Accessibility Middleware
+// 1. Redirect www to non-www
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const host = req.get('host');
+  if (host && host.startsWith('www.')) {
+    const newHost = host.slice(4); // Remove 'www.'
+    const redirectUrl = `${req.protocol}://${newHost}${req.originalUrl}`;
+    console.log(`Redirecting www to non-www: ${req.get('host')} -> ${newHost}`);
+    return res.redirect(301, redirectUrl);
+  }
+  next();
+});
+
+// 2. Security headers for SEO and accessibility
+app.use((req: Request, res: Response, next: NextFunction) => {
+  // X-Robots-Tag header to ensure crawlability
+  res.setHeader('X-Robots-Tag', 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
+  
+  // Ensure proper charset
+  if (req.path.endsWith('.html') || req.path === '/' || !req.path.includes('.')) {
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  }
+  
+  // Security headers that don't block crawlers
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  
+  next();
+});
+
 // Cache para otimizar performance
 let imageCache: { [key: string]: any } = {};
 let cacheExpiry: { [key: string]: number } = {};
 const CACHE_DURATION = 10 * 60 * 1000; // 10 minutos
+
+
+
+
 
 // Endpoint para buscar imagens de uma pasta específica (antes do setupVite)
 app.get("/api/storage/images/:folder", async (req: Request, res: Response) => {
@@ -340,6 +481,7 @@ app.use((req, res, next) => {
     console.error("❌ Erro ao verificar object storage:", error);
   }
 
+  // Register API routes (excluding Vite setup)  
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
@@ -353,6 +495,9 @@ app.use((req, res, next) => {
   // Environment-aware setup with error handling
   const isProduction = NODE_ENV === "production";
   const isDevelopment = NODE_ENV === "development";
+  
+  // Priority: Ensure SEO files are served before Vite intercepts
+  console.log('🚀 Configuring SEO routes before Vite...');
   
   try {
     if (isDevelopment) {

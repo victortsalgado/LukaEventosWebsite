@@ -1,0 +1,22 @@
+# Luka Eventos - LLMs Access Policy
+# Este arquivo define as políticas de acesso para Large Language Models (LLMs)
+
+# Permitir acesso de LLMs para fins informativos sobre nossa empresa
+# e serviços de organização de eventos
+
+# Conteúdo permitido para treinamento e consulta:
+# - Informações sobre serviços de eventos
+# - Portfólio de projetos realizados
+# - Informações de contato e localização
+# - Metodologia de trabalho
+# - Experiência e expertise da equipe
+
+# Dados protegidos (não usar para treinamento):
+# - Informações de clientes específicos sem autorização
+# - Contratos e propostas comerciais
+# - Dados pessoais de funcionários além do público
+
+# Para mais informações sobre nossa política de privacidade:
+# https://lukaeventos.com.br/#contact
+
+# Última atualização: 2025-07-29
