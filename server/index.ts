@@ -120,15 +120,17 @@ if (NODE_ENV === "production" && SESSION_SECRET === "fallback-secret-for-develop
   console.warn("⚠️  WARNING: Using fallback session secret in production. Set SESSION_SECRET environment variable.");
 }
 
-// Session configuration
+// Session configuration with enhanced SSL security
 app.use(session({
   secret: SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
+  name: 'luka.sid', // Custom session name for security
   cookie: {
-    secure: NODE_ENV === "production",
-    httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    secure: NODE_ENV === "production", // HTTPS only in production
+    httpOnly: true,                    // Prevent XSS attacks
+    maxAge: 24 * 60 * 60 * 1000,      // 24 hours
+    sameSite: 'strict'                 // CSRF protection
   }
 }));
 
@@ -155,33 +157,51 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 
 
-// SEO and Accessibility Middleware
-// 1. Redirect www to non-www
+// SEO and SSL Middleware
+// 1. Force HTTPS in production and redirect www to non-www
 app.use((req: Request, res: Response, next: NextFunction) => {
   const host = req.get('host');
-  if (host && host.startsWith('www.')) {
-    const newHost = host.slice(4); // Remove 'www.'
-    const redirectUrl = `${req.protocol}://${newHost}${req.originalUrl}`;
-    console.log(`Redirecting www to non-www: ${req.get('host')} -> ${newHost}`);
+  const protocol = req.get('x-forwarded-proto') || req.protocol;
+  
+  // Force HTTPS in production
+  if (NODE_ENV === 'production' && protocol !== 'https') {
+    const redirectUrl = `https://${host}${req.originalUrl}`;
+    console.log(`🔒 Forcing HTTPS redirect: ${protocol}://${host} -> https://${host}`);
     return res.redirect(301, redirectUrl);
   }
+  
+  // Redirect www to non-www (even if it causes SSL error, the redirect will work)
+  if (host && host.startsWith('www.')) {
+    const newHost = host.slice(4); // Remove 'www.'
+    const redirectUrl = `${protocol}://${newHost}${req.originalUrl}`;
+    console.log(`🌐 Redirecting www to non-www: ${host} -> ${newHost}`);
+    return res.redirect(301, redirectUrl);
+  }
+  
   next();
 });
 
-// 2. Security headers for SEO and accessibility
+// 2. Enhanced security and SSL headers
 app.use((req: Request, res: Response, next: NextFunction) => {
-  // X-Robots-Tag header to ensure crawlability
-  res.setHeader('X-Robots-Tag', 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
+  // SSL/Security headers for production
+  if (NODE_ENV === 'production') {
+    // HSTS - Force HTTPS for future requests
+    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+    
+    // SSL/TLS security
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+  }
   
-  // Ensure proper charset
+  // SEO-friendly headers that work with SSL
+  res.setHeader('X-Robots-Tag', 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  
+  // Ensure proper charset for HTML content
   if (req.path.endsWith('.html') || req.path === '/' || !req.path.includes('.')) {
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
   }
-  
-  // Security headers that don't block crawlers
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
-  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
   
   next();
 });
@@ -259,6 +279,41 @@ app.get("/api/storage/images/:folder", async (req: Request, res: Response) => {
     console.error(`❌ Erro ao buscar imagens da pasta ${req.params.folder}:`, error);
     res.status(500).json({ success: false, error: error.message });
   }
+});
+
+// SSL and Domain diagnostic endpoint
+app.get("/debug/ssl", (req: Request, res: Response) => {
+  const host = req.get('host');
+  const protocol = req.get('x-forwarded-proto') || req.protocol;
+  const userAgent = req.get('user-agent');
+  const forwarded = req.get('x-forwarded-for');
+  
+  const diagnostics = {
+    timestamp: new Date().toISOString(),
+    request: {
+      host,
+      protocol,
+      originalUrl: req.originalUrl,
+      userAgent,
+      forwarded
+    },
+    ssl: {
+      isHttps: protocol === 'https',
+      shouldForceHttps: NODE_ENV === 'production' && protocol !== 'https',
+      isWww: host?.startsWith('www.'),
+      shouldRedirectWww: host?.startsWith('www.')
+    },
+    environment: {
+      nodeEnv: NODE_ENV,
+      sessionSecure: NODE_ENV === "production"
+    },
+    headers: {
+      hasHSTS: NODE_ENV === 'production',
+      hasSecurityHeaders: true
+    }
+  };
+  
+  res.json(diagnostics);
 });
 
 // Debug endpoint antes do setupVite
