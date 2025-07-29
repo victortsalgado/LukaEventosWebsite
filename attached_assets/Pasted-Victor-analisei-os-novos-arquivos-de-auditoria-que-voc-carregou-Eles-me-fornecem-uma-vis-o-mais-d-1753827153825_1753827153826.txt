@@ -1,0 +1,112 @@
+Victor, analisei os novos arquivos de auditoria que você carregou. Eles me fornecem uma visão mais detalhada e confirmam alguns pontos críticos para a otimização da Luka Eventos.
+
+Insights Chave dos Relatórios de Auditoria (Sintese como Diagnostika):
+
+
+Saúde do Site: A pontuação de saúde varia entre 78% e 85%, indicando que há um bom potencial de melhoria.
+
+
+Páginas Rastreáveis: O número de páginas rastreadas é muito baixo (entre 2 e 5 páginas). Isso pode significar que o site é muito pequeno ou que há barreiras sérias para o rastreamento, como problemas de 
+
+robots.txt ou acessibilidade da URL.
+
+Erros Críticos de SEO On-Page (Confirmados):
+
+
+"Title tag is missing or empty" (1 página com erro).
+
+
+
+"Duplicate title tag" (2 páginas com erro).
+
+
+"Duplicate content" (2 páginas com erro).
+
+
+Avisos Importantes:
+
+
+"Missing alt attributes" (1 aviso).
+
+
+"Page has issues with meta descriptions" (1 aviso).
+
+Performance (Confirmada):
+
+
+"Slow page load speed" (1 página com aviso).
+
+
+"Too much content" (1 página com aviso).
+
+
+Structured Data (Schema.org): Apenas o LocalBusiness foi detectado, sem erros ou avisos. Isso valida a oportunidade que já identificamos para expandir o uso de Schema.org.
+
+Discrepâncias de Acessibilidade/Rastreamento: Houve uma inconsistência entre os CSVs e algumas imagens sobre erros de URL e bloqueio de rastreamento. Os CSVs indicaram "We couldn't open the page's URL" para a versão WWW e "Blocked from crawling" para a homepage principal. Isso sugere problemas intermitentes ou muito recentes que precisam ser investigados mais a fundo, pois a acessibilidade é fundamental. O robots.txt inválido também é um erro crítico no CSV de issues.
+
+Priorização para Implementação:
+
+Com base nesses dados, a prioridade máxima agora é resolver os erros críticos de SEO On-Page e as questões de performance e acessibilidade/rastreamento. Sem um site acessível, rastreável e com metadados corretos, as outras otimizações terão impacto limitado.
+
+Vamos começar com os erros críticos de SEO On-Page.
+
+Prompt para o Agente do Replit: Otimização de SEO On-Page Crítico
+
+Objetivo Estratégico (O Quê e Porquê):
+Corrigir os erros críticos de SEO On-Page identificados nos relatórios de auditoria da Luka Eventos. O objetivo é melhorar a qualidade fundamental das páginas, a compreensão dos motores de busca sobre o conteúdo, e evitar penalidades por duplicação ou falta de metadados essenciais. Isso é vital para a saúde geral do site e para um ranqueamento eficaz.
+
+Contexto e Problemas Identificados (com base em lukaeventos.com.br_issues_20250729.xlsx - Sheet0.csv, image_a84d79.png):
+
+"Title tag is missing or empty" (1 página).
+
+
+"Duplicate title tag" (2 páginas).
+
+"Duplicate content" (2 páginas).
+
+
+"Missing alt attributes" (1 aviso).
+
+"Page has issues with meta descriptions" (1 aviso).
+
+Tarefas Chave para o Agente (Foco no Objetivo):
+
+Otimizar e Padronizar Tags de Título (<title>):
+
+Para a página com tag title ausente ou vazia, crie um título descritivo e relevante que inclua a palavra-chave principal da página e o nome da marca.
+
+Para as páginas com tags de título duplicadas, reescreva-as para que cada título seja único, específico ao conteúdo da página e otimizado com palavras-chave relevantes.
+
+O objetivo é garantir que cada página tenha um <title> único, conciso (idealmente entre 50-60 caracteres) e que reflita seu conteúdo principal.
+
+Resolver Problemas de Conteúdo Duplicado:
+
+Identifique as 2 páginas com conteúdo duplicado.
+
+Analise se o conteúdo é realmente idêntico ou muito similar. Se for, sugira a consolidação do conteúdo em uma única URL, utilizando redirecionamentos 301, ou a reescrita do conteúdo para torná-lo único e mais valioso.
+
+Se for intencional (ex: versões para impressão), utilize tags canônicas (<link rel="canonical" href="...">) para indicar a versão preferencial aos motores de busca.
+
+O objetivo é eliminar a duplicação de conteúdo para evitar diluição de autoridade e penalidades de ranqueamento.
+
+Otimizar Atributos ALT em Imagens:
+
+Para a(s) imagem(ns) sem atributo ALT, adicione um texto descritivo e relevante.
+
+O objetivo é melhorar a acessibilidade e a compreensão das imagens pelos motores de busca.
+
+Otimizar Meta Descriptions:
+
+Para as páginas com problemas de meta description, crie meta descrições únicas, persuasivas e relevantes para cada página, com um tamanho ideal (aprox. 150-160 caracteres).
+
+O objetivo é melhorar a taxa de cliques (CTR) nos resultados de busca, incentivando os usuários a clicarem na Luka Eventos.
+
+Critérios de Sucesso:
+
+Nenhuma página deve ter title tag is missing or empty ou duplicate title tag.
+
+O problema de duplicate content deve ser resolvido, seja por consolidação, reescrita ou uso de canonical tags.
+
+Nenhuma imagem crítica deve ter missing alt attributes.
+
+Todas as páginas importantes devem ter meta descrições únicas e otimizadas.
