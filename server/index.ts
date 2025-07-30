@@ -157,40 +157,9 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 
 
-// SEO and SSL Middleware with 4XX Error Prevention
-// This middleware must be FIRST to handle all www requests before any routing
-app.use((req: Request, res: Response, next: NextFunction) => {
-  const host = req.get('host');
-  const protocol = req.get('x-forwarded-proto') || req.protocol;
-  const userAgent = req.get('user-agent') || '';
-  
-  // CRITICAL FIX: Handle www subdomain immediately to prevent 404/SSL errors
-  if (host && host.startsWith('www.')) {
-    const newHost = host.slice(4); // Remove 'www.'
-    
-    // Log the problem for debugging
-    console.log(`⚠️  WWW request detected: ${protocol}://${host}${req.originalUrl}`);
-    console.log(`👤 User-Agent: ${userAgent.substring(0, 100)}`);
-    
-    // ALWAYS redirect to HTTP non-www first (prevents SSL certificate errors)
-    const redirectUrl = `http://${newHost}${req.originalUrl}`;
-    console.log(`🔧 FIXING 404: Redirecting ${protocol}://${host} -> ${redirectUrl}`);
-    
-    // Use 301 permanent redirect for SEO
-    res.setHeader('Location', redirectUrl);
-    res.setHeader('Cache-Control', 'public, max-age=3600');
-    return res.status(301).end();
-  }
-  
-  // PRIORITY 2: Force HTTPS in production (after www redirect is handled)
-  if (NODE_ENV === 'production' && protocol !== 'https') {
-    const redirectUrl = `https://${host}${req.originalUrl}`;
-    console.log(`🔒 Forcing HTTPS redirect: ${protocol}://${host} -> https://${host}`);
-    return res.redirect(301, redirectUrl);
-  }
-  
-  next();
-});
+// REMOVED: SEO and SSL Middleware - Vercel handles redirects automatically
+// The middleware below was causing conflicts with Vercel's CDN redirects
+// Vercel now handles www -> non-www and HTTP -> HTTPS redirects efficiently
 
 // 2. Enhanced security and SSL headers
 app.use((req: Request, res: Response, next: NextFunction) => {
@@ -663,8 +632,8 @@ async function createApp() {
       log("Setting up Vite development server...");
       await setupVite(app, server);
     } else {
-      log("Setting up static file serving for production...");
-      serveStatic(app);
+      log("Production mode: Static files will be served by Vercel CDN.");
+      // REMOVED: serveStatic(app) - Vercel handles static file serving automatically
     }
   } catch (setupError) {
     console.error(`Failed to setup ${isProduction ? "production" : "development"} environment:`, setupError);

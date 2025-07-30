@@ -174,6 +174,12 @@ Preferred communication style: Simple, everyday language.
   - Routes properly configured for static files and API separation
 - **Status**: Ready for deployment - will serve HTML instead of TypeScript source code
 - **Expected Result**: lukaeventos.com.br and www.lukaeventos.com.br will display rendered website
+- **Critical Fix Applied**: Removed conflicting middleware from server/index.ts
+  - Commented out www/HTTPS redirect middleware (lines 160-193)
+  - Removed serveStatic(app) call in production mode (line 667)
+  - Vercel now handles all redirects and static file serving automatically
+- **Build Verified**: npm run build successful, dist/ structure correct
+- **Final Status**: READY FOR DEPLOYMENT - All conflicts resolved
 
 #### SSL Certificate Problem - Final Resolution (2025-07-30)
 - **Visual Evidence**: User screenshot confirms "Sua conexão não é particular" for www.lukaeventos.com.br
