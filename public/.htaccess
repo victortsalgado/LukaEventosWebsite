@@ -3,11 +3,17 @@
 
 RewriteEngine On
 
-# 1. ANY www -> HTTP non-www (resolve SSL e evita loops 404)
+# PRIORITY 1: Serve HTML redirect page for SSL certificate errors
 RewriteCond %{HTTP_HOST} ^www\.lukaeventos\.com\.br$ [NC]
+RewriteCond %{HTTPS} on
+RewriteRule ^(.*)$ /www-redirect.html [R=200,L]
+
+# PRIORITY 2: HTTP www -> HTTP non-www (standard redirect)
+RewriteCond %{HTTP_HOST} ^www\.lukaeventos\.com\.br$ [NC]
+RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ http://lukaeventos.com.br/$1 [R=301,L]
 
-# 3. HTTP non-www -> HTTPS non-www (força SSL no domínio correto)
+# PRIORITY 3: HTTP non-www -> HTTPS non-www (força SSL no domínio correto)
 RewriteCond %{HTTPS} off
 RewriteCond %{HTTP_HOST} ^lukaeventos\.com\.br$ [NC]
 RewriteRule ^(.*)$ https://lukaeventos.com.br/$1 [R=301,L]

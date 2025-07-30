@@ -4,60 +4,151 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecionando - Luka Eventos</title>
+    
+    <!-- IMMEDIATE REDIRECT - Works even with SSL errors -->
     <meta http-equiv="refresh" content="0; url=https://lukaeventos.com.br/">
     <link rel="canonical" href="https://lukaeventos.com.br/">
+    
+    <!-- JAVASCRIPT FALLBACK -->
     <script>
-        // JavaScript redirect for browsers that don't support meta refresh
-        window.location.replace('https://lukaeventos.com.br/');
+        // Multiple redirect methods for maximum compatibility
+        (function() {
+            var targetUrl = 'https://lukaeventos.com.br/';
+            
+            // Method 1: Immediate replace (fastest)
+            try {
+                window.location.replace(targetUrl);
+            } catch(e) {
+                // Method 2: Standard location change
+                try {
+                    window.location.href = targetUrl;
+                } catch(e2) {
+                    // Method 3: Document redirect
+                    document.location = targetUrl;
+                }
+            }
+        })();
     </script>
+    
+    <!-- PROFESSIONAL STYLING -->
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            background: linear-gradient(135deg, #D4A24E, #f4f4f4);
+            background: linear-gradient(135deg, #D4A24E 0%, #f8f9fa 100%);
             color: #333;
         }
-        .redirect-message {
+        
+        .redirect-container {
             text-align: center;
             background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            max-width: 400px;
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            max-width: 500px;
+            width: 90%;
         }
-        .spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #D4A24E;
+        
+        .logo-placeholder {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #D4A24E, #B8941C);
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            font-weight: bold;
         }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #D4A24E;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+        
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        a {
-            color: #D4A24E;
-            text-decoration: none;
-            font-weight: bold;
+        
+        h1 {
+            margin: 0 0 1rem;
+            font-size: 1.5rem;
+            color: #2c3e50;
+            font-weight: 600;
         }
-        a:hover {
-            text-decoration: underline;
+        
+        p {
+            margin: 0.5rem 0;
+            color: #6c757d;
+            line-height: 1.6;
+        }
+        
+        .manual-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 12px 24px;
+            background: #D4A24E;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .manual-link:hover {
+            background: #B8941C;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 162, 78, 0.3);
+        }
+        
+        .error-info {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #6c757d;
         }
     </style>
 </head>
 <body>
-    <div class="redirect-message">
+    <div class="redirect-container">
+        <div class="logo-placeholder">L</div>
         <div class="spinner"></div>
-        <h2>Redirecionando...</h2>
-        <p>Você está sendo redirecionado para o site oficial da Luka Eventos.</p>
-        <p>Se o redirecionamento não funcionar automaticamente, <a href="https://lukaeventos.com.br/">clique aqui</a>.</p>
+        <h1>Redirecionando para Luka Eventos</h1>
+        <p>Você está sendo automaticamente redirecionado para o site oficial.</p>
+        <p>Aguarde alguns segundos...</p>
+        
+        <a href="https://lukaeventos.com.br/" class="manual-link">
+            Clique aqui se não funcionar automaticamente
+        </a>
+        
+        <div class="error-info">
+            <strong>Sobre este redirecionamento:</strong><br>
+            Este redirecionamento resolve problemas de certificado SSL para o subdomínio www. 
+            Você será levado para a versão principal do site que possui certificado válido.
+        </div>
     </div>
+    
+    <!-- ADDITIONAL FALLBACK AFTER 3 SECONDS -->
+    <script>
+        setTimeout(function() {
+            if (document.hasFocus && document.hasFocus()) {
+                window.open('https://lukaeventos.com.br/', '_self');
+            }
+        }, 3000);
+    </script>
 </body>
 </html>
