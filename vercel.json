@@ -1,40 +1,9 @@
 {
   "version": 2,
   "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "devCommand": "npm run dev",
+  "outputDirectory": "dist/public",
   "installCommand": "npm install",
-  "functions": {
-    "server/index.ts": {
-      "runtime": "nodejs18.x"
-    }
-  },
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/server/index.ts"
-    },
-    {
-      "src": "/robots.txt",
-      "dest": "/public/robots.txt"
-    },
-    {
-      "src": "/sitemap.xml", 
-      "dest": "/public/sitemap.xml"
-    },
-    {
-      "src": "/llms.txt",
-      "dest": "/public/llms.txt"
-    },
-    {
-      "src": "/www-redirect.html",
-      "dest": "/public/www-redirect.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/dist/public/$1"
-    }
-  ],
+  "framework": null,
   "redirects": [
     {
       "source": "https://www.lukaeventos.com.br/(.*)",

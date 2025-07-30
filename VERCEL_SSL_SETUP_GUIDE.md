@@ -37,16 +37,24 @@ vercel login
 vercel --prod
 ```
 
-### 4. Adicionar Domínio Personalizado
-1. No dashboard do projeto, ir para "Settings"
-2. Clicar "Domains"
+### 4. Configurações de Deploy no Vercel
+**Baseado nas imagens que você enviou, configure assim:**
+
+1. **Framework Preset**: Vite ✅ (já detectado automaticamente)
+2. **Build Command**: `npm run build` ou `vite build` ✅ 
+3. **Output Directory**: `dist` ✅
+4. **Install Command**: `npm install` ✅
+
+### 5. Adicionar Domínio Personalizado
+1. Após o primeiro deploy, ir para "Settings"
+2. Clicar "Domains"  
 3. Adicionar domínios:
    ```
    lukaeventos.com.br
    www.lukaeventos.com.br
    ```
 
-### 5. Configurar DNS (No Registrador do Domínio)
+### 6. Configurar DNS (No Registrador do Domínio)
 O Vercel fornecerá configurações DNS específicas:
 
 ```dns
@@ -61,13 +69,13 @@ CNAME   lukaeventos.com.br      cname.vercel-dns.com
 CNAME   www                     cname.vercel-dns.com
 ```
 
-### 6. SSL Automático
+### 7. SSL Automático
 - **Vercel emite automaticamente** certificados Let's Encrypt
 - **Inclui ambos domínios**: lukaeventos.com.br e www.lukaeventos.com.br
 - **Renovação automática** a cada 60 dias
 - **Ativação**: 5-15 minutos após DNS configurado
 
-### 7. Configurar Redirecionamentos (vercel.json)
+### 8. Configurar Redirecionamentos (vercel.json)
 Criar arquivo `vercel.json` na raiz do projeto:
 
 ```json
@@ -119,7 +127,7 @@ Criar arquivo `vercel.json` na raiz do projeto:
 }
 ```
 
-### 8. Build Settings Otimizadas
+### 9. Configurações Adicionais (Opcional)
 ```json
 {
   "functions": {
