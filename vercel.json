@@ -7,53 +7,74 @@
       "runtime": "nodejs18.x"
     }
   },
-  "routes": [
+  "rewrites": [
+    // Rota para arquivos estáticos do frontend gerados pelo Vite em 'dist/assets/'
     {
-      "src": "/assets/(.*)",
-      "headers": { "cache-control": "public, max-age=31536000, immutable" },
-      "dest": "/assets/$1"
+      "source": "/assets/(.*)",
+      "destination": "/assets/$1"
+    },
+    // Rota para o favicon, se estiver na raiz da pasta 'dist'
+    {
+      "source": "/favicon.ico",
+      "destination": "/favicon.ico"
+    },
+    // Rotas para os arquivos SEO (robots.txt, sitemap.xml, llms.txt) servidos pelo backend
+    {
+      "source": "/robots.txt",
+      "destination": "/dist/index.js"
     },
     {
-      "src": "/favicon.ico",
-      "dest": "/favicon.ico"
+      "source": "/sitemap.xml",
+      "destination": "/dist/index.js"
     },
     {
-      "src": "/robots.txt",
-      "dest": "/dist/index.js"
+      "source": "/llms.txt",
+      "destination": "/dist/index.js"
     },
+    // Rota para a API (backend)
     {
-      "src": "/sitemap.xml",
-      "dest": "/dist/index.js"
+      "source": "/api/(.*)",
+      "destination": "/dist/index.js"
     },
+    // Rota fallback para o index.html do frontend (para SPA React/Vite)
+    // Tudo o que não corresponder às regras acima será direcionado para o index.html
     {
-      "src": "/llms.txt",
-      "dest": "/dist/index.js"
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "/dist/index.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ],
   "headers": [
     {
-      "source": "/(.*)",
+      "source": "/assets/(.*)", // Aplica cabeçalhos de cache para assets do Vite
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "public, max-age=31536000"
+          "value": "public, max-age=31536000, immutable"
         }
       ]
     },
     {
-      "source": "/",
+      "source": "/(.*)", // Cabeçalhos gerais, aplicados a todas as outras requisições
       "headers": [
         {
           "key": "Cache-Control",
           "value": "public, max-age=0, must-revalidate"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
         }
       ]
     }
