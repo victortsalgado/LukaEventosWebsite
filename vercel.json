@@ -1,7 +1,7 @@
 {
   "version": 2,
   "buildCommand": "npm run build",
-  "outputDirectory": "dist", // <-- ALTE AQUI!
+  "outputDirectory": "dist",
   "functions": {
     "api/index.mjs": {
       "runtime": "nodejs18.x"
@@ -13,8 +13,8 @@
       "dest": "/api/index.mjs"
     },
     {
-      "src": "/(.*)", // Esta regra agora apontará para a pasta correta 'dist' por causa do outputDirectory
-      "dest": "/$1" // Não precisa mais de "/public/$1" se o outputDirectory for 'dist' e for o root.
+      "src": "/(.*)",
+      "dest": "/$1"
     }
   ],
   "headers": [
