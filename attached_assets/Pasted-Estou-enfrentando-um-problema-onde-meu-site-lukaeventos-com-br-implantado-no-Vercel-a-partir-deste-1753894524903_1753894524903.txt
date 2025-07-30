@@ -1,0 +1,96 @@
+Estou enfrentando um problema onde meu site, lukaeventos.com.br, implantado no Vercel a partir deste Repl, está exibindo o código-fonte (dist/index.js) em vez da aplicação web completa. Meu projeto é full-stack, com um backend Node.js/Express (TypeScript compilado para dist/index.js) e um frontend React/Vite (compilado para arquivos estáticos na pasta dist).
+
+O problema foi identificado na configuração do meu arquivo vercel.json, que está direcionando a rota raiz para o backend compilado com um Content-Type incorreto, em vez de servir o index.html do frontend e os assets estáticos.
+
+Meu objetivo principal é corrigir a implantação no Vercel para que a aplicação web (frontend React/Vite) seja exibida corretamente na rota raiz, enquanto as rotas de API continuam sendo tratadas pelo meu backend Node.js/Express como uma Serverless Function.
+
+Instruções para o Replit Agent:
+
+Modifique o arquivo vercel.json na raiz do projeto para a seguinte configuração. Remova as rotas e cabeçalhos existentes e substitua-os pelo novo conteúdo abaixo. Esta configuração irá:
+
+Garantir que os arquivos estáticos do frontend (gerados pelo Vite na pasta dist, como /assets/) sejam servidos corretamente.
+
+Direcionar robots.txt, sitemap.xml e llms.txt para serem servidos pela função Serverless do Node.js.
+
+Manter a rota /api/(.*) direcionada para a função Serverless do Node.js.
+
+Configurar a rota catch-all (/(.*)) para servir o index.html do frontend, permitindo o roteamento do lado do cliente.
+
+Remover o Content-Type: text/html genérico que estava forçando o navegador a interpretar o código-fonte como HTML.
+
+JSON
+
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "functions": {
+    "dist/index.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "routes": [
+    // Rotas para arquivos estáticos do frontend (gerados pelo Vite)
+    {
+      "src": "/assets/(.*)",
+      "headers": { "cache-control": "public, max-age=31536000, immutable" },
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "/favicon.ico",
+      "dest": "/favicon.ico"
+    },
+    // Rotas para os arquivos SEO (robots.txt, sitemap.xml, llms.txt) servidos pelo backend
+    {
+      "src": "/robots.txt",
+      "dest": "/dist/index.js"
+    },
+    {
+      "src": "/sitemap.xml",
+      "dest": "/dist/index.js"
+    },
+    {
+      "src": "/llms.txt",
+      "dest": "/dist/index.js"
+    },
+    // Rota para a API (backend)
+    {
+      "src": "/api/(.*)",
+      "dest": "/dist/index.js"
+    },
+    // Rota fallback para o index.html do frontend
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000"
+        }
+      ]
+    },
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ]
+}
+Verificação Adicional (se necessário):
+
+Confirme que os scripts build e start no package.json estão como definidos atualmente, pois eles estão corretos para o Vercel ("build": "vite build && esbuild server/index.ts ...", "start": "NODE_ENV=production node dist/index.js").
+
+Garanta que a porta e o host no server/index.ts continuam sendo process.env.PORT e 0.0.0.0, respectivamente. (Já verificado e parece correto).
+
+Explique os próximos passos: Após a modificação, instrua-me sobre como devo proceder para implantar novamente no Vercel e verificar se o problema foi resolvido.
+
+Confirmação: Por favor, me informe quando as alterações no vercel.json forem concluídas e forneça as instruções para a reimplantação.
