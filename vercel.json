@@ -18,10 +18,10 @@
       "has": [
         {
           "type": "host",
-          "value": "lukaeventos.com.br"
+          "value": "www.lukaeventos.com.br"
         }
       ],
-      "destination": "https://www.lukaeventos.com.br/",
+      "destination": "https://lukaeventos.com.br/",
       "permanent": true
     },
     {
@@ -29,10 +29,10 @@
       "has": [
         {
           "type": "host",
-          "value": "lukaeventos.com.br"
+          "value": "www.lukaeventos.com.br"
         }
       ],
-      "destination": "https://www.lukaeventos.com.br/$1",
+      "destination": "https://lukaeventos.com.br/$1",
       "permanent": true
     }
   ],

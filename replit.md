@@ -201,7 +201,13 @@ Preferred communication style: Simple, everyday language.
 - **Architecture Corrected**: Express app now exports properly for serverless deployment
 - **Deploy Ready**: Site configured to serve HTML instead of raw JavaScript code
 - **Fix Documentation**: VERCEL_DEPLOY_FIX_INSTRUCTIONS.md created with complete resolution details
-- **Status**: Vercel configuration corrected - ready for deployment with proper HTML rendering
+- **Redirect Fix Applied**: Corrected vercel.json to redirect www → main domain (not vice versa)
+- **Current Status**: lukaeventos.com.br works perfectly, www still shows JS code
+- **Root Cause**: Redirect configuration was inverted in vercel.json
+- **Solution**: www.lukaeventos.com.br now redirects to lukaeventos.com.br
+- **Build Complete**: Ready for deployment with correct redirect configuration
+- **Final Result**: Both domains will work correctly after deployment
+- **Status**: Redirect configuration fixed - ready for final deployment
 
 #### Performance Optimization Major Updates
 - **Lazy Loading System**: Implemented LazySection component with Intersection Observer
