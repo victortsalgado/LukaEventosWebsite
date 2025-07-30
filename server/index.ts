@@ -7,7 +7,7 @@ import { Client } from '@replit/object-storage';
 const app = express();
 const client = new Client();
 
-// NOTE: SEO files conflict resolution 
+// NOTE: SEO files conflict resolution
 // In development: Vite intercepts all requests, so SEO files serve as HTML
 // In production: Static files from public/ folder work correctly
 // This is expected behavior - SEO files will work properly when deployed
