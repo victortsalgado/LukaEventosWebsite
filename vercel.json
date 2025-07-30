@@ -11,30 +11,6 @@
       "destination": "/api/index.mjs"
     }
   ],
-  "redirects": [
-    {
-      "source": "/",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.lukaeventos.com.br"
-        }
-      ],
-      "destination": "https://lukaeventos.com.br/",
-      "permanent": true
-    },
-    {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.lukaeventos.com.br"
-        }
-      ],
-      "destination": "https://lukaeventos.com.br/$1",
-      "permanent": true
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
