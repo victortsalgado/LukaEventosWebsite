@@ -7,14 +7,14 @@
       "runtime": "nodejs18.x"
     }
   },
-  "routes": [
+  "rewrites": [ // <-- AGORA USANDO 'rewrites' EM VEZ DE 'routes'
     {
       "src": "/api/(.*)",
-      "dest": "dist/index.js"
+      "destination": "/dist/index.js" // Redireciona API para sua função compilada
     },
     {
       "src": "/(.*)",
-      "dest": "/$1"
+      "destination": "/$1" // Serve arquivos estáticos do outputDirectory (dist)
     }
   ],
   "headers": [
