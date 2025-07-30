@@ -1,0 +1,69 @@
+Estou usando o Registro.br para gerenciar meus domínios (lukaeventos.com.br e www.lukaeventos.com.br). Como estou no modo DNS avançado e tenho vários registros MX e CNAMEs, o Registro.br não oferece uma opção nativa de redirecionamento de domínio para fazer o 301 de www.lukaeventos.com.br para https://lukaeventos.com.br/.
+
+Meu objetivo é implementar este redirecionamento 301 permanente no meu servidor Node.js/Express, que está hospedado no Replit.
+
+Instruções para o Replit Agent:
+
+Abra o arquivo server/index.ts (ou o arquivo principal onde o Express.js é configurado e os middlewares são adicionados).
+
+Adicione um novo middleware no início do arquivo index.ts, imediatamente após as importações e as configurações iniciais de app.use(session(...)) e app.use(express.json()), mas antes de qualquer rota ou middleware que sirva conteúdo (como as rotas de SEO ou setupVite).
+
+Este middleware deve:
+
+Verificar se o host da requisição começa com www..
+
+Se sim, e se a requisição não for de depuração ou interna, ele deve enviar um redirecionamento 301 (Permanent Redirect) para a versão HTTPS sem www do domínio.
+
+Use process.env.NODE_ENV para garantir que isso só aconteça em production.
+
+TypeScript
+
+// server/index.ts
+
+// ... Suas importações existentes (express, session, etc.) ...
+
+const app = express();
+// ... client = new Client(); ...
+
+// ABSOLUTE PRIORITY: SEO files MUST be defined FIRST before ANY middleware (Mantenha-os aqui)
+app.get('/robots.txt', ...);
+app.get('/sitemap.xml', ...);
+app.get('/llms.txt', ...);
+
+// --- NOVO MIDDLEWARE DE REDIRECIONAMENTO 301 (Adicionar AQUI) ---
+app.use((req: Request, res: Response, next: NextFunction) => {
+  // Redirecionamento 301 de www para non-www (somente em produção)
+  if (process.env.NODE_ENV === 'production' && req.headers.host && req.headers.host.startsWith('www.')) {
+    const newHost = req.headers.host.replace('www.', '');
+    // Construir a URL de destino com HTTPS
+    const newUrl = `https://${newHost}${req.url}`;
+    console.log(`➡️ Redirecionando www para non-www: ${req.headers.host}${req.url} -> ${newUrl}`);
+    return res.redirect(301, newUrl); // Redirecionamento permanente 301
+  }
+  next(); // Continua para os próximos middlewares/rotas
+});
+// --- FIM DO NOVO MIDDLEWARE ---
+
+
+// ... O resto dos seus middlewares existentes (session, express.json, etc.) ...
+app.use(session({ /* ... */ }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+// ... O resto do seu código (headers, API endpoints, setupVite, etc.) ...
+
+// No final do arquivo, certifique-se de que o servidor ainda escuta em 0.0.0.0 e a PORT correta
+// ...
+createServer(app).listen(port, host, () => {
+    log(`Server started successfully on ${host}:${port} (${NODE_ENV})`);
+    // ...
+});
+Verificação e Confirmação:
+
+Após adicionar o middleware, por favor, me informe quando as alterações no server/index.ts forem concluídas.
+
+Faça um novo commit e push para o GitHub com a mensagem: "feat: Adicionado redirecionamento 301 de www para non-www no Express."
+
+Explicação:
+
+Este middleware será executado para cada requisição. Se a requisição vier de www.lukaeventos.com.br, ele automaticamente responderá com um status HTTP 301 e a nova URL (https://lukaeventos.com.br/caminho-da-pagina), instruindo o navegador (e os motores de busca) a acessar o domínio principal. Ao fazê-lo no código do servidor, você contorna a limitação do Registro.br no "Modo Avançado".
