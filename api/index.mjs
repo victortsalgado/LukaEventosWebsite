@@ -1,35 +1,26 @@
-// Vercel serverless function entry point
-import { readFileSync } from 'fs';
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
+// Vercel serverless function for APIs only
 import getApp from '../dist/index.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+// Cache the app instance
+let app;
 
-// Create app instance
-const appPromise = getApp();
-
-// Handler function for Vercel serverless
 export default async function handler(req, res) {
   try {
-    // Check if this is an API request
+    // Only handle API routes
     if (!req.url.startsWith('/api/')) {
-      // Non-API request - serve HTML directly
-      const htmlPath = join(__dirname, '..', 'index.html');
-      const htmlContent = readFileSync(htmlPath, 'utf-8');
-      
-      res.setHeader('Content-Type', 'text/html; charset=utf-8');
-      res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
-      res.status(200).send(htmlContent);
-      return;
+      // This should never happen with proper routing, but just in case
+      return res.status(404).json({ error: 'Not found' });
     }
 
-    // API request - use Express app
-    const app = await appPromise;
+    // Initialize app if not cached
+    if (!app) {
+      app = await getApp();
+    }
+
+    // Handle the request with Express app
     return app(req, res);
   } catch (error) {
-    console.error('Handler error:', error);
+    console.error('API Handler error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 }
