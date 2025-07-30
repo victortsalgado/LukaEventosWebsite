@@ -8,17 +8,14 @@
     }
   },
   "rewrites": [
-    // Rota para arquivos estáticos do frontend gerados pelo Vite em 'dist/assets/'
     {
       "source": "/assets/(.*)",
       "destination": "/assets/$1"
     },
-    // Rota para o favicon, se estiver na raiz da pasta 'dist'
     {
       "source": "/favicon.ico",
       "destination": "/favicon.ico"
     },
-    // Rotas para os arquivos SEO (robots.txt, sitemap.xml, llms.txt) servidos pelo backend
     {
       "source": "/robots.txt",
       "destination": "/dist/index.js"
@@ -31,13 +28,10 @@
       "source": "/llms.txt",
       "destination": "/dist/index.js"
     },
-    // Rota para a API (backend)
     {
       "source": "/api/(.*)",
       "destination": "/dist/index.js"
     },
-    // Rota fallback para o index.html do frontend (para SPA React/Vite)
-    // Tudo o que não corresponder às regras acima será direcionado para o index.html
     {
       "source": "/(.*)",
       "destination": "/index.html"
@@ -45,7 +39,7 @@
   ],
   "headers": [
     {
-      "source": "/assets/(.*)", // Aplica cabeçalhos de cache para assets do Vite
+      "source": "/assets/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -54,7 +48,7 @@
       ]
     },
     {
-      "source": "/(.*)", // Cabeçalhos gerais, aplicados a todas as outras requisições
+      "source": "/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
