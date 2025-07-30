@@ -158,31 +158,31 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 
 // SEO and SSL Middleware with 4XX Error Prevention
-// 1. Force HTTPS in production and redirect www to non-www
+// This middleware must be FIRST to handle all www requests before any routing
 app.use((req: Request, res: Response, next: NextFunction) => {
   const host = req.get('host');
   const protocol = req.get('x-forwarded-proto') || req.protocol;
+  const userAgent = req.get('user-agent') || '';
   
-  // PRIORITY 1: Redirect www to non-www FIRST (prevents SSL certificate errors)
+  // CRITICAL FIX: Handle www subdomain immediately to prevent 404/SSL errors
   if (host && host.startsWith('www.')) {
     const newHost = host.slice(4); // Remove 'www.'
     
-    // Special handling for HTTPS www requests that cause certificate errors
-    if (protocol === 'https') {
-      // For HTTPS www requests, redirect to HTTP first to avoid certificate error
-      const redirectUrl = `http://${newHost}${req.originalUrl}`;
-      console.log(`🔒 HTTPS www SSL fix: ${host} -> HTTP ${newHost} (prevents certificate error)`);
-      return res.redirect(301, redirectUrl);
-    } else {
-      // For HTTP www requests, redirect directly to HTTPS non-www in production
-      const finalProtocol = NODE_ENV === 'production' ? 'https' : 'http';
-      const redirectUrl = `${finalProtocol}://${newHost}${req.originalUrl}`;
-      console.log(`🌐 HTTP www redirect: ${host} -> ${finalProtocol}://${newHost}`);
-      return res.redirect(301, redirectUrl);
-    }
+    // Log the problem for debugging
+    console.log(`⚠️  WWW request detected: ${protocol}://${host}${req.originalUrl}`);
+    console.log(`👤 User-Agent: ${userAgent.substring(0, 100)}`);
+    
+    // ALWAYS redirect to HTTP non-www first (prevents SSL certificate errors)
+    const redirectUrl = `http://${newHost}${req.originalUrl}`;
+    console.log(`🔧 FIXING 404: Redirecting ${protocol}://${host} -> ${redirectUrl}`);
+    
+    // Use 301 permanent redirect for SEO
+    res.setHeader('Location', redirectUrl);
+    res.setHeader('Cache-Control', 'public, max-age=3600');
+    return res.status(301).end();
   }
   
-  // PRIORITY 2: Force HTTPS in production (after www redirect)
+  // PRIORITY 2: Force HTTPS in production (after www redirect is handled)
   if (NODE_ENV === 'production' && protocol !== 'https') {
     const redirectUrl = `https://${host}${req.originalUrl}`;
     console.log(`🔒 Forcing HTTPS redirect: ${protocol}://${host} -> https://${host}`);
