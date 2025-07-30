@@ -1,0 +1,776 @@
+// server/index.ts
+import express2 from "express";
+import session from "express-session";
+
+// server/routes.ts
+import { createServer } from "http";
+
+// server/storage.ts
+var MemStorage = class {
+  users;
+  contactMessages;
+  currentUserId;
+  currentContactMessageId;
+  constructor() {
+    this.users = /* @__PURE__ */ new Map();
+    this.contactMessages = /* @__PURE__ */ new Map();
+    this.currentUserId = 1;
+    this.currentContactMessageId = 1;
+  }
+  async getUser(id) {
+    return this.users.get(id);
+  }
+  async getUserByUsername(username) {
+    return Array.from(this.users.values()).find(
+      (user) => user.username === username
+    );
+  }
+  async createUser(insertUser) {
+    const id = this.currentUserId++;
+    const user = { ...insertUser, id };
+    this.users.set(id, user);
+    return user;
+  }
+  async createContactMessage(insertMessage) {
+    const id = this.currentContactMessageId++;
+    const message = {
+      ...insertMessage,
+      id,
+      createdAt: /* @__PURE__ */ new Date()
+    };
+    this.contactMessages.set(id, message);
+    return message;
+  }
+  async getContactMessages() {
+    return Array.from(this.contactMessages.values()).sort(
+      (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
+    );
+  }
+};
+var storage = new MemStorage();
+
+// shared/schema.ts
+import { pgTable, text, serial, timestamp } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
+var users = pgTable("users", {
+  id: serial("id").primaryKey(),
+  username: text("username").notNull().unique(),
+  password: text("password").notNull()
+});
+var contactMessages = pgTable("contact_messages", {
+  id: serial("id").primaryKey(),
+  nome: text("nome").notNull(),
+  empresa: text("empresa").notNull(),
+  email: text("email").notNull(),
+  telefone: text("telefone").notNull(),
+  mensagem: text("mensagem").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull()
+});
+var insertUserSchema = createInsertSchema(users).pick({
+  username: true,
+  password: true
+});
+var insertContactMessageSchema = createInsertSchema(contactMessages).pick({
+  nome: true,
+  empresa: true,
+  email: true,
+  telefone: true,
+  mensagem: true
+}).extend({
+  email: z.string().email("Email inv\xE1lido"),
+  telefone: z.string().regex(/^\(\d{2}\)\s\d{4,5}-\d{4}$/, "Formato de telefone inv\xE1lido. Use (XX) XXXXX-XXXX")
+});
+
+// server/routes.ts
+import { z as z2 } from "zod";
+import { Client } from "@replit/object-storage";
+
+// server/email.ts
+import sgMail from "@sendgrid/mail";
+var SENDGRID_API_KEY = process.env.SENDGRID_SECRET || process.env.SENDGRID_API_KEY;
+var FROM_EMAIL = "contato@lukaeventos.com.br";
+var TO_EMAIL = "contato@lukaeventos.com.br";
+if (SENDGRID_API_KEY) {
+  sgMail.setApiKey(SENDGRID_API_KEY);
+  console.log("\u2705 SendGrid configured successfully");
+} else {
+  console.warn("\u26A0\uFE0F  SENDGRID_SECRET not found. Email functionality will be disabled.");
+}
+async function sendContactEmail(data) {
+  console.log("\u{1F527} Attempting to send email via SendGrid...");
+  if (!SENDGRID_API_KEY) {
+    console.log("\u274C SendGrid not configured, skipping email send");
+    return false;
+  }
+  console.log("\u2705 SendGrid API key found, proceeding with email send");
+  try {
+    const emailHtml = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
+        <div style="background-color: #ff6b35; padding: 20px; text-align: center; color: white; border-radius: 8px 8px 0 0;">
+          <h1 style="margin: 0; font-size: 24px;">Nova Solicita\xE7\xE3o de Or\xE7amento</h1>
+          <p style="margin: 5px 0 0 0; font-size: 16px;">Luka Eventos - Website</p>
+        </div>
+        
+        <div style="background-color: white; padding: 30px; border-radius: 0 0 8px 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+          <h2 style="color: #333; margin-bottom: 20px; font-size: 20px;">Dados do Cliente:</h2>
+          
+          <div style="margin-bottom: 15px;">
+            <strong style="color: #ff6b35;">Nome:</strong>
+            <span style="color: #333; margin-left: 10px;">${data.nome}</span>
+          </div>
+          
+          <div style="margin-bottom: 15px;">
+            <strong style="color: #ff6b35;">Empresa:</strong>
+            <span style="color: #333; margin-left: 10px;">${data.empresa}</span>
+          </div>
+          
+          <div style="margin-bottom: 15px;">
+            <strong style="color: #ff6b35;">E-mail:</strong>
+            <span style="color: #333; margin-left: 10px;">
+              <a href="mailto:${data.email}" style="color: #ff6b35; text-decoration: none;">${data.email}</a>
+            </span>
+          </div>
+          
+          <div style="margin-bottom: 15px;">
+            <strong style="color: #ff6b35;">Telefone:</strong>
+            <span style="color: #333; margin-left: 10px;">
+              <a href="tel:${data.telefone.replace(/\D/g, "")}" style="color: #ff6b35; text-decoration: none;">${data.telefone}</a>
+            </span>
+          </div>
+          
+          <div style="margin-top: 25px;">
+            <strong style="color: #ff6b35; font-size: 16px;">Mensagem:</strong>
+            <div style="background-color: #f8f8f8; padding: 15px; margin-top: 10px; border-radius: 5px; border-left: 4px solid #ff6b35;">
+              <p style="margin: 0; color: #333; line-height: 1.6;">${data.mensagem.replace(/\n/g, "<br>")}</p>
+            </div>
+          </div>
+          
+          <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; text-align: center;">
+            <p style="color: #666; font-size: 12px; margin: 0;">
+              Esta mensagem foi enviada atrav\xE9s do formul\xE1rio de contato do website da Luka Eventos
+            </p>
+            <p style="color: #666; font-size: 12px; margin: 5px 0 0 0;">
+              Data: ${(/* @__PURE__ */ new Date()).toLocaleDateString("pt-BR")} \xE0s ${(/* @__PURE__ */ new Date()).toLocaleTimeString("pt-BR")}
+            </p>
+          </div>
+        </div>
+      </div>
+    `;
+    const emailText = `
+Nova Solicita\xE7\xE3o de Or\xE7amento - Luka Eventos
+
+Dados do Cliente:
+Nome: ${data.nome}
+Empresa: ${data.empresa}
+E-mail: ${data.email}
+Telefone: ${data.telefone}
+
+Mensagem:
+${data.mensagem}
+
+---
+Esta mensagem foi enviada atrav\xE9s do formul\xE1rio de contato do website da Luka Eventos
+Data: ${(/* @__PURE__ */ new Date()).toLocaleDateString("pt-BR")} \xE0s ${(/* @__PURE__ */ new Date()).toLocaleTimeString("pt-BR")}
+    `;
+    const msg = {
+      to: TO_EMAIL,
+      from: FROM_EMAIL,
+      subject: `Nova Solicita\xE7\xE3o de Or\xE7amento - ${data.nome} (${data.empresa})`,
+      text: emailText,
+      html: emailHtml,
+      replyTo: data.email
+    };
+    await sgMail.send(msg);
+    console.log(`\u2705 Email enviado com sucesso para ${TO_EMAIL}`);
+    return true;
+  } catch (error) {
+    console.error("\u274C Erro ao enviar email:", error);
+    if (error.response) {
+      console.error("SendGrid response:", error.response.body);
+    }
+    return false;
+  }
+}
+
+// server/routes.ts
+async function registerRoutes(app2) {
+  const client2 = new Client();
+  app2.get("/api/storage/images/:folder", async (req, res) => {
+    try {
+      const { folder } = req.params;
+      console.log(`\u{1F50D} Buscando imagens da pasta: ${folder}`);
+      const result = await client2.list();
+      if (!result || typeof result !== "object" || !("ok" in result) || !result.ok) {
+        return res.status(500).json({ success: false, message: "Falha ao listar arquivos" });
+      }
+      const files = result.value || [];
+      const folderImages = files.filter((file) => {
+        const fileName = typeof file === "string" ? file : file.name;
+        return fileName.startsWith(`${folder}/`) && /\.(jpg|jpeg|png|gif|webp)$/i.test(fileName);
+      }).map((file) => {
+        const fileName = typeof file === "string" ? file : file.name;
+        return fileName.replace(`${folder}/`, "");
+      });
+      console.log(`\u2705 Encontradas ${folderImages.length} imagens na pasta ${folder}:`, folderImages);
+      res.json({
+        success: true,
+        folder,
+        totalImages: folderImages.length,
+        images: folderImages
+      });
+    } catch (error) {
+      console.error(`\u274C Erro ao buscar imagens da pasta ${req.params.folder}:`, error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+  app2.get("/api/storage/debug", async (req, res) => {
+    try {
+      console.log("\u{1F50D} Listando todos os arquivos no object storage...");
+      const result = await client2.list();
+      console.log("\u{1F4CB} Resultado bruto da listagem:", JSON.stringify(result, null, 2));
+      res.json({
+        success: true,
+        rawResult: result,
+        resultType: typeof result,
+        hasOk: result && typeof result === "object" && "ok" in result,
+        okValue: result && typeof result === "object" && "ok" in result ? result.ok : null
+      });
+    } catch (error) {
+      console.error("\u274C Erro ao listar arquivos:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+  app2.get("/api/images", async (req, res) => {
+    try {
+      const result = await client2.list();
+      if (!result || typeof result !== "object" || !("ok" in result) || !result.ok) {
+        return res.status(500).json({ success: false, message: "Failed to list images" });
+      }
+      const files = result.val || [];
+      const imageFiles = files.filter((file) => {
+        const fileName = typeof file === "string" ? file : file.name;
+        return /\.(jpg|jpeg|png|gif|webp)$/i.test(fileName);
+      });
+      const categorizedImages = {
+        portfolio: imageFiles.filter((file) => {
+          const fileName = typeof file === "string" ? file : file.name;
+          return fileName.startsWith("Feiras/");
+        }),
+        services: imageFiles.filter((file) => {
+          const fileName = typeof file === "string" ? file : file.name;
+          return fileName.startsWith("Servicos/");
+        }),
+        team: imageFiles.filter((file) => {
+          const fileName = typeof file === "string" ? file : file.name;
+          return fileName.startsWith("TimeLuka/");
+        }),
+        buffet: imageFiles.filter((file) => {
+          const fileName = typeof file === "string" ? file : file.name;
+          return fileName.startsWith("Buffet/");
+        }),
+        decoracao: imageFiles.filter((file) => {
+          const fileName = typeof file === "string" ? file : file.name;
+          return fileName.startsWith("Decoracao/");
+        }),
+        other: imageFiles.filter((file) => {
+          const fileName = typeof file === "string" ? file : file.name;
+          return !fileName.match(/^(Feiras|Servicos|TimeLuka|Buffet|Decoracao)\//);
+        })
+      };
+      res.json({ success: true, images: categorizedImages });
+    } catch (error) {
+      console.error("Error listing images:", error);
+      res.status(500).json({ success: false, message: "Internal server error" });
+    }
+  });
+  app2.post("/api/contact", async (req, res) => {
+    try {
+      const validatedData = insertContactMessageSchema.parse(req.body);
+      const message = await storage.createContactMessage(validatedData);
+      console.log("New contact message received:", {
+        id: message.id,
+        nome: message.nome,
+        empresa: message.empresa,
+        email: message.email,
+        telefone: message.telefone,
+        mensagem: message.mensagem.substring(0, 100) + (message.mensagem.length > 100 ? "..." : ""),
+        createdAt: message.createdAt
+      });
+      const emailSent = await sendContactEmail(validatedData);
+      if (emailSent) {
+        console.log("\u2705 Email notification sent successfully");
+      } else {
+        console.log("\u26A0\uFE0F  Email notification failed or disabled");
+      }
+      res.status(201).json({
+        success: true,
+        message: "Mensagem enviada com sucesso! Retornaremos em breve.",
+        id: message.id
+      });
+    } catch (error) {
+      if (error instanceof z2.ZodError) {
+        res.status(400).json({
+          success: false,
+          message: "Dados inv\xE1lidos",
+          errors: error.errors
+        });
+      } else {
+        console.error("Error creating contact message:", error);
+        res.status(500).json({
+          success: false,
+          message: "Erro interno do servidor"
+        });
+      }
+    }
+  });
+  app2.get("/api/contact", async (req, res) => {
+    try {
+      const messages = await storage.getContactMessages();
+      res.json(messages);
+    } catch (error) {
+      console.error("Error fetching contact messages:", error);
+      res.status(500).json({
+        success: false,
+        message: "Erro interno do servidor"
+      });
+    }
+  });
+  const httpServer = createServer(app2);
+  return httpServer;
+}
+
+// server/vite.ts
+import express from "express";
+import fs from "fs";
+import path2 from "path";
+import { createServer as createViteServer, createLogger } from "vite";
+
+// vite.config.ts
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import path from "path";
+import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
+var vite_config_default = defineConfig({
+  plugins: [
+    react(),
+    runtimeErrorOverlay(),
+    ...process.env.NODE_ENV !== "production" && process.env.REPL_ID !== void 0 ? [
+      await import("@replit/vite-plugin-cartographer").then(
+        (m) => m.cartographer()
+      )
+    ] : []
+  ],
+  resolve: {
+    alias: {
+      "@": path.resolve(import.meta.dirname, "client", "src"),
+      "@shared": path.resolve(import.meta.dirname, "shared"),
+      "@assets": path.resolve(import.meta.dirname, "attached_assets")
+    }
+  },
+  root: path.resolve(import.meta.dirname, "client"),
+  build: {
+    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    emptyOutDir: true
+  },
+  server: {
+    fs: {
+      strict: true,
+      deny: ["**/.*"]
+    }
+  }
+});
+
+// server/vite.ts
+import { nanoid } from "nanoid";
+var viteLogger = createLogger();
+function log(message, source = "express") {
+  const formattedTime = (/* @__PURE__ */ new Date()).toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true
+  });
+  console.log(`${formattedTime} [${source}] ${message}`);
+}
+async function setupVite(app2, server) {
+  const serverOptions = {
+    middlewareMode: true,
+    hmr: { server },
+    allowedHosts: true
+  };
+  const vite = await createViteServer({
+    ...vite_config_default,
+    configFile: false,
+    customLogger: {
+      ...viteLogger,
+      error: (msg, options) => {
+        viteLogger.error(msg, options);
+        process.exit(1);
+      }
+    },
+    server: serverOptions,
+    appType: "custom"
+  });
+  app2.use(vite.middlewares);
+  app2.use("*", async (req, res, next) => {
+    const url = req.originalUrl;
+    try {
+      const clientTemplate = path2.resolve(
+        import.meta.dirname,
+        "..",
+        "client",
+        "index.html"
+      );
+      let template = await fs.promises.readFile(clientTemplate, "utf-8");
+      template = template.replace(
+        `src="/src/main.tsx"`,
+        `src="/src/main.tsx?v=${nanoid()}"`
+      );
+      const page = await vite.transformIndexHtml(url, template);
+      res.status(200).set({ "Content-Type": "text/html" }).end(page);
+    } catch (e) {
+      vite.ssrFixStacktrace(e);
+      next(e);
+    }
+  });
+}
+function serveStatic(app2) {
+  const distPath = path2.resolve(import.meta.dirname, "public");
+  if (!fs.existsSync(distPath)) {
+    throw new Error(
+      `Could not find the build directory: ${distPath}, make sure to build the client first`
+    );
+  }
+  app2.use(express.static(distPath));
+  app2.use("*", (_req, res) => {
+    res.sendFile(path2.resolve(distPath, "index.html"));
+  });
+}
+
+// server/index.ts
+import { Client as Client2 } from "@replit/object-storage";
+var app = express2();
+var client = new Client2();
+var SESSION_SECRET = process.env.SESSION_SECRET || "fallback-secret-for-development-only";
+var NODE_ENV = process.env.NODE_ENV || "development";
+if (NODE_ENV === "production" && SESSION_SECRET === "fallback-secret-for-development-only") {
+  console.warn("\u26A0\uFE0F  WARNING: Using fallback session secret in production. Set SESSION_SECRET environment variable.");
+}
+app.use(session({
+  secret: SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: NODE_ENV === "production",
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1e3
+    // 24 hours
+  }
+}));
+app.use(express2.json());
+app.use(express2.urlencoded({ extended: false }));
+var imageCache = {};
+var cacheExpiry = {};
+var CACHE_DURATION = 10 * 60 * 1e3;
+app.get("/api/storage/images/:folder", async (req, res) => {
+  try {
+    const { folder } = req.params;
+    const now = Date.now();
+    if (imageCache[folder] && cacheExpiry[folder] > now) {
+      return res.json(imageCache[folder]);
+    }
+    console.log(`\u{1F50D} Buscando imagens da pasta: ${folder}`);
+    const result = await client.list();
+    if (!result || typeof result !== "object" || !("ok" in result) || !result.ok) {
+      return res.status(500).json({ success: false, message: "Falha ao listar arquivos" });
+    }
+    const files = result.value || [];
+    const problematicFiles = [
+      "locacao_mesa_cadeira.png",
+      // Locacao - falha no carregamento  
+      "buffet_tabuadefrios.png",
+      // Buffet - falha no carregamento
+      "exposibram_dinamica.png",
+      // Feiras - falha no carregamento
+      "supernorte_bendo_alimentos.png",
+      // Feiras - falha no carregamento
+      "supernorte_marata.png",
+      // Feiras - falha no carregamento
+      "supernorte_okajima.png",
+      // Feiras - falha no carregamento
+      "promotoras_1.png",
+      // Equipes - falha no carregamento
+      "paisagismo.jpg"
+      // Decoracao - falha no carregamento no browser
+    ];
+    const folderImages = files.filter((file) => {
+      const fileName = typeof file === "string" ? file : file.name;
+      const baseFileName = fileName.replace(`${folder}/`, "");
+      return fileName.startsWith(`${folder}/`) && /\.(jpg|jpeg|png|gif|webp|mp4|webm|mov)$/i.test(fileName) && !problematicFiles.includes(baseFileName);
+    }).map((file) => {
+      const fileName = typeof file === "string" ? file : file.name;
+      return fileName.replace(`${folder}/`, "");
+    });
+    console.log(`\u2705 Encontradas ${folderImages.length} arquivos na pasta ${folder}:`, folderImages);
+    const response = {
+      success: true,
+      folder,
+      totalImages: folderImages.length,
+      images: folderImages
+    };
+    imageCache[folder] = response;
+    cacheExpiry[folder] = now + CACHE_DURATION;
+    res.json(response);
+  } catch (error) {
+    console.error(`\u274C Erro ao buscar imagens da pasta ${req.params.folder}:`, error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+app.get("/debug/storage", async (req, res) => {
+  try {
+    console.log("\u{1F50D} Listando arquivos no object storage...");
+    const result = await client.list();
+    console.log("\u{1F4CB} Resultado da listagem:", result);
+    let files = [];
+    let resultInfo = {
+      type: typeof result,
+      hasOk: false,
+      isOk: false,
+      hasVal: false,
+      hasValue: false
+    };
+    if (result && typeof result === "object") {
+      resultInfo.hasOk = "ok" in result;
+      resultInfo.isOk = "ok" in result ? result.ok : false;
+      resultInfo.hasVal = "val" in result;
+      resultInfo.hasValue = "value" in result;
+      if ("ok" in result && result.ok) {
+        files = result.val || result.value || [];
+      }
+    }
+    res.json({
+      success: true,
+      totalFiles: Array.isArray(files) ? files.length : 0,
+      files: Array.isArray(files) ? files.slice(0, 20) : [],
+      // Primeiros 20 arquivos
+      resultInfo,
+      rawType: typeof result
+    });
+  } catch (error) {
+    console.error("\u274C Erro:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+app.get("/api/images/:filename", async (req, res) => {
+  try {
+    const { filename } = req.params;
+    console.log(`Tentando carregar imagem da raiz: ${filename}`);
+    const downloadResult = await client.downloadAsBytes(filename);
+    console.log(`Resultado do download da raiz:`, typeof downloadResult);
+    let imageBuffer;
+    if (downloadResult && typeof downloadResult === "object") {
+      if ("ok" in downloadResult && downloadResult.ok) {
+        imageBuffer = downloadResult.val?.[0] || downloadResult.value?.[0];
+      } else if (Buffer.isBuffer(downloadResult)) {
+        imageBuffer = downloadResult;
+      } else if (downloadResult instanceof Uint8Array) {
+        imageBuffer = Buffer.from(downloadResult);
+      } else if (Array.isArray(downloadResult) && downloadResult.length > 0) {
+        imageBuffer = downloadResult[0];
+      }
+    } else if (Buffer.isBuffer(downloadResult)) {
+      imageBuffer = downloadResult;
+    }
+    if (!imageBuffer || imageBuffer.length === 0) {
+      console.log(`Imagem n\xE3o encontrada ou vazia na raiz: ${filename}`);
+      return res.status(404).send("Imagem n\xE3o encontrada no Object Storage");
+    }
+    const extension = filename.split(".").pop()?.toLowerCase();
+    let contentType = "application/octet-stream";
+    switch (extension) {
+      case "png":
+        contentType = "image/png";
+        break;
+      case "jpg":
+      case "jpeg":
+        contentType = "image/jpeg";
+        break;
+      case "gif":
+        contentType = "image/gif";
+        break;
+      case "webp":
+        contentType = "image/webp";
+        break;
+      case "avif":
+        contentType = "image/avif";
+        break;
+      case "svg":
+        contentType = "image/svg+xml";
+        break;
+    }
+    res.setHeader("Content-Type", contentType);
+    res.setHeader("Cache-Control", "public, max-age=31536000");
+    console.log(`Servindo imagem da raiz com sucesso: ${filename}, tamanho: ${imageBuffer.length} bytes`);
+    res.send(imageBuffer);
+  } catch (error) {
+    console.error(`Erro ao buscar imagem da raiz ${req.params.filename}:`, error);
+    res.status(500).send("Erro interno do servidor ao buscar imagem");
+  }
+});
+app.get("/api/images/:folder/:filename", async (req, res) => {
+  try {
+    const { folder, filename } = req.params;
+    const filePath = `${folder}/${filename}`;
+    console.log(`Tentando carregar imagem: ${filePath}`);
+    const downloadResult = await client.downloadAsBytes(filePath);
+    console.log(`Resultado do download:`, typeof downloadResult, downloadResult);
+    let imageBuffer;
+    if (downloadResult && typeof downloadResult === "object") {
+      if ("ok" in downloadResult && downloadResult.ok) {
+        imageBuffer = downloadResult.val?.[0] || downloadResult.value?.[0];
+      } else if (Buffer.isBuffer(downloadResult)) {
+        imageBuffer = downloadResult;
+      } else if (downloadResult instanceof Uint8Array) {
+        imageBuffer = Buffer.from(downloadResult);
+      } else if (Array.isArray(downloadResult) && downloadResult.length > 0) {
+        imageBuffer = downloadResult[0];
+      }
+    } else if (Buffer.isBuffer(downloadResult)) {
+      imageBuffer = downloadResult;
+    }
+    if (!imageBuffer || imageBuffer.length === 0) {
+      console.log(`Imagem n\xE3o encontrada ou vazia: ${filePath}`);
+      return res.status(404).send("Imagem n\xE3o encontrada no Object Storage");
+    }
+    const extension = filename.split(".").pop()?.toLowerCase();
+    let contentType = "application/octet-stream";
+    switch (extension) {
+      case "png":
+        contentType = "image/png";
+        break;
+      case "jpg":
+      case "jpeg":
+        contentType = "image/jpeg";
+        break;
+      case "gif":
+        contentType = "image/gif";
+        break;
+      case "webp":
+        contentType = "image/webp";
+        break;
+      case "svg":
+        contentType = "image/svg+xml";
+        break;
+    }
+    res.setHeader("Content-Type", contentType);
+    res.setHeader("Cache-Control", "public, max-age=31536000");
+    console.log(`Servindo imagem com sucesso: ${filePath}, tamanho: ${imageBuffer.length} bytes`);
+    res.send(imageBuffer);
+  } catch (error) {
+    console.error(`Erro ao buscar imagem ${req.params.folder}/${req.params.filename}:`, error);
+    res.status(500).send("Erro interno do servidor ao buscar imagem");
+  }
+});
+app.use((req, res, next) => {
+  const start = Date.now();
+  const path3 = req.path;
+  let capturedJsonResponse = void 0;
+  const originalResJson = res.json;
+  res.json = function(bodyJson, ...args) {
+    capturedJsonResponse = bodyJson;
+    return originalResJson.apply(res, [bodyJson, ...args]);
+  };
+  res.on("finish", () => {
+    const duration = Date.now() - start;
+    if (path3.startsWith("/api")) {
+      let logLine = `${req.method} ${path3} ${res.statusCode} in ${duration}ms`;
+      if (capturedJsonResponse) {
+        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
+      }
+      if (logLine.length > 80) {
+        logLine = logLine.slice(0, 79) + "\u2026";
+      }
+      log(logLine);
+    }
+  });
+  next();
+});
+(async () => {
+  try {
+    console.log("\u{1F50D} Verificando object storage...");
+    const storageResult = await client.list();
+    console.log("\u{1F4CB} Arquivos no storage:", storageResult);
+    if (storageResult && typeof storageResult === "object" && "ok" in storageResult && storageResult.ok) {
+      const files = storageResult.val || [];
+      console.log(`\u2705 ${files.length} arquivos encontrados no object storage:`);
+      files.slice(0, 10).forEach((file, index) => {
+        const fileName = typeof file === "string" ? file : file.name || file.path || file;
+        console.log(`  ${index + 1}. ${fileName}`);
+      });
+    } else {
+      console.log("\u274C Nenhum arquivo encontrado no object storage");
+    }
+  } catch (error) {
+    console.error("\u274C Erro ao verificar object storage:", error);
+  }
+  const server = await registerRoutes(app);
+  app.use((err, _req, res, _next) => {
+    const status = err.status || err.statusCode || 500;
+    const message = err.message || "Internal Server Error";
+    res.status(status).json({ message });
+    throw err;
+  });
+  const isProduction = NODE_ENV === "production";
+  const isDevelopment = NODE_ENV === "development";
+  try {
+    if (isDevelopment) {
+      log("Setting up Vite development server...");
+      await setupVite(app, server);
+    } else {
+      log("Setting up static file serving for production...");
+      serveStatic(app);
+    }
+  } catch (setupError) {
+    console.error(`Failed to setup ${isProduction ? "production" : "development"} environment:`, setupError);
+    process.exit(1);
+  }
+  const port = parseInt(process.env.PORT || "5000", 10);
+  const host = "0.0.0.0";
+  if (isNaN(port) || port < 1 || port > 65535) {
+    console.error(`Invalid port number: ${process.env.PORT || "5000"}`);
+    process.exit(1);
+  }
+  server.listen(port, host, () => {
+    log(`Server started successfully on ${host}:${port} (${NODE_ENV})`);
+    if (isProduction) {
+      log("Production mode: Static files served, sessions secured");
+    } else {
+      log("Development mode: Vite HMR enabled");
+    }
+  });
+  server.on("error", (error) => {
+    if (error.code === "EADDRINUSE") {
+      console.error(`Port ${port} is already in use`);
+    } else if (error.code === "EACCES") {
+      console.error(`Permission denied to bind to port ${port}`);
+    } else {
+      console.error(`Server error:`, error);
+    }
+    process.exit(1);
+  });
+  process.on("SIGTERM", () => {
+    log("SIGTERM received, shutting down gracefully");
+    server.close(() => {
+      log("Process terminated");
+      process.exit(0);
+    });
+  });
+  process.on("SIGINT", () => {
+    log("SIGINT received, shutting down gracefully");
+    server.close(() => {
+      log("Process terminated");
+      process.exit(0);
+    });
+  });
+})();
