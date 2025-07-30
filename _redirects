@@ -1,0 +1,12 @@
+# Netlify/Vercel redirects file
+# Resolve problemas de certificado SSL para www de forma definitiva
+
+# 1. ANY www -> HTTP non-www (evita SSL errors e loops 404)
+https://www.lukaeventos.com.br/* http://lukaeventos.com.br/:splat 301!
+http://www.lukaeventos.com.br/* http://lukaeventos.com.br/:splat 301!
+
+# 3. HTTP non-www -> HTTPS non-www (força SSL no domínio correto)
+http://lukaeventos.com.br/* https://lukaeventos.com.br/:splat 301!
+
+# 4. Fallback para qualquer padrão www não capturado
+/www-redirect.html /www-redirect.html 200
