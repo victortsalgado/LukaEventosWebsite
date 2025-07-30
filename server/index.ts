@@ -619,7 +619,7 @@ app.use((req, res, next) => {
   next();
 });
 
-(async () => {
+async function createApp() {
   // Primeiro vamos verificar o object storage antes de configurar as rotas
   try {
     console.log("🔍 Verificando object storage...");
@@ -668,55 +668,82 @@ app.use((req, res, next) => {
     }
   } catch (setupError) {
     console.error(`Failed to setup ${isProduction ? "production" : "development"} environment:`, setupError);
-    process.exit(1);
+    throw setupError;
   }
 
-  // Configure port and host for production deployment
-  const port = parseInt(process.env.PORT || "5000", 10);
-  const host = "0.0.0.0"; // Always bind to all interfaces for deployment compatibility
-  
-  // Validate port number
-  if (isNaN(port) || port < 1 || port > 65535) {
-    console.error(`Invalid port number: ${process.env.PORT || "5000"}`);
-    process.exit(1);
+  return app;
+}
+
+// Initialize the app
+let initializedApp: ReturnType<typeof createApp> | null = null;
+
+// Function to get or create the app instance
+async function getApp() {
+  if (!initializedApp) {
+    initializedApp = createApp();
   }
-  
-  // Start server with comprehensive error handling
-  server.listen(port, host, () => {
-    log(`Server started successfully on ${host}:${port} (${NODE_ENV})`);
-    if (isProduction) {
-      log("Production mode: Static files served, sessions secured");
-    } else {
-      log("Development mode: Vite HMR enabled");
+  return initializedApp;
+}
+
+// Check if this is the main module being run directly (for local development)
+const isMainModule = import.meta.url === `file://${process.argv[1]}`;
+
+if (isMainModule) {
+  // Local development server
+  (async () => {
+    const appForLocal = await getApp();
+    const server = await registerRoutes(appForLocal);
+    
+    // Configure port and host for production deployment
+    const port = parseInt(process.env.PORT || "5000", 10);
+    const host = "0.0.0.0"; // Always bind to all interfaces for deployment compatibility
+    
+    // Validate port number
+    if (isNaN(port) || port < 1 || port > 65535) {
+      console.error(`Invalid port number: ${process.env.PORT || "5000"}`);
+      process.exit(1);
     }
-  });
-  
-  // Handle server errors
-  server.on('error', (error: any) => {
-    if (error.code === 'EADDRINUSE') {
-      console.error(`Port ${port} is already in use`);
-    } else if (error.code === 'EACCES') {
-      console.error(`Permission denied to bind to port ${port}`);
-    } else {
-      console.error(`Server error:`, error);
-    }
-    process.exit(1);
-  });
-  
-  // Graceful shutdown handling
-  process.on('SIGTERM', () => {
-    log('SIGTERM received, shutting down gracefully');
-    server.close(() => {
-      log('Process terminated');
-      process.exit(0);
+    
+    // Start server with comprehensive error handling
+    server.listen(port, host, () => {
+      log(`Server started successfully on ${host}:${port} (${NODE_ENV})`);
+      if (NODE_ENV === "production") {
+        log("Production mode: Static files served, sessions secured");
+      } else {
+        log("Development mode: Vite HMR enabled");
+      }
     });
-  });
-  
-  process.on('SIGINT', () => {
-    log('SIGINT received, shutting down gracefully');
-    server.close(() => {
-      log('Process terminated');
-      process.exit(0);
+    
+    // Handle server errors
+    server.on('error', (error: any) => {
+      if (error.code === 'EADDRINUSE') {
+        console.error(`Port ${port} is already in use`);
+      } else if (error.code === 'EACCES') {
+        console.error(`Permission denied to bind to port ${port}`);
+      } else {
+        console.error(`Server error:`, error);
+      }
+      process.exit(1);
     });
-  });
-})();
+    
+    // Graceful shutdown handling
+    process.on('SIGTERM', () => {
+      log('SIGTERM received, shutting down gracefully');
+      server.close(() => {
+        log('Process terminated');
+        process.exit(0);
+      });
+    });
+    
+    process.on('SIGINT', () => {
+      log('SIGINT received, shutting down gracefully');
+      server.close(() => {
+        log('Process terminated');
+        process.exit(0);
+      });
+    });
+  })();
+}
+
+// Export for Vercel serverless deployment
+export default getApp;

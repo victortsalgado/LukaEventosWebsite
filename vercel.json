@@ -1,23 +1,38 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist/public",
-  "installCommand": "npm install",
-  "framework": null,
+  "builds": [
+    {
+      "src": "api/index.mjs",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.mjs"
+    }
+  ],
   "redirects": [
     {
-      "source": "https://www.lukaeventos.com.br/(.*)",
-      "destination": "https://lukaeventos.com.br/$1",
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "lukaeventos.com.br"
+        }
+      ],
+      "destination": "https://www.lukaeventos.com.br/",
       "permanent": true
     },
     {
-      "source": "http://lukaeventos.com.br/(.*)",
-      "destination": "https://lukaeventos.com.br/$1",
-      "permanent": true
-    },
-    {
-      "source": "http://www.lukaeventos.com.br/(.*)",
-      "destination": "https://lukaeventos.com.br/$1",
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "lukaeventos.com.br"
+        }
+      ],
+      "destination": "https://www.lukaeventos.com.br/$1",
       "permanent": true
     }
   ],
