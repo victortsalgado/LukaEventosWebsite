@@ -1,26 +1,22 @@
-// Vercel serverless function for APIs only
+// Vercel serverless function - APIs only
 import getApp from '../dist/index.js';
 
-// Cache the app instance
 let app;
 
 export default async function handler(req, res) {
   try {
-    // Only handle API routes
-    if (!req.url.startsWith('/api/')) {
-      // This should never happen with proper routing, but just in case
-      return res.status(404).json({ error: 'Not found' });
-    }
-
-    // Initialize app if not cached
+    // Initialize Express app if needed
     if (!app) {
       app = await getApp();
     }
 
-    // Handle the request with Express app
+    // Handle API requests only
     return app(req, res);
   } catch (error) {
-    console.error('API Handler error:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error('API Error:', error);
+    return res.status(500).json({ 
+      error: 'Internal server error',
+      message: error.message 
+    });
   }
 }
