@@ -1,0 +1,9 @@
+# Netlify redirects file (caso seja usado Netlify)
+# Resolve problemas 4XX de SSL para www
+
+# Redirect www to non-www (via HTTP para evitar SSL error)
+https://www.lukaeventos.com.br/* http://lukaeventos.com.br/:splat 301!
+http://www.lukaeventos.com.br/* http://lukaeventos.com.br/:splat 301!
+
+# Force HTTPS para domínio principal
+http://lukaeventos.com.br/* https://lukaeventos.com.br/:splat 301!

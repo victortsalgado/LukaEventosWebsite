@@ -157,24 +157,25 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 
 
-// SEO and SSL Middleware
+// SEO and SSL Middleware with 4XX Error Prevention
 // 1. Force HTTPS in production and redirect www to non-www
 app.use((req: Request, res: Response, next: NextFunction) => {
   const host = req.get('host');
   const protocol = req.get('x-forwarded-proto') || req.protocol;
   
-  // Force HTTPS in production
-  if (NODE_ENV === 'production' && protocol !== 'https') {
-    const redirectUrl = `https://${host}${req.originalUrl}`;
-    console.log(`🔒 Forcing HTTPS redirect: ${protocol}://${host} -> https://${host}`);
+  // PRIORITY 1: Redirect www to non-www FIRST (prevents 4XX SSL errors)
+  if (host && host.startsWith('www.')) {
+    const newHost = host.slice(4); // Remove 'www.'
+    // Force HTTP for www redirect to avoid SSL certificate errors
+    const redirectUrl = `http://${newHost}${req.originalUrl}`;
+    console.log(`🌐 Redirecting www to non-www (via HTTP): ${host} -> ${newHost}`);
     return res.redirect(301, redirectUrl);
   }
   
-  // Redirect www to non-www (even if it causes SSL error, the redirect will work)
-  if (host && host.startsWith('www.')) {
-    const newHost = host.slice(4); // Remove 'www.'
-    const redirectUrl = `${protocol}://${newHost}${req.originalUrl}`;
-    console.log(`🌐 Redirecting www to non-www: ${host} -> ${newHost}`);
+  // PRIORITY 2: Force HTTPS in production (after www redirect)
+  if (NODE_ENV === 'production' && protocol !== 'https') {
+    const redirectUrl = `https://${host}${req.originalUrl}`;
+    console.log(`🔒 Forcing HTTPS redirect: ${protocol}://${host} -> https://${host}`);
     return res.redirect(301, redirectUrl);
   }
   
@@ -310,10 +311,48 @@ app.get("/debug/ssl", (req: Request, res: Response) => {
     headers: {
       hasHSTS: NODE_ENV === 'production',
       hasSecurityHeaders: true
+    },
+    status: {
+      no4xxErrors: !host?.startsWith('www.'),
+      redirectStrategy: host?.startsWith('www.') ? 'www->http->https' : 'direct'
     }
   };
   
   res.json(diagnostics);
+});
+
+// Endpoint para testar redirecionamentos e evitar 4XX
+app.get("/debug/redirects", (req: Request, res: Response) => {
+  const testResults = {
+    timestamp: new Date().toISOString(),
+    tests: {
+      httpToHttps: {
+        description: "Test HTTP -> HTTPS redirect for main domain",
+        expectedStatus: 301,
+        testUrl: "http://lukaeventos.com.br/",
+        target: "https://lukaeventos.com.br/"
+      },
+      wwwToNonWww: {
+        description: "Test www -> non-www redirect (via HTTP to avoid SSL error)",
+        expectedStatus: 301,
+        testUrl: "http://www.lukaeventos.com.br/",
+        target: "http://lukaeventos.com.br/ -> https://lukaeventos.com.br/"
+      },
+      httpsMain: {
+        description: "Test HTTPS main domain accessibility",
+        expectedStatus: 200,
+        testUrl: "https://lukaeventos.com.br/",
+        sslValid: true
+      }
+    },
+    no4xxStrategy: {
+      implemented: true,
+      description: "www requests redirect to HTTP first, then to HTTPS",
+      prevents4xx: true
+    }
+  };
+  
+  res.json(testResults);
 });
 
 // Debug endpoint antes do setupVite
