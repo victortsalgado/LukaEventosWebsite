@@ -3,7 +3,7 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "functions": {
-    "api/index.mjs": {
+    "dist/index.js": {
       "runtime": "nodejs18.x"
     }
   },
