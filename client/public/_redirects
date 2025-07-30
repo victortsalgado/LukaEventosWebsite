@@ -1,9 +1,14 @@
-# Netlify redirects file (caso seja usado Netlify)
-# Resolve problemas 4XX de SSL para www
+# Netlify/Vercel redirects file
+# Resolve problemas de certificado SSL para www de forma definitiva
 
-# Redirect www to non-www (via HTTP para evitar SSL error)
+# 1. HTTPS www -> HTTP non-www (evita erro de certificado)
 https://www.lukaeventos.com.br/* http://lukaeventos.com.br/:splat 301!
+
+# 2. HTTP www -> HTTP non-www (unifica domínio)
 http://www.lukaeventos.com.br/* http://lukaeventos.com.br/:splat 301!
 
-# Force HTTPS para domínio principal
+# 3. HTTP non-www -> HTTPS non-www (força SSL no domínio correto)
 http://lukaeventos.com.br/* https://lukaeventos.com.br/:splat 301!
+
+# 4. Fallback para qualquer padrão www não capturado
+/www-redirect.html /www-redirect.html 200

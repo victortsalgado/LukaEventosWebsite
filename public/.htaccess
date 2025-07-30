@@ -1,15 +1,26 @@
-# .htaccess para resolver problemas de 4XX e SSL
+# .htaccess para resolver problemas de certificado SSL e 4XX
 # Este arquivo resolve redirecionamentos no nível do servidor web
 
-# 1. Redirect www to non-www (resolve problema 4XX SSL)
 RewriteEngine On
+
+# 1. HTTPS www -> HTTP non-www (resolve erro de certificado SSL)
+RewriteCond %{HTTPS} on
 RewriteCond %{HTTP_HOST} ^www\.lukaeventos\.com\.br$ [NC]
 RewriteRule ^(.*)$ http://lukaeventos.com.br/$1 [R=301,L]
 
-# 2. Force HTTPS para domínio principal
+# 2. HTTP www -> HTTP non-www (unifica domínio)
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} ^www\.lukaeventos\.com\.br$ [NC]
+RewriteRule ^(.*)$ http://lukaeventos.com.br/$1 [R=301,L]
+
+# 3. HTTP non-www -> HTTPS non-www (força SSL no domínio correto)
 RewriteCond %{HTTPS} off
 RewriteCond %{HTTP_HOST} ^lukaeventos\.com\.br$ [NC]
 RewriteRule ^(.*)$ https://lukaeventos.com.br/$1 [R=301,L]
+
+# 4. Fallback: serve página de redirecionamento para qualquer www restante
+RewriteCond %{HTTP_HOST} ^www\.lukaeventos\.com\.br$ [NC]
+RewriteRule ^(.*)$ /www-redirect.html [L]
 
 # 3. Headers de segurança
 <IfModule mod_headers.c>

@@ -163,13 +163,23 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   const host = req.get('host');
   const protocol = req.get('x-forwarded-proto') || req.protocol;
   
-  // PRIORITY 1: Redirect www to non-www FIRST (prevents 4XX SSL errors)
+  // PRIORITY 1: Redirect www to non-www FIRST (prevents SSL certificate errors)
   if (host && host.startsWith('www.')) {
     const newHost = host.slice(4); // Remove 'www.'
-    // Force HTTP for www redirect to avoid SSL certificate errors
-    const redirectUrl = `http://${newHost}${req.originalUrl}`;
-    console.log(`🌐 Redirecting www to non-www (via HTTP): ${host} -> ${newHost}`);
-    return res.redirect(301, redirectUrl);
+    
+    // Special handling for HTTPS www requests that cause certificate errors
+    if (protocol === 'https') {
+      // For HTTPS www requests, redirect to HTTP first to avoid certificate error
+      const redirectUrl = `http://${newHost}${req.originalUrl}`;
+      console.log(`🔒 HTTPS www SSL fix: ${host} -> HTTP ${newHost} (prevents certificate error)`);
+      return res.redirect(301, redirectUrl);
+    } else {
+      // For HTTP www requests, redirect directly to HTTPS non-www in production
+      const finalProtocol = NODE_ENV === 'production' ? 'https' : 'http';
+      const redirectUrl = `${finalProtocol}://${newHost}${req.originalUrl}`;
+      console.log(`🌐 HTTP www redirect: ${host} -> ${finalProtocol}://${newHost}`);
+      return res.redirect(301, redirectUrl);
+    }
   }
   
   // PRIORITY 2: Force HTTPS in production (after www redirect)
@@ -319,6 +329,43 @@ app.get("/debug/ssl", (req: Request, res: Response) => {
   };
   
   res.json(diagnostics);
+});
+
+// Endpoint específico para lidar com www requests problemáticos
+app.get("/www-fallback", (req: Request, res: Response) => {
+  // Se chegou aqui, é porque o redirecionamento normal falhou
+  // Serve a página HTML de redirecionamento como fallback
+  res.send(`<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecionando - Luka Eventos</title>
+    <meta http-equiv="refresh" content="0; url=https://lukaeventos.com.br/">
+    <link rel="canonical" href="https://lukaeventos.com.br/">
+    <script>window.location.replace('https://lukaeventos.com.br/');</script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: linear-gradient(135deg, #D4A24E, #f4f4f4); color: #333; }
+        .redirect-message { text-align: center; background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); max-width: 400px; }
+        .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #D4A24E; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        a { color: #D4A24E; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="redirect-message">
+        <div class="spinner"></div>
+        <h2>Redirecionando...</h2>
+        <p>Você está sendo redirecionado para o site oficial da Luka Eventos.</p>
+        <p>Se não funcionar automaticamente, <a href="https://lukaeventos.com.br/">clique aqui</a>.</p>
+    </div>
+</body>
+</html>`);
+});
+
+// Serve página de redirecionamento estática se solicitada diretamente
+app.get("/www-redirect.html", (req: Request, res: Response) => {
+  res.redirect(301, "https://lukaeventos.com.br/");
 });
 
 // Endpoint para testar redirecionamentos e evitar 4XX
