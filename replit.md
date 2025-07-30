@@ -163,6 +163,18 @@ Preferred communication style: Simple, everyday language.
 - **Validation**: curl tests confirmam 301 (não mais 4XX) para www.lukaeventos.com.br
 - **Status**: Problema 4XX totalmente resolvido - auditoria SEO pronta para re-teste
 
+#### Vercel Deployment Final Fix (2025-07-30)
+- **Critical Issue Resolved**: Site displaying TypeScript code instead of HTML on production
+- **Root Cause**: Incorrect `outputDirectory` configuration in vercel.json
+- **User Identification**: Customer correctly identified `outputDirectory` should be "dist" not "public"
+- **Solution Applied**: Updated vercel.json with correct build and output settings
+- **Configuration Fixed**: 
+  - `buildCommand`: "npm run build" (executes Vite + ESBuild compilation)
+  - `outputDirectory`: "dist" (serves compiled HTML from correct location)
+  - Routes properly configured for static files and API separation
+- **Status**: Ready for deployment - will serve HTML instead of TypeScript source code
+- **Expected Result**: lukaeventos.com.br and www.lukaeventos.com.br will display rendered website
+
 #### SSL Certificate Problem - Final Resolution (2025-07-30)
 - **Visual Evidence**: User screenshot confirms "Sua conexão não é particular" for www.lukaeventos.com.br
 - **Certificate Analysis**: replit.app certificate doesn't include www.lukaeventos.com.br in SAN

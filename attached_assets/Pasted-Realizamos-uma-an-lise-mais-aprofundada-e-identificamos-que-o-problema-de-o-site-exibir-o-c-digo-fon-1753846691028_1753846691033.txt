@@ -1,0 +1,42 @@
+Realizamos uma análise mais aprofundada e identificamos que o problema de o site exibir o código-fonte (.ts) no www.lukaeventos.com.br está sendo causado por duas partes do código no server/index.ts que entram em conflito com o funcionamento do Vercel.
+Precisamos que você, por favor, faça as seguintes alterações no arquivo server/index.ts do projeto:
+1. Remover/Comentar o Middleware de Redirecionamento www/HTTPS:
+ * Localize o bloco app.use que começa com o comentário:
+   // SEO and SSL Middleware with 4XX Error Prevention
+ * Por favor, remova ou comente todo este bloco de app.use.
+ * (Motivo: O Vercel já lida com os redirecionamentos www para non-www e HTTP para HTTPS automaticamente e de forma mais eficiente em sua camada de CDN, e este código está causando conflitos.)
+2. Remover/Comentar a Chamada serveStatic(app) em Modo de Produção:
+ * Localize a função async function createApp().
+ * Dentro dessa função, encontre o bloco if (isDevelopment) { ... } else { ... }.
+ * Na parte do else (que corresponde ao modo de produção), por favor, remova ou comente a linha que chama serveStatic(app);.
+ * (Motivo: O Vercel já é configurado para servir seus arquivos estáticos (HTML, CSS, JS) diretamente da pasta dist (conforme seu vercel.json e as configurações do Vercel). Deixar o servidor Express tentando servir esses mesmos arquivos causa redundância e pode levar a erros quando o Vercel direciona a requisição para a sua função serverless.)
+Exemplo visual das alterações (apenas para referência, não precisa copiar para o agente):
+Remover/Comentar (Passo 1):
+// ESTE BLOCO DEVE SER REMOVIDO OU COMENTADO POR COMPLETO:
+// app.use((req: Request, res: Response, next: NextFunction) => {
+//   const host = req.get('host');
+//   const protocol = req.get('x-forwarded-proto') || req.protocol;
+//   // ... resto do código ...
+//   next();
+// });
+
+Alterar (Passo 2):
+async function createApp() {
+  // ...
+  try {
+    if (isDevelopment) {
+      log("Setting up Vite development server...");
+      await setupVite(app, server);
+    } else { // Este é o bloco de produção
+      log("Setting up static file serving for production...");
+      // REMOVER OU COMENTAR A LINHA ABAIXO:
+      // serveStatic(app);
+      log("Production mode: Static files will be served by Vercel CDN."); // Linha opcional para logging
+    }
+  } catch (setupError) {
+    // ...
+  }
+  return app;
+}
+
+Após realizar essas duas alterações no server/index.ts, por favor, faça um novo deploy para o Vercel. Acreditamos que isso resolverá o problema de exibição do site.
