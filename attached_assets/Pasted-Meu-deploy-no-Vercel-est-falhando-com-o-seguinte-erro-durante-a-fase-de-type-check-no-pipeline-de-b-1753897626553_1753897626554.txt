@@ -1,0 +1,59 @@
+Meu deploy no Vercel está falhando com o seguinte erro durante a fase de type-check no pipeline de build: error TS2307: Cannot find module 'react' or its corresponding type declarations.
+
+Isso acontece quando o Vercel executa npm run type-check, que por sua vez executa tsc. Parece que o compilador TypeScript não consegue encontrar o módulo react, mesmo ele estando listado em dependencies no package.json.
+
+Meu objetivo é garantir que o processo de build no Vercel seja bem-sucedido, resolvendo o erro Cannot find module 'react' durante o type-check.
+
+Instruções para o Replit Agent:
+
+Analise o package.json: Verifique se o script type-check existe e se ele está chamando tsc.
+
+Analise o tsconfig.json: Verifique se o tsconfig.json na raiz do projeto está configurado corretamente para um projeto React/TypeScript, incluindo:
+
+"jsx": "react-jsx" ou "jsx": "react"
+
+"moduleResolution": "node" ou "bundler" (para Vite/ESBuild)
+
+"lib" incluindo "dom" e "esnext"
+
+"include" e "exclude" que cobrem seus arquivos .ts, .tsx, e node_modules.
+
+Se o tsconfig.json não for encontrado ou estiver incompleto, crie/complete-o com uma configuração básica e robusta para React/TypeScript.
+
+Aqui está um tsconfig.json de exemplo que o Agent pode usar como base, se for preciso criar ou ajustar:
+
+JSON
+
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler", // Ou "node" dependendo da versão do Vite/TS
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true, // Importante: Vite e esbuild cuidam da transpilação, tsc é apenas para type-check
+    "jsx": "react-jsx",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src", "server", "vite.config.ts"], // Inclua todas as pastas relevantes
+  "references": [{ "path": "./tsconfig.node.json" }] // Se você tiver um tsconfig separado para Node
+}
+Importante: Se você tem um tsconfig.node.json separado para o backend (server/index.ts), o Agent deve garantir que ambos os tsconfigs estejam corretos e que o tsc esteja sendo executado com o contexto certo.
+
+Verifique a Ordem dos Scripts: Certifique-se de que o npm run type-check seja executado APÓS as dependências terem sido completamente instaladas. No Vercel, buildCommand já se encarrega de instalar dependências antes de executar seu script de build.
+
+Ajuste de Script (se necessário):
+
+Se o script type-check no package.json estiver causando problemas ou não for estritamente necessário para o build do Vercel, o Agent pode sugerir remover ou modificar a forma como ele é chamado. (Embora o erro seja sobre o tsc não encontrar react, não o script type-check em si).
+
+Confirmação: Por favor, me informe quando as alterações no tsconfig.json (ou criação dele) e quaisquer outros ajustes forem concluídos. Em seguida, eu farei o commit, push e tentarei o deploy manual novamente no Vercel.
