@@ -265,3 +265,14 @@ Preferred communication style: Simple, everyday language.
 - **Verification Complete**: Both `npm run check` and `npm run build` now execute successfully
 - **Vercel Compatibility**: Type-check phase will pass during Vercel deployment pipeline
 - **Status**: Build errors completely resolved - ready for successful Vercel deployment
+
+#### WWW Redirect Implementation (2025-07-30)
+- **Problem Addressed**: Registro.br advanced DNS mode lacks native domain redirection
+- **Solution Implemented**: Express middleware for 301 permanent redirect www → non-www
+- **Strategic Positioning**: Middleware added after SEO files, before session/content middlewares
+- **Production Only**: Redirect logic only executes when NODE_ENV === 'production'
+- **HTTPS Enforcement**: All www requests redirect to https://lukaeventos.com.br
+- **SEO Benefits**: 301 status preserves link juice and prevents duplicate content penalties
+- **Logging Added**: Console output for monitoring redirection activity
+- **DNS Independence**: Solution works with any DNS provider including Registro.br advanced mode
+- **Status**: Ready for deployment - www.lukaeventos.com.br will redirect to main domain

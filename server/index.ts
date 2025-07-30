@@ -111,6 +111,20 @@ app.get('/llms.txt', (req: Request, res: Response) => {
 # Última atualização: 2025-07-29`);
 });
 
+// --- MIDDLEWARE DE REDIRECIONAMENTO 301 WWW → NON-WWW ---
+app.use((req: Request, res: Response, next: NextFunction) => {
+  // Redirecionamento 301 de www para non-www (somente em produção)
+  if (process.env.NODE_ENV === 'production' && req.headers.host && req.headers.host.startsWith('www.')) {
+    const newHost = req.headers.host.replace('www.', '');
+    // Construir a URL de destino com HTTPS
+    const newUrl = `https://${newHost}${req.url}`;
+    console.log(`➡️ Redirecionando www para non-www: ${req.headers.host}${req.url} -> ${newUrl}`);
+    return res.redirect(301, newUrl); // Redirecionamento permanente 301
+  }
+  next(); // Continua para os próximos middlewares/rotas
+});
+// --- FIM DO MIDDLEWARE DE REDIRECIONAMENTO ---
+
 // Environment variable validation and fallbacks
 const SESSION_SECRET = process.env.SESSION_SECRET || "fallback-secret-for-development-only";
 const NODE_ENV = process.env.NODE_ENV || "development";
